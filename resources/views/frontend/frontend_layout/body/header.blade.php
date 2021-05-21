@@ -1,5 +1,4 @@
 <header class="header-style-1"> 
-
 <!--  TOP MENU  -->
 <div class="top-bar animate-dropdown">
     <div class="container">

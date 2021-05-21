@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\FrontendPageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,13 +15,10 @@ use App\Http\Controllers\AdminController;
 |
 */
 
-Route::get('/', function () {
-    return view('frontend.index');
-})->name('home');
+Route::get('/', [FrontendPageController::class,'index'])->name('home');
+Route::get('/category', [FrontendPageController::class,'category'])->name('category');
+Route::get('/product-detail', [FrontendPageController::class,'productDeatil'])->name('product-detail');
 
-Route::get('/category', function () {
-    return view('frontend.frontend_layout.category_page.category-page');
-})->name('category');
 
 Route::group(['prefix'=> 'admin', 'middleware'=>['admin:admin']], function(){
 	Route::get('/login', [AdminController::class, 'loginForm']);

@@ -18,19 +18,12 @@
 <!--  HEADER  -->
 @include('frontend.frontend_layout.body.header')
 <!--  HEADER : END  -->
-<div class="body-content outer-top-xs" id="top-banner-and-menu">
-  <div class="container">
-    <div class="row"> 
-      <!--  SIDEBAR  -->
-      @include('frontend.frontend_layout.body.sidebar')
-      <!--  SIDEBAR : END  --> 
-      @yield('frontend_content')
-  </div>
-<!-- /.row --> 
-  </div>
-  <!-- /.container --> 
-</div>
-<!-- /#top-banner-and-menu --> 
+@if (request()->routeIs('home'))
+@else
+  @include('frontend.frontend_layout.body.breadcrumb')
+@endif
+
+@yield('frontend_content')
 
 <!--  FOOTER  -->
 @include('frontend.frontend_layout.body.footer')

@@ -23,22 +23,13 @@
     <!--  Testimonials -->
     @include('frontend.frontend_layout.widgets.testimonial-widget')
     <!--  Testimonials: END  -->
+    <div class="home-banner"> <img src="{{ asset('frontend') }}/assets/images/banners/LHS-banner.jpg" alt="Image">
+    </div>
 @elseif (request()->routeIs('category'))
     <!--  SHOP BY START  -->
     @include('frontend.frontend_layout.category_page.shop-by-widget')
     <!--  SHOP BY END  -->
-    @include('frontend.frontend_layout.category_page.compare-products-widget')
-    <!--  PRODUCT TAGS  -->
-    @include('frontend.frontend_layout.widgets.product-tags-widget')
-    <!--  PRODUCT TAGS : END  --> 
-    <!--  Testimonials -->
-    @include('frontend.frontend_layout.widgets.testimonial-widget')
-    <!--  Testimonials: END  -->
-
 @endif
 <!-- /.sidebar-widget --> 
-
-    <div class="home-banner"> <img src="{{ asset('frontend') }}/assets/images/banners/LHS-banner.jpg" alt="Image">
-    </div>
 </div>
 <!-- /.sidemenu-holder --> 
