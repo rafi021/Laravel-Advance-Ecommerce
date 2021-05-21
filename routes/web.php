@@ -15,16 +15,17 @@ use App\Http\Controllers\FrontendPageController;
 |
 */
 
-Route::get('/', [FrontendPageController::class,'index'])->name('home');
+Route::get('/', [FrontendPageController::class,'home'])->name('home');
 Route::get('/category', [FrontendPageController::class,'category'])->name('category');
 Route::get('/product-detail', [FrontendPageController::class,'productDeatil'])->name('product-detail');
 
 
 Route::group(['prefix'=> 'admin', 'middleware'=>['admin:admin']], function(){
-	Route::get('/login', [AdminController::class, 'loginForm']);
+	Route::get('/login',[AdminController::class, 'loginForm']);
 	Route::post('/login',[AdminController::class, 'store'])->name('admin.login');
 });
 
+Route::get('/admin/logout',[AdminController::class, 'destroy'])->name('admin.logout');
 
 Route::middleware(['auth:sanctum,admin', 'verified'])->get('/admin/dashboard', function () {
     return view('admin.index');
