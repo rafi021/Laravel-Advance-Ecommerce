@@ -9,7 +9,7 @@
         </li>
     </ul>
 </div>
-    &copy; <span id="copy-year">2019</span> <a href="#">Psd to Html Expert</a>. All Rights Reserved.
+    &copy; <span id="copy-year">2019</span> <a href="#">Al Araf IT Solutions</a>. All Rights Reserved.
     <script>
         var d = new Date();
         var year = d.getFullYear();

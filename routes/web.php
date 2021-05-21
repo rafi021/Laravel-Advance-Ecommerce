@@ -2,7 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Backend\AdminProfileController;
 use App\Http\Controllers\FrontendPageController;
+use App\Models\Admin;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,9 +27,15 @@ Route::group(['prefix'=> 'admin', 'middleware'=>['admin:admin']], function(){
 	Route::post('/login',[AdminController::class, 'store'])->name('admin.login');
 });
 
-Route::get('/admin/logout',[AdminController::class, 'destroy'])->name('admin.logout');
+Route::prefix('/admin')->middleware('admin')->group(function () {
+    Route::get('/logout',[AdminController::class, 'destroy'])->name('admin.logout');
+    Route::resource('/profile', AdminProfileController::class);
+    Route::get('/edit/profile',[AdminProfileController::class, 'AdminProfileEdit'])->name('admin.profile.edit');
+});
+
 
 Route::middleware(['auth:sanctum,admin', 'verified'])->get('/admin/dashboard', function () {
+    //$adminData = Admin::find(1);
     return view('admin.index');
 })->name('dashboard');
 

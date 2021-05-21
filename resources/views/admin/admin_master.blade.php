@@ -31,14 +31,7 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <div class="container-full">
-
-    <!-- Main content -->
-    <section class="content">
-        <div class="row">
-            @yield('dashboard_content')
-        </div>
-    </section>
-    <!-- /.content -->
+        @yield('dashboard_content')
     </div>
 </div>
 <!-- /.content-wrapper -->
