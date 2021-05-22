@@ -37,7 +37,7 @@ Route::prefix('/admin')->middleware('admin')->group(function () {
 Route::middleware(['auth:sanctum,admin', 'verified'])->get('/admin/dashboard', function () {
     //$adminData = Admin::find(1);
     return view('admin.index');
-})->name('dashboard');
+})->name('admin.dashboard');
 
 
 
