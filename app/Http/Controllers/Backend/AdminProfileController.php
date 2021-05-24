@@ -75,9 +75,35 @@ class AdminProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Admin $admin)
     {
-        //
+        //dd($request->all());
+        $data = Admin::find(1);
+
+        if($request->file('image')){
+            $image_file = $request->file('image');
+            if($data->profile_photo_path){
+                @unlink(public_path('upload/admin_images'.$data->profile_photo_path));
+            }
+            $filename = date('YmdHi').$image_file->getClientOriginalExtension();
+            $image_file->move(public_path('upload/admin_images')).$filename;
+            $data->update([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'profile_photo_path' => $filename,
+        ]);
+        }else{
+            $data->update([
+                'name' => $request->input('name'),
+                'email' => $request->input('email'),
+            ]);
+        }
+        
+        $notification = [
+            'success' => 'Profile Updated Successfully'
+        ];
+
+        return redirect()->route('profile.index')->with($notification);
     }
 
     /**
