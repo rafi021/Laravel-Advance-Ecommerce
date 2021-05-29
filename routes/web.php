@@ -31,6 +31,8 @@ Route::prefix('/admin')->middleware('admin')->group(function () {
     Route::get('/logout',[AdminController::class, 'destroy'])->name('admin.logout');
     Route::resource('/profile', AdminProfileController::class);
     Route::get('/edit/profile',[AdminProfileController::class, 'AdminProfileEdit'])->name('admin.profile.edit');
+    Route::get('/change/password',[AdminProfileController::class, 'AdminPasswordChange'])->name('admin.change.password');
+    Route::post('/change/password',[AdminProfileController::class, 'AdminPasswordUpdate'])->name('admin.password.update');
 });
 
 

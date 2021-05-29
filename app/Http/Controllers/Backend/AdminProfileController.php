@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AdminPasswordUpdateRequest;
 use App\Models\Admin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AdminProfileController extends Controller
 {
@@ -98,6 +101,39 @@ class AdminProfileController extends Controller
         ];
 
         return redirect()->route('profile.index')->with($notification);
+    }
+
+    public function AdminPasswordChange()
+    {
+        return view('admin.Profile.change_password');
+    }
+
+    public function AdminPasswordUpdate(AdminPasswordUpdateRequest $request){
+
+        $current_password = $request->input('current_password');
+        $new_password = $request->input('password');
+
+        $admin = Admin::find(1);
+        if(Hash::check($current_password,$admin->password)){
+            $admin->password = Hash::make($new_password);
+            $admin->update([
+                'password' => $admin->password,
+            ]);
+
+            Auth::logout();
+
+            $notification = [
+                'message' => 'Password Updated Successfully!!!',
+                'alert-type' => 'success'
+            ];
+            return redirect()->route('admin.logout')->with($notification);
+        }else{
+            $notification = [
+                'message' => 'Please provide valid password',
+                'alert-type' => 'error'
+            ];
+            return redirect()->route('admin.change.password')->with($notification);
+        }
     }
 
     /**
