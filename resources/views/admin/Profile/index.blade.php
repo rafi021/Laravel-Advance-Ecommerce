@@ -5,7 +5,7 @@
 @section('dashboard_content')
 <section class="content">
 <div class="row">
-    <div class="col-12 col-lg-5 col-xl-4">
+    <div class="col-12 col-lg-5 col-xl-6">
         <div class="box box-widget widget-user">
             <!-- Add the bg color to the header using any of the bg-* classes -->
         <div class="widget-user-header bg-black">
