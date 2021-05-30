@@ -15,18 +15,24 @@
                                     @method('PUT')
                                     @csrf
                                 <div class="row">
-                                    <div class="col-12">						
+                                    <div class="col-12">
                                         <div class="form-group">
                                             <h5>Admin Name <span class="text-danger">*</span></h5>
                                             <div class="controls">
                                                 <input type="text" name="name" value="{{ $editData->name }}" class="form-control" required="" data-validation-required-message="This field is required"> <div class="help-block"></div>
                                             </div>
+                                            @error('name')
+                                                <span class="alert text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                         <div class="form-group">
                                             <h5>Email Field <span class="text-danger">*</span></h5>
                                             <div class="controls">
                                                 <input type="email" name="email" value="{{ $editData->email }}" class="form-control" required="" data-validation-required-message="This field is required"> <div class="help-block"></div>
                                             </div>
+                                            @error('email')
+                                                <span class="alert text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                         {{-- <div class="form-group">
                                             <h5>Password Input Field <span class="text-danger">*</span></h5>
