@@ -8,7 +8,7 @@
         @elseif (request()->routeIs('login'))
         <li class="request()->routeIs('login')? 'active': ''">Login</li>
         @else
-        <li class="request()->routeIs('')? 'active': ''"></li>
+        <li class="request()->routeIs('')? 'active': ''">{{ request()->route()->uri }}</li>
         @endif
     </ul>
     </div>
