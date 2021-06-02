@@ -45,10 +45,10 @@ class FrontendUserProfileController extends Controller
         if($request->file('image')){
             $image_file = $request->file('image');
             if($data->profile_photo_path){
-                @unlink(public_path('storage/profile_photos'.$data->profile_photo_path));
+                @unlink(public_path('storage/profile-photos/'.$data->profile_photo_path));
             }
             $filename = date('YmdHi').'.'.$image_file->getClientOriginalExtension();
-            $image_file->move(public_path('storage/profile_photos'),$filename);
+            $image_file->move(public_path('storage/profile-photos'),$filename);
             $data['profile_photo_path']= $filename;
         }
         $data->save();

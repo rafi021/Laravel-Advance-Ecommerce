@@ -17,7 +17,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-2">
-                <img class="rounded-circle" src="{{ !empty($user->profile_photo_path) ? url('storage/profile_photos/'.$user->profile_photo_path) : url('storage/profile_photos/blank_profile_photo.jpg') }}" alt="User Avatar" height="100%" width="100%">
+                <img class="rounded-circle" src="{{ !empty($user->profile_photo_path) ? url('storage/profile-photos/'.$user->profile_photo_path) : url('storage/profile-photos/blank_profile_photo.jpg') }}" alt="User Avatar" height="100%" width="100%">
                 <ul class="list-group list-group-flush">
                     <a href="" class="btn btn-primary btn-sm btn-block">Home</a>
                     <a href="{{ route('user.profile') }}" class="btn btn-primary btn-sm btn-block">Profile Update</a>

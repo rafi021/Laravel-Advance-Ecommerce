@@ -33,7 +33,7 @@
             </div>
         </div>
         <div class="col-md-12 widget-user-image">
-            <img  id="show-image" class="rounded-circle" src="{{ !empty($user->profile_photo_path) ? url('storage/profile_photos/'.$user->profile_photo_path) : url('storage/profile_photos/blank_profile_photo.jpg') }}" alt="User Avatar" style="float: right" width="100px" height="100px">
+            <img  id="show-image" class="rounded-circle" src="{{ !empty($user->profile_photo_path) ? url('storage/profile-photos/'.$user->profile_photo_path) : url('storage/profile-photos/blank_profile_photo.jpg') }}" alt="User Avatar" style="float: right" width="100px" height="100px">
         </div>
         <div class="text-xs-right">
             <button type="submit" class="btn btn-rounded btn-primary mb-5">Update Profile</button>
