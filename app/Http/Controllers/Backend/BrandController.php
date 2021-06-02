@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\BrandStoreRequest;
 use App\Models\Brand;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Image;
 
 class BrandController extends Controller
 {
@@ -38,7 +40,36 @@ class BrandController extends Controller
      */
     public function store(BrandStoreRequest $request)
     {
-        dd($request->all());
+
+        if($request->file('brand_image')){
+            $upload_location = 'upload/brands/';
+            $file = $request->file('brand_image');
+            $name_gen = hexdec(uniqid()).'.'.$file->getClientOriginalExtension();
+            Image::make($file)->resize(600,600)->save($upload_location.$name_gen);
+            $save_url = $upload_location.$name_gen;
+
+            Brand::create([
+                'brand_name_en' => $request->input('brand_name_en'),
+                'brand_name_bn' => $request->input('brand_name_bn'),
+                'brand_slug_en' => Str::slug($request->input('brand_slug_en')),
+                'brand_slug_bn' => Str::slug($request->input('brand_slug_bn')),
+                'brand_image' => $save_url
+            ]);
+        }else{
+            Brand::create([
+                'brand_name_en' => $request->input('brand_name_en'),
+                'brand_name_bn' => $request->input('brand_name_bn'),
+                'brand_slug_en' => Str::slug($request->input('brand_slug_en')),
+                'brand_slug_bn' => Str::slug($request->input('brand_slug_bn')),
+            ]);
+        }
+
+        $notification = [
+            'message' => 'Brand Created Successfully!!!',
+            'alert-type' => 'success'
+        ];
+
+        return redirect()->route('brands.index')->with($notification);
     }
 
     /**
