@@ -1,0 +1,15 @@
+@extends('admin.admin_master')
+
+@section('dashboard_content')
+@include('admin.dashboard_layout.breadcrumb', [
+    'name' => 'Brands',
+    'section_name' => 'All Brands'
+])
+<section class="content">
+    <div class="row">
+        <div class="col-12">
+            
+        </div>
+    </div>
+</section>
+@endsection

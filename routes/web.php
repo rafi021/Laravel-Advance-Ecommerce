@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\AdminProfileController;
+use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Frontend\FrontendPageController;
 use App\Http\Controllers\Frontend\FrontendUserProfileController;
 use App\Models\Admin;
@@ -46,8 +47,6 @@ Route::middleware(['auth:sanctum,admin', 'verified'])->get('/admin/dashboard', f
 
 Route::middleware(['auth:sanctum,web', 'verified'])->get('/dashboard',[FrontendUserProfileController::class, 'userdashboard'])->name('dashboard');
 
-
-
 // Route::prefix('/user')->middleware(['auth:sanctum,web', 'verified'])->group(function () {
 //     Route::get('/dashboard', [FrontendUserProfileController::class, 'userdashboard'])->name('dashboard');
 // });
@@ -58,4 +57,9 @@ Route::prefix('/user')->group(function () {
     Route::post('/profile', [FrontendUserProfileController::class, 'userprofileupdate'])->name('user.profile');
     Route::get('/password/change', [FrontendUserProfileController::class, 'userpasswordchange'])->name('user.change.password');
     Route::post('/password/update', [FrontendUserProfileController::class, 'userpasswordupdate'])->name('user.update.password');
+});
+
+// Brand all routes
+Route::prefix('/admin')->middleware(['auth:sanctum,admin', 'verified'])->group(function(){
+    Route::resource('/brands',BrandController::class);
 });
