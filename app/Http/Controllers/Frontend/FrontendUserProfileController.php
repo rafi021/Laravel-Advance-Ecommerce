@@ -38,7 +38,7 @@ class FrontendUserProfileController extends Controller
             'image' => 'image|mimes:jpg,png,jpeg'
         ]);
         //dd($user, $request->all());
-        $data = User::findorFail(Auth::user()->id);
+        $data = User::findOrFail(Auth::user()->id);
         $data->name = $request->name;
         $data->email = $request->email;
         $data->phone_number = $request->phone_number;
