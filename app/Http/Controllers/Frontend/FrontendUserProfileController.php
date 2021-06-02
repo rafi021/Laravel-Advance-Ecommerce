@@ -6,12 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class FrontendUserProfileController extends Controller
 {
     public function userdashboard()
     {
-        return view('dashboard');
+        $user = Auth::user();
+        return view('dashboard', compact('user'));
     }
     public function userlogout()
     {
@@ -61,4 +63,38 @@ class FrontendUserProfileController extends Controller
         return redirect()->route('user.profile')->with($notification);
 
     }
+
+    public function userpasswordchange()
+    {
+        $user = Auth::user();
+        return view('frontend.profile.changepassword', compact('user'));
+    }
+
+    public function userpasswordupdate(Request $request)
+    {
+        $current_password = $request->input('current_password');
+        $new_password = $request->input('password');
+
+        $user = User::findOrFail(Auth::user()->id);
+        if(Hash::check($current_password,$user->password)){
+            $user->password = Hash::make($new_password);
+            $user->update([
+                'password' => $user->password,
+            ]);
+
+            Auth::logout();
+
+            $notification = [
+                'message' => 'Password Updated Successfully!!!',
+                'alert-type' => 'success'
+            ];
+            return redirect()->route('user.logout')->with($notification);
+        }else{
+            $notification = [
+                'message' => 'Please provide valid password',
+                'alert-type' => 'error'
+            ];
+            return redirect()->route('user.change.password')->with($notification);
+    }
+  }
 }

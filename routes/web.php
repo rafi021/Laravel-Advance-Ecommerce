@@ -56,4 +56,6 @@ Route::prefix('/user')->group(function () {
     Route::get('/logout', [FrontendUserProfileController::class, 'userlogout'])->name('user.logout');
     Route::get('/profile', [FrontendUserProfileController::class, 'userprofile'])->name('user.profile');
     Route::post('/profile', [FrontendUserProfileController::class, 'userprofileupdate'])->name('user.profile');
+    Route::get('/password/change', [FrontendUserProfileController::class, 'userpasswordchange'])->name('user.change.password');
+    Route::post('/password/update', [FrontendUserProfileController::class, 'userpasswordupdate'])->name('user.update.password');
 });
