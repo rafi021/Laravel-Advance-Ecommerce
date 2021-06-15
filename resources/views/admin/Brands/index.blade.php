@@ -55,13 +55,13 @@
                                                     </td>
                                                     <td>
                                                         <div class="input-group">
-                                                        <a href="{{ route('brands.edit', $item) }}" class="btn btn-info" title="Edit Data"><i class="fa fa-pencil"></i></a>
-                                                        <form action="{{ route('brands.destroy', $item) }}" method="post">
-                                                            @method('DELETE')
-                                                            @csrf
-                                                            <a href="" class="btn btn-danger" title="Delete Data" id="delete" onclick="event.preventDefault();
-                                                            this.closest('form').submit();"><i class="fa fa-trash"></i></a>
-                                                        </form>
+                                                            <a href="{{ route('brands.edit', $item) }}" class="btn btn-info" title="Edit Data"><i class="fa fa-pencil"></i></a>
+                                                            <form action="{{ route('brands.destroy', $item) }}" method="post">
+                                                                @method('DELETE')
+                                                                @csrf
+                                                                <a href="" class="btn btn-danger" title="Delete Data" id="delete" onclick="event.preventDefault();
+                                                                this.closest('form').submit();"><i class="fa fa-trash"></i></a>
+                                                            </form>
                                                         </div>
                                                     </td>
                                                 </tr>
