@@ -88,9 +88,11 @@ class SubCategoryController extends Controller
      * @param  \App\Models\SubCategory  $subCategory
      * @return \Illuminate\Http\Response
      */
-    public function update(SubCategoryStoreRequest $request, SubCategory $subCategory)
+    public function update(SubCategoryStoreRequest $request, $id)
     {
-        //dd($request->all());
+
+        //dd($request->all(), $id);
+        $subCategory = SubCategory::findOrFail($id);
         $subCategory->update([
             'category_id' => $request->category_id,
             'subcategory_name_en' => $request->input('subcategory_name_en'),
@@ -113,8 +115,9 @@ class SubCategoryController extends Controller
      * @param  \App\Models\SubCategory  $subCategory
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SubCategory $subCategory)
+    public function destroy($id)
     {
+        $subCategory = SubCategory::findOrFail($id);
         $subCategory->delete();
 
         $notification = [

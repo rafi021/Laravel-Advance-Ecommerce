@@ -16,7 +16,7 @@
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                        <form action="{{ route('subcategories.update', ['subcategory' => $subcategory ]) }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('subcategories.update', $subcategory) }}" method="post" enctype="multipart/form-data">
                             @method('put')
                             @csrf
                             <div class="form-group">
