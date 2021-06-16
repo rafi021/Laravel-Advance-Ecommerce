@@ -44,7 +44,7 @@
         </li>
         </ul>
     </li> 
-    <li class="treeview {{ ($route == 'brands.index') ? 'active' : '' }}">
+    <li class="treeview {{ ($route == 'categories.index') ? 'active' : '' }}">
         <a href="#">
         <i data-feather="message-circle"></i>
         <span>Category</span>
@@ -53,9 +53,12 @@
         </span>
         </a>
         <ul class="treeview-menu">
-        <li class=" {{ ($route == 'categories.index') ? 'active' : '' }}">
-            <a href="{{ route('categories.index') }}"><i class="ti-more"></i>All Category</a>
-        </li>
+            <li class=" {{ ($route == 'categories.index') ? 'active' : '' }}">
+                <a href="{{ route('categories.index') }}"><i class="ti-more"></i>All Category</a>
+            </li>
+            <li class=" {{ ($route == 'subcategories.index') ? 'active' : '' }}">
+                <a href="{{ route('subcategories.index') }}"><i class="ti-more"></i>All SubCategory</a>
+            </li>
         </ul>
     </li> 
         
