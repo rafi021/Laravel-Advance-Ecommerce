@@ -3,7 +3,7 @@
 @section('dashboard_content')
     @include('admin.dashboard_layout.breadcrumb', [
     'name' => 'Sub Category',
-    'section_name' => 'All Sub Category'
+    'section_name' => 'Create Sub Category'
     ])
     <section class="content">
         <div class="row">
@@ -42,7 +42,7 @@
                                     <input type="file" name="category_image" class="form-control" required="" data-validation-required-message="This field is required"> <div class="help-block"></div>
                                 </div> --}}
                                 <select class="custom-select" aria-label="Default select example" name="category_id">
-                                    <option selected>Open this select menu</option>
+                                    <option selected>Select Category Name</option>
                                     @foreach ($categories as $category)
                                         <option value="{{ $category->id }}">{{ $category->category_name_en }}</option>
                                     @endforeach

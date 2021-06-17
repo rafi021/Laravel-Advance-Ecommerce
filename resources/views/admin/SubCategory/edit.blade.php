@@ -3,7 +3,7 @@
 @section('dashboard_content')
     @include('admin.dashboard_layout.breadcrumb', [
     'name' => 'Sub Category',
-    'section_name' => 'All Sub Category'
+    'section_name' => 'Update Sub Category'
     ])
     <section class="content">
         <div class="row">
@@ -11,7 +11,7 @@
             <div class="col-md-8 col-lg-8 offset-2">
                 <div class="box">
                     <div class="box-header with-border d-flex justify-content-between align-items-center">
-                        <h3 class="box-title">Add New Sub Category</h3>
+                        <h3 class="box-title">Update Sub Category</h3>
                         <a href="{{ route('subcategories.index') }}" class="btn btn-primary">Back List Sub Category</a>
                     </div>
                     <!-- /.box-header -->

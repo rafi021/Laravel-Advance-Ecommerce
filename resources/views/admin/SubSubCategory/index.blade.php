@@ -2,16 +2,16 @@
 
 @section('dashboard_content')
     @include('admin.dashboard_layout.breadcrumb', [
-    'name' => 'SubCategory',
-    'section_name' => 'All SubCategory'
+    'name' => 'Sub-SubCategory',
+    'section_name' => 'All Sub-SubCategory'
     ])
     <section class="content">
         <div class="row">
             <div class="col-md-12 col-lg-12">
                 <div class="box">
                     <div class="box-header with-border d-flex justify-content-between align-items-center">
-                        <h3 class="box-title">All SubCategory Data Table</h3>
-                        <a href="{{ route('subcategories.create') }}" class="btn btn-primary">Create New SubCategory</a>
+                        <h3 class="box-title">All Sub-SubCategory Data Table</h3>
+                        <a href="{{ route('subsubcategories.create') }}" class="btn btn-primary">Create New Sub-SubCategory</a>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
@@ -24,23 +24,23 @@
                                             <thead>
                                                 <tr role="row">
                                                     <th>#</th>
-                                                    <th>SubCategory Name EN</th>
-                                                    <th>SubCategory Name BN</th>
+                                                    <th>Sub-SubCategory Name EN</th>
+                                                    <th>SubCategory Name</th>
                                                     <th>Category Name</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($subCategories as $item)
+                                                @foreach ($subsubCategories as $item)
                                                 <tr role="row" class="odd">
                                                     <td>{{ $loop->index+1 }}</td>
-                                                    <td class="sorting_1">{{ $item->subcategory_name_en }}</td>
-                                                    <td>{{ $item->subcategory_name_bn }}</td>
+                                                    <td class="sorting_1">{{ $item->subsubcategory_name_en }}</td>
+                                                    <td>{{ $item->subcategory->subcategory_name_en }}</td>
                                                     <td>{{ $item->category->category_name_en }}</td>
                                                     <td>
                                                         <div class="input-group">
-                                                            <a href="{{ route('subcategories.edit', $item) }}" class="btn btn-info" title="Edit Data"><i class="fa fa-pencil"></i></a>
-                                                            <form action="{{ route('subcategories.destroy', $item) }}" method="post">
+                                                            <a href="{{ route('subsubcategories.edit', $item) }}" class="btn btn-info" title="Edit Data"><i class="fa fa-pencil"></i></a>
+                                                            <form action="{{ route('subsubcategories.destroy', $item) }}" method="post">
                                                                 @method('DELETE')
                                                                 @csrf
                                                                 <a href="" class="btn btn-danger" title="Delete Data" id="delete" onclick="event.preventDefault();

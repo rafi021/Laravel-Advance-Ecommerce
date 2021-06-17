@@ -6,6 +6,7 @@ use App\Http\Controllers\Backend\AdminProfileController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\SubCategoryController;
+use App\Http\Controllers\Backend\SubSubCategoryController;
 use App\Http\Controllers\Frontend\FrontendPageController;
 use App\Http\Controllers\Frontend\FrontendUserProfileController;
 use App\Models\Admin;
@@ -66,4 +67,6 @@ Route::prefix('/admin')->middleware(['auth:sanctum,admin', 'verified'])->group(f
     Route::resource('/brands',BrandController::class);
     Route::resource('/categories',CategoryController::class);
     Route::resource('/subcategories', SubCategoryController::class);
+    Route::resource('/subsubcategories', SubSubCategoryController::class);
+    Route::get('/category/subcategory/ajax/{category_id}', [SubSubCategoryController::class, 'getSubCategory']);
 });

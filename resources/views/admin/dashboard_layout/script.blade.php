@@ -1,6 +1,7 @@
 <!-- Vendor JS -->
 <script src="{{ asset('backend') }}/js/vendors.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> --}}
 <script src="{{ asset('') }}assets/icons/feather-icons/feather.min.js"></script>
 <script src="{{ asset('') }}assets/vendor_components/jquery-steps-master/build/jquery.steps.js"></script>
 <script src="{{ asset('') }}assets/vendor_components/jquery-validation-1.17.0/dist/jquery.validate.min.js"></script>

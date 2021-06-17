@@ -16,4 +16,9 @@ class Category extends Model
         'category_slug_bn',
         'category_image'
     ];
+
+    public function subcategory()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }
