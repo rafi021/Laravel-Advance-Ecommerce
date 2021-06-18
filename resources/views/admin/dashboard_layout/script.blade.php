@@ -5,7 +5,7 @@
 <script src="{{ asset('') }}assets/icons/feather-icons/feather.min.js"></script>
 <script src="{{ asset('') }}assets/vendor_components/jquery-steps-master/build/jquery.steps.js"></script>
 <script src="{{ asset('') }}assets/vendor_components/jquery-validation-1.17.0/dist/jquery.validate.min.js"></script>
-{{-- <script src="{{ asset('') }}assets/vendor_components/sweetalert/sweetalert.min.js"></script> --}}
+<script src="{{ asset('') }}assets/vendor_components/sweetalert/sweetalert.min.js"></script>
 {{-- <script src="{{ asset('') }}assets/vendor_components/easypiechart/dist/jquery.easypiechart.js"></script> --}}
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="{{ asset('') }}assets/vendor_components/apexcharts-bundle/irregular-data-series.js"></script>
@@ -18,10 +18,10 @@
 <!-- Sunny Admin App -->
 <script src="{{ asset('backend') }}/js/template.js"></script>
 {{-- <script src="{{ asset('backend') }}/js/pages/dashboard.js"></script> --}}
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 {{-- custom toaster script --}}
-<script>
+<script type="text/javascript">
 @if (Session::has('message'))
     let type = "{{ Session::get('alert-type', 'info') }}";
     switch (type) {
@@ -43,28 +43,29 @@
 @endif
 </script>
 <script type="text/javascript">
-    $(function(){
-        $(document).on('click', '#delete', function(e){
-            e.preventDefault();
-            var link = $(this).attr("href");
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = link
-                    Swal.fire(
-                    'Deleted!',
-                    'Your file has been deleted.',
-                    'success'
-                    )
+
+  $(function(){
+    $(document).on('click','#delete',function(e){
+        e.preventDefault();
+        var link = $(this).attr("href");
+                  Swal.fire({
+                    title: 'Are you sure?',
+                    text: "Delete This Data?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                      window.location.href = link
+                      Swal.fire(
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'
+                      )
                     }
-                })
-        });
+                  })
     });
+  });
 </script>
