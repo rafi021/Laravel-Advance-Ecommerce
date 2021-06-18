@@ -34,7 +34,7 @@ class SubSubCategoryController extends Controller
         //dd($categories);
         return view('admin.SubSubCategory.create', compact('categories'));
     }
-    
+
     /**
      * Store a newly created resource in storage.
      *
@@ -60,7 +60,7 @@ class SubSubCategoryController extends Controller
 
         return redirect()->route('subsubcategories.index')->with($notification);
     }
-    
+
     /**
      * Display the specified resource.
      *
@@ -71,7 +71,7 @@ class SubSubCategoryController extends Controller
     {
         //
     }
-    
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -136,5 +136,11 @@ class SubSubCategoryController extends Controller
     {
         $subCategory = SubCategory::where('category_id', '=', $category_id)->latest()->get();
         return json_encode($subCategory);
+    }
+
+    public function getSubSubCategory($subcategory_id)
+    {
+        $subsubCategory = SubSubCategory::where('subcategory_id', '=', $subcategory_id)->latest()->get();
+        return json_encode($subsubCategory);
     }
 }
