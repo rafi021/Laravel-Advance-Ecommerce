@@ -198,7 +198,7 @@
                                     <div class="form-group">
                                         <h5>Purchase Price <span class="text-danger"></span></h5>
                                         <div class="controls">
-                                            <input type="number" name="purchase_price" class="form-control" required="" data-validation-required-message="This field is required"> <div class="help-block"></div>
+                                            <input type="number" name="purchase_price" class="form-control"> <div class="help-block"></div>
                                         </div>
                                         @error('purchase_price')
                                             <span class="alert text-danger">{{ $message }}</span>
@@ -315,19 +315,19 @@
                             <div class="row mb-3">
                                 <div class="col-md-4">
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" id="hot_deals" name="hot_deals">
+                                        <input class="form-check-input" type="checkbox" id="hot_deals" name="hot_deals" value="1">
                                         <label class="form-check-label" for="hot_deals">Hot Deals</label>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" id="featured" name="featured">
+                                        <input class="form-check-input" type="checkbox" id="featured" name="featured" value="1">
                                         <label class="form-check-label" for="featured">Featured</label>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" id="new_arrival" name="new_arrival" checked>
+                                        <input class="form-check-input" type="checkbox" id="new_arrival" name="new_arrival" checked value="1">
                                         <label class="form-check-label" for="new_arrival">New Arrival</label>
                                     </div>
                                 </div>
@@ -335,19 +335,19 @@
                             <div class="row mb-3">
                                 <div class="col-md-4">
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" id="special_offer" name="special_offer">
+                                        <input class="form-check-input" type="checkbox" id="special_offer" name="special_offer" value="1">
                                         <label class="form-check-label" for="special_offer">Special Offer</label>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" id="special_deals" name="special_deals">
+                                        <input class="form-check-input" type="checkbox" id="special_deals" name="special_deals" value="1">
                                         <label class="form-check-label" for="special_deals">Special Deals</label>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" id="status" name="status" checked>
+                                        <input class="form-check-input" type="checkbox" id="status" name="status" checked value="1">
                                         <label class="form-check-label" for="status">Active Status</label>
                                     </div>
                                 </div>
