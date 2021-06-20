@@ -19,6 +19,8 @@
                         <form action="{{ route('products.store') }}" method="post" enctype="multipart/form-data">
                             @csrf
                             {{-- First row start--}}
+                            <h5 class="text-warning">Product Related Category and Brand Selection Area</h5>
+                            <hr>
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
@@ -72,6 +74,8 @@
                                 </div>
                             </div>
                             {{-- First row end --}}
+                            <h5 class="text-warning mt-4">Product Basic Information Area</h5>
+                            <hr>
                             {{-- Second row start --}}
                             <div class="row">
                                 <div class="col-md-3">
@@ -120,6 +124,8 @@
                                 </div>
                             </div>
                             {{-- Second row end --}}
+                            <h5 class="text-warning mt-4">Product Tag, Size, Color Information Area</h5>
+                            <hr>
                             {{-- Third row start --}}
                             <div class="row">
                                 <div class="col-md-2">
@@ -192,6 +198,8 @@
                                 </div>
                             </div>
                             {{-- Third row end --}}
+                            <h5 class="text-warning mt-4">Product Pricing Information Area</h5>
+                            <hr>
                             {{-- Fourth row start --}}
                             <div class="row">
                                 <div class="col-md-4">
@@ -230,6 +238,8 @@
                                 </div>
                             </div>
                             {{-- Fourth row end --}}
+                            <h5 class="text-warning mt-4">Product Description Area</h5>
+                            <hr>
                             {{-- Fifth row start --}}
                             <div class="row">
                                 <div class="col-md-12">
@@ -286,6 +296,8 @@
                                 </div>
                             </div>
                             {{-- Sixth row end --}}
+                            <h5 class="text-warning mt-4">Product Image Upload Area</h5>
+                            <hr>
                             {{-- Seventh row start --}}
                             <div class="row">
                                 <div class="col-md-6">
@@ -312,6 +324,9 @@
                                 </div>
                             </div>
                             {{-- Seventh row end --}}
+                            {{-- Eighth row start --}}
+                            <h5 class="text-warning mt-4">Product Additional Information Area</h5>
+                            <hr>
                             <div class="row mb-3">
                                 <div class="col-md-4">
                                     <div class="form-check form-switch">
