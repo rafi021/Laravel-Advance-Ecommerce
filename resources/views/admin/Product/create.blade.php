@@ -229,7 +229,8 @@
                                     <div class="form-group">
                                         <h5>Discount Price <span class="text-danger"></span></h5>
                                         <div class="controls">
-                                            <input type="number" name="discount_price" class="form-control" required="" data-validation-required-message="This field is required"> <div class="help-block"></div>
+                                            <input type="number" name="discount_price" class="form-control" 
+                                            > <div class="help-block"></div>
                                         </div>
                                         @error('discount_price')
                                             <span class="alert text-danger">{{ $message }}</span>
@@ -304,22 +305,25 @@
                                     <div class="form-group">
                                         <h5>Product Thumbnail <span class="text-danger">*</span></h5>
                                         <div class="controls">
-                                            <input type="file" name="product_thumbnail" class="form-control" required="" data-validation-required-message="This field is required"> <div class="help-block"></div>
+                                            <input type="file" name="product_thumbnail" class="form-control" required="" data-validation-required-message="This field is required"
+                                            onChange="mainThumbnailShow(this)"> <div class="help-block"></div>
                                         </div>
                                         @error('product_thumbnail')
                                             <span class="alert text-danger">{{ $message }}</span>
                                         @enderror
+                                        <img src="" id="mainThumbnail" alt="">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <h5>Product Multiple Image <span class="text-danger"></span></h5>
                                         <div class="controls">
-                                            <input type="file" name="product_images[]" class="form-control"> <div class="help-block"></div>
+                                            <input type="file" name="product_images[]" class="form-control"  multiple="" id="multiImg" > <div class="help-block"></div>
                                         </div>
                                         @error('product_images')
                                             <span class="alert text-danger">{{ $message }}</span>
                                         @enderror
+                                        <div class="row" id="preview_img"></div>
                                     </div>
                                 </div>
                             </div>
@@ -336,13 +340,15 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" id="featured" name="featured" value="1">
+                                        <input class="form-check-input" type="checkbox" 
+                                        id="featured" name="featured" value="1">
                                         <label class="form-check-label" for="featured">Featured</label>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" id="new_arrival" name="new_arrival" checked value="1">
+                                        <input class="form-check-input" type="checkbox" 
+                                        id="new_arrival" name="new_arrival" checked value="1">
                                         <label class="form-check-label" for="new_arrival">New Arrival</label>
                                     </div>
                                 </div>
@@ -350,19 +356,22 @@
                             <div class="row mb-3">
                                 <div class="col-md-4">
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" id="special_offer" name="special_offer" value="1">
+                                        <input class="form-check-input" type="checkbox" 
+                                        id="special_offer" name="special_offer" value="1">
                                         <label class="form-check-label" for="special_offer">Special Offer</label>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" id="special_deals" name="special_deals" value="1">
+                                        <input class="form-check-input" type="checkbox" 
+                                        id="special_deals" name="special_deals" value="1">
                                         <label class="form-check-label" for="special_deals">Special Deals</label>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" id="status" name="status" checked value="1">
+                                        <input class="form-check-input" type="checkbox" 
+                                        id="status" name="status" checked value="1">
                                         <label class="form-check-label" for="status">Active Status</label>
                                     </div>
                                 </div>
@@ -389,6 +398,7 @@
                   type:"GET",
                   dataType:"json",
                   success:function(data) {
+                    $('select[name="sub_subcategory_id"]').html('');
                      var d =$('select[name="subcategory_id"]').empty();
                         $.each(data, function(key, value){
                             $('select[name="subcategory_id"]').append('<option value="'+ value.id +'">' + value.subcategory_name_en + '</option>');
@@ -399,10 +409,6 @@
               alert('danger');
           }
       });
-  });
-</script>
-<script type="text/javascript">
-    $(document).ready(function() {
       $('select[name="subcategory_id"]').on('change', function(){
           var subcategory_id = $(this).val();
           if(subcategory_id) {
@@ -421,7 +427,43 @@
               alert('danger');
           }
       });
+      $(document).ready(function(){
+    $('#multiImg').on('change', function(){ //on file input change
+        if (window.File && window.FileReader && window.FileList && window.Blob) //check File API supported browser
+        {
+            var data = $(this)[0].files; //this file data
+            
+            $.each(data, function(index, file){ //loop though each file
+                if(/(\.|\/)(gif|jpe?g|png)$/i.test(file.type)){ //check supported file type
+                    var fRead = new FileReader(); //new filereader
+                    fRead.onload = (function(file){ //trigger function on successful read
+                    return function(e) {
+                        var img = $('<img/>').addClass('thumb').attr('src', e.target.result) .width(80)
+                    .height(80); //create image element 
+                        $('#preview_img').append(img); //append image to output element
+                    };
+                    })(file);
+                    fRead.readAsDataURL(file); //URL representing the file's data.
+                }
+            });
+            
+        }else{
+            alert("Your browser doesn't support File API!"); //if File API is absent
+        }
+    });
+    });
   });
+</script>
+<script type="text/javascript">
+    function mainThumbnailShow(input){
+        if(input.files && input.files[0]){
+            var reader = new FileReader();
+            reader.onload = function(e){
+                $('#mainThumbnail').attr('src', e.target.result).width(80).height(80);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
 </script>
 <script src="{{ asset('') }}assets/vendor_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.js"></script>
 <script src="{{ asset('') }}assets/vendor_components/ckeditor/ckeditor.js"></script>
