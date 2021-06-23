@@ -3,6 +3,7 @@
 @section('dashboard_content')
     @include('admin.dashboard_layout.breadcrumb', [
     'name' => 'Product',
+    'url' => "products.index",
     'section_name' => 'Create Product'
     ])
     <section class="content">
@@ -229,7 +230,7 @@
                                     <div class="form-group">
                                         <h5>Discount Price <span class="text-danger"></span></h5>
                                         <div class="controls">
-                                            <input type="number" name="discount_price" class="form-control" 
+                                            <input type="number" name="discount_price" class="form-control"
                                             > <div class="help-block"></div>
                                         </div>
                                         @error('discount_price')
@@ -340,14 +341,14 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" 
+                                        <input class="form-check-input" type="checkbox"
                                         id="featured" name="featured" value="1">
                                         <label class="form-check-label" for="featured">Featured</label>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" 
+                                        <input class="form-check-input" type="checkbox"
                                         id="new_arrival" name="new_arrival" checked value="1">
                                         <label class="form-check-label" for="new_arrival">New Arrival</label>
                                     </div>
@@ -356,21 +357,21 @@
                             <div class="row mb-3">
                                 <div class="col-md-4">
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" 
+                                        <input class="form-check-input" type="checkbox"
                                         id="special_offer" name="special_offer" value="1">
                                         <label class="form-check-label" for="special_offer">Special Offer</label>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" 
+                                        <input class="form-check-input" type="checkbox"
                                         id="special_deals" name="special_deals" value="1">
                                         <label class="form-check-label" for="special_deals">Special Deals</label>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" 
+                                        <input class="form-check-input" type="checkbox"
                                         id="status" name="status" checked value="1">
                                         <label class="form-check-label" for="status">Active Status</label>
                                     </div>
@@ -432,21 +433,21 @@
         if (window.File && window.FileReader && window.FileList && window.Blob) //check File API supported browser
         {
             var data = $(this)[0].files; //this file data
-            
+
             $.each(data, function(index, file){ //loop though each file
                 if(/(\.|\/)(gif|jpe?g|png)$/i.test(file.type)){ //check supported file type
                     var fRead = new FileReader(); //new filereader
                     fRead.onload = (function(file){ //trigger function on successful read
                     return function(e) {
                         var img = $('<img/>').addClass('thumb').attr('src', e.target.result) .width(80)
-                    .height(80); //create image element 
+                    .height(80); //create image element
                         $('#preview_img').append(img); //append image to output element
                     };
                     })(file);
                     fRead.readAsDataURL(file); //URL representing the file's data.
                 }
             });
-            
+
         }else{
             alert("Your browser doesn't support File API!"); //if File API is absent
         }

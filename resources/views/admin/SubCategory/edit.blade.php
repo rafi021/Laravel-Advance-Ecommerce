@@ -3,6 +3,7 @@
 @section('dashboard_content')
     @include('admin.dashboard_layout.breadcrumb', [
     'name' => 'Sub Category',
+    'url' => "subcategories.index",
     'section_name' => 'Update Sub Category'
     ])
     <section class="content">
@@ -45,7 +46,7 @@
                                 <select class="custom-select" aria-label="Default select example" name="category_id">
                                     {{-- <option selected>Open this select menu</option> --}}
                                     @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}" {{ $category->id == $subcategory->category_id ? 'selected': ''}} >{{ $category->category_name_en }}</option>	
+                                    <option value="{{ $category->id }}" {{ $category->id == $subcategory->category_id ? 'selected': ''}} >{{ $category->category_name_en }}</option>
                                     @endforeach
                                   </select>
                                 @error('category_id')

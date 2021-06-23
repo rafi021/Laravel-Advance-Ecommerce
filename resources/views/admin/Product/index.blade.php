@@ -3,6 +3,7 @@
 @section('dashboard_content')
     @include('admin.dashboard_layout.breadcrumb', [
     'name' => 'Product',
+    'url' => "products.index",
     'section_name' => 'All Product'
     ])
     <section class="content">
@@ -92,7 +93,7 @@
                 $.ajax({
                     type: "GET",
                     dataType: "json",
-                    url: '/changestatus',
+                    url: '/admin/changestatus',
                     data: {'status': status, 'product_id': product_id},
                     success: function(data){
                         console.log(data.success)

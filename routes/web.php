@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\AdminProfileController;
+use App\Http\Controllers\Backend\AdminSliderController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\ProductController;
@@ -74,5 +75,8 @@ Route::prefix('/admin')->middleware(['auth:sanctum,admin', 'verified'])->group(f
     Route::resource('/products', ProductController::class);
     // update multi-image route
     Route::post('/products/image/update', [ProductController::class, 'MultiImageUpdate'])->name('update-product-image');
+    Route::get('/changestatus', [ProductController::class, 'changeStatus'])->name('change-product-status');
+
+    Route::resource('/slider', AdminSliderController::class);
+    Route::get('/changesliderstatus', [AdminSliderController::class, 'changeSliderStatus'])->name('change-product-status');
 });
-Route::get('/changestatus', [ProductController::class, 'changeStatus'])->name('change-product-status');

@@ -3,7 +3,8 @@
 @section('dashboard_content')
     @include('admin.dashboard_layout.breadcrumb', [
     'name' => 'Brands',
-    'section_name' => 'All Brands'
+    'url' => "brands.index",
+    'section_name' => 'Edit Brands'
     ])
     <section class="content">
         <div class="row">

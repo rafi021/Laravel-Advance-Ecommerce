@@ -3,6 +3,7 @@
 @section('dashboard_content')
     @include('admin.dashboard_layout.breadcrumb', [
     'name' => 'Category',
+    'url' => "categories.index",
     'section_name' => 'Edit Category'
     ])
     <section class="content">

@@ -3,6 +3,7 @@
 @section('dashboard_content')
     @include('admin.dashboard_layout.breadcrumb', [
     'name' => 'Sub-SubCategory',
+    'url' => "subsubcategories.index",
     'section_name' => 'Update Sub-SubCategory'
     ])
     <section class="content">
@@ -42,7 +43,7 @@
                                 <select name="category_id" class="form-control"  >
                                     <option value="" selected="" disabled="">Select Category</option>
                                     @foreach($categories as $category)
-                                    <option value="{{ $category->id }}" {{ $category->id == $subsubCategory->category_id ? 'selected':'' }} >{{ $category->category_name_en }}</option>	
+                                    <option value="{{ $category->id }}" {{ $category->id == $subsubCategory->category_id ? 'selected':'' }} >{{ $category->category_name_en }}</option>
                                     @endforeach
                                 </select>
                                 @error('category_id')
@@ -55,12 +56,12 @@
                                     <select name="subcategory_id" class="form-control"  >
                                         <option value="" selected="" disabled="">Select SubCategory</option>
                                         @foreach($subcategories as $subsub)
-                                        <option value="{{ $subsub->id }}" {{ $subsub->id == $subsubCategory->subcategory_id ? 'selected':'' }} >{{ $subsub->subcategory_name_en }}</option>	
+                                        <option value="{{ $subsub->id }}" {{ $subsub->id == $subsubCategory->subcategory_id ? 'selected':'' }} >{{ $subsub->subcategory_name_en }}</option>
                                         @endforeach
                                     </select>
-                                    @error('subcategory_id') 
+                                    @error('subcategory_id')
                                         <span class="text-danger">{{ $message }}</span>
-                                    @enderror 
+                                    @enderror
                                 </div>
                             </div>
                             <div class="text-xs-right">
