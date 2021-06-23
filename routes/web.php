@@ -71,6 +71,8 @@ Route::prefix('/admin')->middleware(['auth:sanctum,admin', 'verified'])->group(f
     Route::resource('/subsubcategories', SubSubCategoryController::class);
     Route::get('/category/subcategory/ajax/{category_id}', [SubSubCategoryController::class, 'getSubCategory']);
     Route::get('/category/subsubcategory/ajax/{subcategory_id}', [SubSubCategoryController::class, 'getSubSubCategory']);
-
     Route::resource('/products', ProductController::class);
+    // update multi-image route
+    Route::post('/products/image/update', [ProductController::class, 'MultiImageUpdate'])->name('update-product-image');
 });
+Route::get('/changestatus', [ProductController::class, 'changeStatus'])->name('change-product-status');

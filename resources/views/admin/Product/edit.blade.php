@@ -57,7 +57,7 @@
                                         <select class="custom-select" name="subcategory_id" aria-label="Default select example">
                                             <option value="" selected="" disabled="">Select SubCategory Name</option>
                                             @foreach($subcategories as $sub)
-                                                <option value="{{ $sub->id }}" {{ $sub->id == $product->subcategory_id ? 'selected': '' }} >{{ $sub->subcategory_name_en }}</option>	
+                                                <option value="{{ $sub->id }}" {{ $sub->id == $product->subcategory_id ? 'selected': '' }} >{{ $sub->subcategory_name_en }}</option>
 			                                @endforeach
                                         </select>
                                         @error('subcategory_id')
@@ -71,7 +71,7 @@
                                         <select class="custom-select" name="sub_subcategory_id" aria-label="Default select example">
                                             <option value="" selected="" disabled="">Select Sub-SubCategory Name</option>
                                             @foreach($subsubcategories as $subsub)
-                                            <option value="{{ $subsub->id }}" {{ $subsub->id == $product->sub_subcategory_id ? 'selected': '' }} >{{ $subsub->subsubcategory_name_en }}</option>	
+                                            <option value="{{ $subsub->id }}" {{ $subsub->id == $product->sub_subcategory_id ? 'selected': '' }} >{{ $subsub->subsubcategory_name_en }}</option>
                                             @endforeach
                                         </select>
                                         @error('sub_subcategory_id')
@@ -113,7 +113,7 @@
                                     <div class="form-group">
                                         <h5>Product SKU Code # <span class="text-danger"></span></h5>
                                         <div class="controls">
-                                            <input type="text" name="product_code" class="form-control" 
+                                            <input type="text" name="product_code" class="form-control"
                                             value="{{ old('product_code', $product->product_code) }}"> <div class="help-block"></div>
                                         </div>
                                         @error('product_code')
@@ -249,7 +249,7 @@
                                         <h5>Discount Price <span class="text-danger"></span></h5>
                                         <div class="controls">
                                             <input type="number" name="discount_price"  value="{{ old('discount_price', $product->discount_price) }}"
-                                            class="form-control" 
+                                            class="form-control"
                                             > <div class="help-block"></div>
                                         </div>
                                         @error('discount_price')
@@ -342,19 +342,6 @@
                                         <img src="{{ asset($product->product_thumbnail) }}" id="mainThumbnail" alt="">
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <h5>Product Multiple Image <span class="text-danger"></span></h5>
-                                        <div class="controls">
-                                            <input type="file" name="product_images[]" class="form-control"  
-                                            multiple="" id="multiImg" > <div class="help-block"></div>
-                                        </div>
-                                        @error('product_images')
-                                            <span class="alert text-danger">{{ $message }}</span>
-                                        @enderror
-                                        <div class="row" id="preview_img"></div>
-                                    </div>
-                                </div>
                             </div>
                             {{-- Seventh row end --}}
                             {{-- Eighth row start --}}
@@ -363,21 +350,21 @@
                             <div class="row mb-3">
                                 <div class="col-md-4">
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" 
+                                        <input class="form-check-input" type="checkbox"
                                         id="hot_deals" name="hot_deals" value="1" {{ $product->hot_deals == 1 ? 'checked': '' }}>
                                         <label class="form-check-label" for="hot_deals">Hot Deals</label>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" 
+                                        <input class="form-check-input" type="checkbox"
                                         id="featured" name="featured" value="1" {{ $product->featured == 1 ? 'checked': '' }}>
                                         <label class="form-check-label" for="featured">Featured</label>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" 
+                                        <input class="form-check-input" type="checkbox"
                                         id="new_arrival" name="new_arrival" {{ $product->new_arrival == 1 ? 'checked': '' }} value="1">
                                         <label class="form-check-label" for="new_arrival">New Arrival</label>
                                     </div>
@@ -386,21 +373,21 @@
                             <div class="row mb-3">
                                 <div class="col-md-4">
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" 
+                                        <input class="form-check-input" type="checkbox"
                                         id="special_offer" name="special_offer" value="1" {{ $product->special_offer == 1 ? 'checked': '' }}>
                                         <label class="form-check-label" for="special_offer">Special Offer</label>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" 
+                                        <input class="form-check-input" type="checkbox"
                                         id="special_deals" name="special_deals" value="1" {{ $product->special_deals == 1 ? 'checked': '' }}>
                                         <label class="form-check-label" for="special_deals">Special Deals</label>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" 
+                                        <input class="form-check-input" type="checkbox"
                                         id="status" name="status" checked value="1" {{ $product->status == 1 ? 'checked': '' }}>
                                         <label class="form-check-label" for="status">Active Status</label>
                                     </div>
@@ -416,6 +403,46 @@
             <!-- /.col -->
         </div>
         <!-- /.row -->
+        <div class="row">
+            <div class="col-12">
+                <div class="box">
+                    <div class="box-header with-border d-flex justify-content-between align-items-center">
+                        <h3 class="box-title">Update Product Multi Image</h3>
+                        <a href="{{ route('products.index') }}" class="btn btn-primary">Back List Product</a>
+                    </div>
+                    <div class="box-body">
+                        <form method="POST" action="{{ route('update-product-image') }}" enctype="multipart/form-data">
+                            @csrf
+                            <div class="row row-sm">
+                                @foreach($product->images as $img)
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <img src="{{ asset($img->photo_name) }}" class="card-img-top" style="height: 100px; width: 100px;">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                        <a href="" class="btn btn-sm btn-danger" id="delete" title="Delete Data"><i class="fa fa-trash"></i> </a>
+                                        </h5>
+                                    <p class="card-text">
+                                        <div class="form-group">
+                                            <label class="form-control-label">Change Image <span class="tx-danger">*</span></label>
+                                            <input class="form-control" type="file"
+                                        name="multi_img[ {{ $img->id }} ]">
+                                        </div>
+                                    </p>
+                                    </div>
+                                </div>
+                            </div><!--  end col md 3		 -->
+                                @endforeach
+                            </div>
+                            <div class="text-xs-right">
+                                <input type="submit" class="btn btn-rounded btn-primary mb-5" value="Update Image">
+                            </div>
+                            <br><br>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 @section('dashboard_script')
 <script type="text/javascript">
@@ -462,21 +489,21 @@
         if (window.File && window.FileReader && window.FileList && window.Blob) //check File API supported browser
         {
             var data = $(this)[0].files; //this file data
-            
+
             $.each(data, function(index, file){ //loop though each file
                 if(/(\.|\/)(gif|jpe?g|png)$/i.test(file.type)){ //check supported file type
                     var fRead = new FileReader(); //new filereader
                     fRead.onload = (function(file){ //trigger function on successful read
                     return function(e) {
                         var img = $('<img/>').addClass('thumb').attr('src', e.target.result) .width(80)
-                    .height(80); //create image element 
+                    .height(80); //create image element
                         $('#preview_img').append(img); //append image to output element
                     };
                     })(file);
                     fRead.readAsDataURL(file); //URL representing the file's data.
                 }
             });
-            
+
         }else{
             alert("Your browser doesn't support File API!"); //if File API is absent
         }

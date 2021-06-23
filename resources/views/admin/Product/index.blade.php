@@ -44,7 +44,14 @@
                                                     <td>{{ $item->product_qty }}</td>
                                                     <td>{{ $item->purchase_price }}</td>
                                                     <td>{{ $item->selling_price }}</td>
-                                                    <td><a href="">{{ $item->status }}</a></td>
+                                                    <td>
+                                                        {{-- @if ($item->status == 1)
+                                                            <span class="badge rounded-pill badge bg-success">Active</span>
+                                                        @else
+                                                            <span class="badge rounded-pill bg-danger">InActive</span>
+                                                        @endif --}}
+                                                        <input data-id="{{$item->id}}" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="InActive" {{ $item->status ? 'checked' : '' }}>
+                                                    </td>
                                                     <td>
                                                         <div class="input-group">
                                                             <a href="{{ route('products.edit', $item) }}" class="btn btn-info" title="Edit Data"><i class="fa fa-pencil"></i></a>
@@ -73,4 +80,26 @@
         </div>
         <!-- /.row -->
     </section>
+    @section('dashboard_script')
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    <script>
+        $(function() {
+            $('.toggle-class').change(function() {
+                var status = $(this).prop('checked') == true ? 1 : 0;
+                var product_id = $(this).data('id');
+
+                $.ajax({
+                    type: "GET",
+                    dataType: "json",
+                    url: '/changestatus',
+                    data: {'status': status, 'product_id': product_id},
+                    success: function(data){
+                        console.log(data.success)
+                    }
+                });
+            })
+        })
+    </script>
+    @endsection
 @endsection

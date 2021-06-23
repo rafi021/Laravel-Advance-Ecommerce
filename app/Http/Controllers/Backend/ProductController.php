@@ -10,6 +10,7 @@ use App\Models\Image as ModelsImage;
 use App\Models\Product;
 use App\Models\SubCategory;
 use App\Models\SubSubCategory;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Image;
@@ -96,7 +97,7 @@ class ProductController extends Controller
                 $name_gen = hexdec(uniqid()).'.'.$file->getClientOriginalExtension();
                 Image::make($file)->resize(600,600)->save($upload_location.$name_gen);
                 $save_url = $upload_location.$name_gen;
-                
+
                 $product->update([
                     'product_thumbnail' => $save_url,
                 ]);
@@ -124,7 +125,7 @@ class ProductController extends Controller
 
         return redirect()->route('products.index')->with($notification);
     }
-        
+
         // 'product_thumbnail' => 'required|mimes:png,jpg',
     /**
      * Display the specified resource.
@@ -145,7 +146,7 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {   
+    {
         $brands = Brand::latest()->get();
         $categories = Category::latest()->get();
         $subcategories = SubCategory::latest()->get();
@@ -205,30 +206,30 @@ class ProductController extends Controller
                 $name_gen = hexdec(uniqid()).'.'.$file->getClientOriginalExtension();
                 Image::make($file)->resize(600,600)->save($upload_location.$name_gen);
                 $save_url = $upload_location.$name_gen;
-                
+
                 $product->update([
                     'product_thumbnail' => $save_url,
                 ]);
             }
 
-            if($request->file('product_images'))
-            {
-                $product_images = ModelsImage::where('product_id', '=',$product->id)->get();
-                foreach ($product_images as $value) {
-                        unlink($value->photo_name);
-                }
-                $images = $request->file('product_images');
-                foreach ($images as $single_image) {
-                    $upload_location = 'upload/products/multi_images/';
-                    $name_gen = hexdec(uniqid()).'.'.$single_image->getClientOriginalExtension();
-                    Image::make($single_image)->resize(600,600)->save($upload_location.$name_gen);
-                    $save_url = $upload_location.$name_gen;
-                    ModelsImage::create([
-                        'product_id' => $product->id,
-                        'photo_name' => $save_url,
-                    ]);
-                }
-            }
+            // if($request->file('product_images'))
+            // {
+            //     $product_images = ModelsImage::where('product_id', '=',$product->id)->get();
+            //     foreach ($product_images as $value) {
+            //             unlink($value->photo_name);
+            //     }
+            //     $images = $request->file('product_images');
+            //     foreach ($images as $single_image) {
+            //         $upload_location = 'upload/products/multi_images/';
+            //         $name_gen = hexdec(uniqid()).'.'.$single_image->getClientOriginalExtension();
+            //         Image::make($single_image)->resize(600,600)->save($upload_location.$name_gen);
+            //         $save_url = $upload_location.$name_gen;
+            //         ModelsImage::create([
+            //             'product_id' => $product->id,
+            //             'photo_name' => $save_url,
+            //         ]);
+            //     }
+            // }
 
         $notification = [
             'message' => 'Product Updated Successfully!!!',
@@ -253,6 +254,7 @@ class ProductController extends Controller
         $product_images = ModelsImage::where('product_id', '=',$product->id)->get();
         foreach ($product_images as $value) {
             unlink($value->photo_name);
+            $value->delete();
         }
         $product->delete();
 
@@ -262,5 +264,44 @@ class ProductController extends Controller
         ];
 
         return redirect()->route('products.index')->with($notification);
+    }
+
+    public function MultiImageUpdate(Request $request)
+    {
+        $imgs = $request->multi_img;
+
+		foreach ($imgs as $id => $img) {
+	    $imgDel = ModelsImage::findOrFail($id);
+	    unlink($imgDel->photo_name);
+
+    	$make_name = hexdec(uniqid()).'.'.$img->getClientOriginalExtension();
+        $upload_location = 'upload/products/multi_images/';
+    	Image::make($img)->resize(600,600)->save($upload_location.$make_name);
+    	$uploadPath = $upload_location.$make_name;
+
+    	ModelsImage::where('id',$id)->update([
+    		'photo_name' => $uploadPath,
+    		'updated_at' => Carbon::now(),
+
+    	]);
+
+	 } // end foreach
+
+    $notification = array(
+			'message' => 'Product Image Updated Successfully',
+			'alert-type' => 'info'
+		);
+
+		return redirect()->back()->with($notification);
+    }
+
+    public function changeStatus(Request $request)
+    {
+        //dd($request->all());
+        $product = Product::findOrFail($request->product_id);
+        $product->status = $request->status;
+        $product->save();
+
+        return response()->json(['success'=>'Product status change successfully.']);
     }
 }
