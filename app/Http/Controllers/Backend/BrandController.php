@@ -105,7 +105,7 @@ class BrandController extends Controller
     public function update(BrandUpdateRequest $request, Brand $brand)
     {
         if($request->file('brand_image')){
-            if($brand->brand_image){
+            if($brand->brand_image !='default.jpg'){
                 unlink($brand->brand_image);
             }
             $upload_location = 'upload/brands/';
@@ -147,7 +147,9 @@ class BrandController extends Controller
     public function destroy(Brand $brand)
     {
         //dd($brand);
-        unlink($brand->brand_image);
+        if($brand->brand_image !='default.jpg'){
+            unlink($brand->brand_image);
+        }
         $brand->delete();
 
         $notification = [

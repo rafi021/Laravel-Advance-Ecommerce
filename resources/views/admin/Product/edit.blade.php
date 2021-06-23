@@ -364,21 +364,21 @@
                                 <div class="col-md-4">
                                     <div class="form-check form-switch">
                                         <input class="form-check-input" type="checkbox" 
-                                        id="hot_deals" name="hot_deals" value="1">
+                                        id="hot_deals" name="hot_deals" value="1" {{ $product->hot_deals == 1 ? 'checked': '' }}>
                                         <label class="form-check-label" for="hot_deals">Hot Deals</label>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-check form-switch">
                                         <input class="form-check-input" type="checkbox" 
-                                        id="featured" name="featured" value="1">
+                                        id="featured" name="featured" value="1" {{ $product->featured == 1 ? 'checked': '' }}>
                                         <label class="form-check-label" for="featured">Featured</label>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-check form-switch">
                                         <input class="form-check-input" type="checkbox" 
-                                        id="new_arrival" name="new_arrival" checked value="1">
+                                        id="new_arrival" name="new_arrival" {{ $product->new_arrival == 1 ? 'checked': '' }} value="1">
                                         <label class="form-check-label" for="new_arrival">New Arrival</label>
                                     </div>
                                 </div>
@@ -387,21 +387,21 @@
                                 <div class="col-md-4">
                                     <div class="form-check form-switch">
                                         <input class="form-check-input" type="checkbox" 
-                                        id="special_offer" name="special_offer" value="1">
+                                        id="special_offer" name="special_offer" value="1" {{ $product->special_offer == 1 ? 'checked': '' }}>
                                         <label class="form-check-label" for="special_offer">Special Offer</label>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-check form-switch">
                                         <input class="form-check-input" type="checkbox" 
-                                        id="special_deals" name="special_deals" value="1">
+                                        id="special_deals" name="special_deals" value="1" {{ $product->special_deals == 1 ? 'checked': '' }}>
                                         <label class="form-check-label" for="special_deals">Special Deals</label>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-check form-switch">
                                         <input class="form-check-input" type="checkbox" 
-                                        id="status" name="status" checked value="1">
+                                        id="status" name="status" checked value="1" {{ $product->status == 1 ? 'checked': '' }}>
                                         <label class="form-check-label" for="status">Active Status</label>
                                     </div>
                                 </div>

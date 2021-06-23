@@ -29,6 +29,7 @@
                                                     <th>Product Qty</th>
                                                     <th>Purchase Price</th>
                                                     <th>Selling Price</th>
+                                                    <th>Status</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
@@ -43,6 +44,7 @@
                                                     <td>{{ $item->product_qty }}</td>
                                                     <td>{{ $item->purchase_price }}</td>
                                                     <td>{{ $item->selling_price }}</td>
+                                                    <td><a href="">{{ $item->status }}</a></td>
                                                     <td>
                                                         <div class="input-group">
                                                             <a href="{{ route('products.edit', $item) }}" class="btn btn-info" title="Edit Data"><i class="fa fa-pencil"></i></a>

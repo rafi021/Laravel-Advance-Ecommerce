@@ -51,7 +51,8 @@
                                                     <td class="sorting_1">{{ $item->brand_name_en }}</td>
                                                     <td>{{ $item->brand_name_bn }}</td>
                                                     <td>
-                                                        <img src="{{ asset($item->brand_image) }}" alt="" style="width: 70px; height:40px;">
+                                                        <img src="{{ asset($item->brand_image) }}" alt="" 
+                                                        style="width: 60px; height:60px;">
                                                     </td>
                                                     <td>
                                                         <div class="input-group">
