@@ -41,7 +41,7 @@
                             <div class="form-group">
                                 <h5>Category Image <span class="text-danger">*</span></h5>
                                 <div class="controls">
-                                    <input type="file" name="category_image" class="form-control" required="" data-validation-required-message="This field is required"> <div class="help-block"></div>
+                                    <input type="file" name="category_image" class="form-control"> <div class="help-block"></div>
                                 </div>
                                 @error('category_image')
                                     <span class="alert text-danger">{{ $message }}</span>
