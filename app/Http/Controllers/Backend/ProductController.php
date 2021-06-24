@@ -198,9 +198,9 @@ class ProductController extends Controller
             ]);
 
             if($request->file('product_thumbnail')){
-                if($product->product_thumbnail !='thumbnail.jpg'){
-                    unlink($product->product_thumbnail);
-                }
+                // if($product->product_thumbnail !='thumbnail.jpg'){
+                //     unlink($product->product_thumbnail);
+                // }
                 $upload_location = 'upload/products/thumbnail/';
                 $file = $request->file('product_thumbnail');
                 $name_gen = hexdec(uniqid()).'.'.$file->getClientOriginalExtension();
