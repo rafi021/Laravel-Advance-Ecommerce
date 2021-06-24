@@ -23,60 +23,64 @@ use App\Models\Admin;
 | contains the "web" middleware group. Now create something great!
 |
 */
+// Frontend customer/user logout, profile, change password routes
 
+
+Route::middleware(['auth:web'])->group(function(){
+
+    Route::middleware(['auth:sanctum, web', 'verified'])->get('/web/dashboard',[FrontendUserProfileController::class, 'userdashboard'])->name('dashboard');
+
+    Route::prefix('/user')->group(function () {
+        Route::get('/logout', [FrontendUserProfileController::class, 'userlogout'])->name('user.logout');
+        Route::get('/profile', [FrontendUserProfileController::class, 'userprofile'])->name('user.profile');
+        Route::post('/profile', [FrontendUserProfileController::class, 'userprofileupdate'])->name('user.profile');
+        Route::get('/password/change', [FrontendUserProfileController::class, 'userpasswordchange'])->name('user.change.password');
+        Route::post('/password/update', [FrontendUserProfileController::class, 'userpasswordupdate'])->name('user.update.password');
+    });
+});
+
+// Frontend Pages routes
 Route::get('/', [FrontendPageController::class,'home'])->name('home');
 Route::get('/category', [FrontendPageController::class,'category'])->name('category');
 Route::get('/product-detail', [FrontendPageController::class,'productDeatil'])->name('product-detail');
 
 
+// Admin Login routes
 Route::group(['prefix'=> 'admin', 'middleware'=>['admin:admin']], function(){
-	Route::get('/login',[AdminController::class, 'loginForm']);
-	Route::post('/login',[AdminController::class, 'store'])->name('admin.login');
+	Route::get('/1wire_rty/login',[AdminController::class, 'loginForm']);
+	Route::post('/1wire_rty/login',[AdminController::class, 'store'])->name('admin.login');
 });
 
-Route::prefix('/admin')->middleware('admin')->group(function () {
-    Route::get('/logout',[AdminController::class, 'destroy'])->name('admin.logout');
-    Route::resource('/profile', AdminProfileController::class);
-    Route::get('/edit/profile',[AdminProfileController::class, 'AdminProfileEdit'])->name('admin.profile.edit');
-    Route::get('/change/password',[AdminProfileController::class, 'AdminPasswordChange'])->name('admin.change.password');
-    Route::post('/change/password',[AdminProfileController::class, 'AdminPasswordUpdate'])->name('admin.password.update');
-});
+Route::middleware(['auth:admin'])->group(function(){
 
+    // Admin Logout/password change and profile routes
+    Route::prefix('/admin')->group(function () {
+        Route::get('/logout',[AdminController::class, 'destroy'])->name('admin.logout');
+        Route::resource('/profile', AdminProfileController::class);
+        Route::get('/edit/profile',[AdminProfileController::class, 'AdminProfileEdit'])->name('admin.profile.edit');
+        Route::get('/change/password',[AdminProfileController::class, 'AdminPasswordChange'])->name('admin.change.password');
+        Route::post('/change/password',[AdminProfileController::class, 'AdminPasswordUpdate'])->name('admin.password.update');
+    });
 
-Route::middleware(['auth:sanctum,admin', 'verified'])->get('/admin/dashboard', function () {
-    //$adminData = Admin::find(1);
-    return view('admin.index');
-})->name('admin.dashboard');
+    // Admin Dashboard routes
+    Route::middleware(['auth:sanctum,admin', 'verified'])->get('/admin/dashboard', function () {
+        return view('admin.index');
+    })->name('admin.dashboard');
 
+    // Admin Dashboard all functionality/features routes
+    Route::prefix('/admin')->group(function(){
+        Route::resource('/brands',BrandController::class);
+        Route::resource('/categories',CategoryController::class);
+        Route::resource('/subcategories', SubCategoryController::class);
+        Route::resource('/subsubcategories', SubSubCategoryController::class);
+        Route::get('/category/subcategory/ajax/{category_id}', [SubSubCategoryController::class, 'getSubCategory']);
+        Route::get('/category/subsubcategory/ajax/{subcategory_id}', [SubSubCategoryController::class, 'getSubSubCategory']);
+        Route::resource('/products', ProductController::class);
+        // update multi-image route
+        Route::post('/products/image/update', [ProductController::class, 'MultiImageUpdate'])->name('update-product-image');
+        Route::get('/changestatus', [ProductController::class, 'changeStatus'])->name('change-product-status');
 
-
-Route::middleware(['auth:sanctum,web', 'verified'])->get('/dashboard',[FrontendUserProfileController::class, 'userdashboard'])->name('dashboard');
-
-// Route::prefix('/user')->middleware(['auth:sanctum,web', 'verified'])->group(function () {
-//     Route::get('/dashboard', [FrontendUserProfileController::class, 'userdashboard'])->name('dashboard');
-// });
-
-Route::prefix('/user')->group(function () {
-    Route::get('/logout', [FrontendUserProfileController::class, 'userlogout'])->name('user.logout');
-    Route::get('/profile', [FrontendUserProfileController::class, 'userprofile'])->name('user.profile');
-    Route::post('/profile', [FrontendUserProfileController::class, 'userprofileupdate'])->name('user.profile');
-    Route::get('/password/change', [FrontendUserProfileController::class, 'userpasswordchange'])->name('user.change.password');
-    Route::post('/password/update', [FrontendUserProfileController::class, 'userpasswordupdate'])->name('user.update.password');
-});
-
-// Brand all routes
-Route::prefix('/admin')->middleware(['auth:sanctum,admin', 'verified'])->group(function(){
-    Route::resource('/brands',BrandController::class);
-    Route::resource('/categories',CategoryController::class);
-    Route::resource('/subcategories', SubCategoryController::class);
-    Route::resource('/subsubcategories', SubSubCategoryController::class);
-    Route::get('/category/subcategory/ajax/{category_id}', [SubSubCategoryController::class, 'getSubCategory']);
-    Route::get('/category/subsubcategory/ajax/{subcategory_id}', [SubSubCategoryController::class, 'getSubSubCategory']);
-    Route::resource('/products', ProductController::class);
-    // update multi-image route
-    Route::post('/products/image/update', [ProductController::class, 'MultiImageUpdate'])->name('update-product-image');
-    Route::get('/changestatus', [ProductController::class, 'changeStatus'])->name('change-product-status');
-
-    Route::resource('/slider', AdminSliderController::class);
-    Route::get('/changesliderstatus', [AdminSliderController::class, 'changeSliderStatus'])->name('change-product-status');
+        Route::resource('/slider', AdminSliderController::class);
+        Route::get('/changesliderstatus', [AdminSliderController::class, 'changeSliderStatus'])->name('change-product-status');
+    });
 });
