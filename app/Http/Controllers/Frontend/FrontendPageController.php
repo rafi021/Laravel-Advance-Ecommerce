@@ -14,7 +14,7 @@ class FrontendPageController extends Controller
     public function home()
     {
         $categories = Category::with(['subcategory'])->orderBy('category_name_en', 'ASC')->get();
-        $sliders = Slider::where('slider_name', '=', 'Main-Slider')->get();
+        $sliders = Slider::where('slider_name', '=', 'Main-Slider')->where('slider_status', '=', 1)->limit(3)->get();
 
         //return response()->json($categories);
         return view('frontend.index', compact('categories', 'sliders'));
