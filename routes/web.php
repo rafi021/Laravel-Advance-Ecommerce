@@ -11,7 +11,7 @@ use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Backend\SubSubCategoryController;
 use App\Http\Controllers\Frontend\FrontendPageController;
 use App\Http\Controllers\Frontend\FrontendUserProfileController;
-use App\Models\Admin;
+use App\Http\Controllers\Frontend\LanguageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,12 +43,15 @@ Route::middleware(['auth:web'])->group(function(){
 Route::get('/', [FrontendPageController::class,'home'])->name('home');
 Route::get('/category', [FrontendPageController::class,'category'])->name('category');
 Route::get('/product-detail', [FrontendPageController::class,'productDeatil'])->name('product-detail');
+Route::get('/english/language', [LanguageController::class, 'englishLoad'])->name('english.language');
+Route::get('/bangla/language', [LanguageController::class, 'banglaLoad'])->name('bangla.language');
+
 
 
 // Admin Login routes
 Route::group(['prefix'=> 'admin', 'middleware'=>['admin:admin']], function(){
 	Route::get('/1wire_rty/login',[AdminController::class, 'loginForm']);
-	Route::post('/1wire_rty/login',[AdminController::class, 'store'])->name('admin.login');
+	Route::post('/login',[AdminController::class, 'store'])->name('admin.login');
 });
 
 Route::middleware(['auth:admin'])->group(function(){
