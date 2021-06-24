@@ -5,7 +5,8 @@
             <ul class="nav">
 
                 @foreach ($categories as $category)
-                <li class="dropdown menu-item"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon fa fa-shopping-bag" aria-hidden="true"></i>
+                <li class="dropdown menu-item"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="icon {{ $category->category_icon }}" aria-hidden="true"></i>
                     @if (session()->get('language') == 'bangla')
                     {{ $category->category_name_bn }}
                     @else

@@ -39,6 +39,15 @@
                                 @enderror
                             </div>
                             <div class="form-group">
+                                <h5>Category Icon <span class="text-danger"></span></h5>
+                                <div class="controls">
+                                    <input type="text" name="category_icon" class="form-control" value="{{ old('category_icon', $category->category_icon) }}"> <div class="help-block"></div>
+                                </div>
+                                @error('category_icon')
+                                    <span class="alert text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="form-group">
                                 <h5>Category Image <span class="text-danger">*</span></h5>
                                 <div class="controls">
                                     <input type="file" name="category_image" class="form-control"> <div class="help-block"></div>

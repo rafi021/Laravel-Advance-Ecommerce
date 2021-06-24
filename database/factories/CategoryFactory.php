@@ -30,6 +30,7 @@ class CategoryFactory extends Factory
             'category_name_bn' => $category_name_bn,
             'category_slug_en' => Str::slug($category_name_en),
             'category_slug_bn' => Str::slug($category_name_bn),
+            'category_icon' => 'fa fa-shopping-bag',
         ];
     }
 }

@@ -25,6 +25,7 @@
                                             <thead>
                                                 <tr role="row">
                                                     <th>#</th>
+                                                    <th>Category ICON</th>
                                                     <th>Category Name EN</th>
                                                     <th>Category Name BN</th>
                                                     <th>Category Image</th>
@@ -35,6 +36,7 @@
                                                 @foreach ($categories as $item)
                                                 <tr role="row" class="odd">
                                                     <td>{{ $loop->index+1 }}</td>
+                                                    <td>{{ $item->category_icon }}</td>
                                                     <td class="sorting_1">{{ $item->category_name_en }}</td>
                                                     <td>{{ $item->category_name_bn }}</td>
                                                     <td>

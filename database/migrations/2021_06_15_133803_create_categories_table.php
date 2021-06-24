@@ -19,6 +19,7 @@ class CreateCategoriesTable extends Migration
             $table->string('category_name_bn');
             $table->string('category_slug_en');
             $table->string('category_slug_bn');
+            $table->string('category_icon')->nullable()->default('fa fa-shopping-bag');
             $table->string('category_image')->nullable()->default('default.jpg');
             $table->timestamps();
         });

@@ -38,6 +38,15 @@
                                 @enderror
                             </div>
                             <div class="form-group">
+                                <h5>Category Icon <span class="text-danger"></span></h5>
+                                <div class="controls">
+                                    <input type="text" name="category_icon" class="form-control"> <div class="help-block"></div>
+                                </div>
+                                @error('category_icon')
+                                    <span class="alert text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="form-group">
                                 <h5>category Image <span class="text-danger">*</span></h5>
                                 <div class="controls">
                                     <input type="file" name="category_image" class="form-control" required="" data-validation-required-message="This field is required"> <div class="help-block"></div>

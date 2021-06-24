@@ -39,7 +39,7 @@ class CategoryController extends Controller
      */
     public function store(CategoryStoreRequest $request)
     {
-        
+
         if($request->file('category_image')){
             $upload_location = 'upload/categories/';
             $file = $request->file('category_image');
@@ -52,6 +52,7 @@ class CategoryController extends Controller
                 'category_name_bn' => $request->input('category_name_bn'),
                 'category_slug_en' => Str::slug($request->input('category_slug_en')),
                 'category_slug_bn' => Str::slug($request->input('category_slug_bn')),
+                'category_icon' => $request->input('category_icon'),
                 'category_image' => $save_url
             ]);
         }else{
@@ -60,6 +61,7 @@ class CategoryController extends Controller
                 'category_name_bn' => $request->input('category_name_bn'),
                 'category_slug_en' => Str::slug($request->input('category_slug_en')),
                 'category_slug_bn' => Str::slug($request->input('category_slug_bn')),
+                'category_icon' => $request->input('category_icon'),
             ]);
         }
 
@@ -117,6 +119,7 @@ class CategoryController extends Controller
                 'category_name_bn' => $request->input('category_name_bn'),
                 'category_slug_en' => Str::slug($request->input('category_slug_en')),
                 'category_slug_bn' => Str::slug($request->input('category_slug_bn')),
+                'category_icon' => $request->input('category_icon'),
                 'category_image' => $save_url
             ]);
         }else{
@@ -125,6 +128,7 @@ class CategoryController extends Controller
                 'category_name_bn' => $request->input('category_name_bn'),
                 'category_slug_en' => Str::slug($request->input('category_slug_en')),
                 'category_slug_bn' => Str::slug($request->input('category_slug_bn')),
+                'category_icon' => $request->input('category_icon'),
             ]);
         }
 
