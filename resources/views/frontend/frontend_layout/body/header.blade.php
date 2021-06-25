@@ -165,6 +165,9 @@
                     Home
                     @endif</a>
                 </li>
+                @php
+                $categories = App\Models\Category::with(['subcategory'])->orderBy('category_name_en', 'ASC')->get();
+                @endphp
                 @foreach ($categories as $category)
                 @if ($loop->index>4)
                     @php
