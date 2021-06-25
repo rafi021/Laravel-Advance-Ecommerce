@@ -23,16 +23,16 @@
         </div>
         </div>
         <!-- /.hot-deal-wrapper -->
-        
+
         <div class="product-info text-left m-t-20">
         <h3 class="name"><a href="detail.html">Floral Print Buttoned</a></h3>
         <div class="rating rateit-small"></div>
         <div class="product-price"> <span class="price"> $600.00 </span> <span class="price-before-discount">$800.00</span> </div>
-        <!-- /.product-price --> 
-        
+        <!-- /.product-price -->
+
         </div>
         <!-- /.product-info -->
-        
+
         <div class="cart clearfix animate-effect">
         <div class="action">
             <div class="add-cart-button btn-group">
@@ -40,9 +40,9 @@
             <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
             </div>
         </div>
-        <!-- /.action --> 
+        <!-- /.action -->
         </div>
-        <!-- /.cart --> 
+        <!-- /.cart -->
     </div>
     </div>
     <div class="item">
@@ -67,16 +67,16 @@
         </div>
         </div>
         <!-- /.hot-deal-wrapper -->
-        
+
         <div class="product-info text-left m-t-20">
         <h3 class="name"><a href="detail.html">Floral Print Buttoned</a></h3>
         <div class="rating rateit-small"></div>
         <div class="product-price"> <span class="price"> $600.00 </span> <span class="price-before-discount">$800.00</span> </div>
-        <!-- /.product-price --> 
-        
+        <!-- /.product-price -->
+
         </div>
         <!-- /.product-info -->
-        
+
         <div class="cart clearfix animate-effect">
         <div class="action">
             <div class="add-cart-button btn-group">
@@ -84,9 +84,9 @@
             <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
             </div>
         </div>
-        <!-- /.action --> 
+        <!-- /.action -->
         </div>
-        <!-- /.cart --> 
+        <!-- /.cart -->
     </div>
     </div>
     <div class="item">
@@ -111,16 +111,16 @@
         </div>
         </div>
         <!-- /.hot-deal-wrapper -->
-        
+
         <div class="product-info text-left m-t-20">
         <h3 class="name"><a href="detail.html">Floral Print Buttoned</a></h3>
         <div class="rating rateit-small"></div>
         <div class="product-price"> <span class="price"> $600.00 </span> <span class="price-before-discount">$800.00</span> </div>
-        <!-- /.product-price --> 
-        
+        <!-- /.product-price -->
+
         </div>
         <!-- /.product-info -->
-        
+
         <div class="cart clearfix animate-effect">
         <div class="action">
             <div class="add-cart-button btn-group">
@@ -128,11 +128,11 @@
             <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
             </div>
         </div>
-        <!-- /.action --> 
+        <!-- /.action -->
         </div>
-        <!-- /.cart --> 
+        <!-- /.cart -->
     </div>
     </div>
 </div>
-<!-- /.sidebar-widget --> 
+<!-- /.sidebar-widget -->
 </div>

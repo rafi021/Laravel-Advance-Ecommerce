@@ -30,12 +30,13 @@
     <div class="tab-pane in active" id="all">
         <div class="product-slider">
         <div class="owl-carousel home-owl-carousel custom-carousel owl-theme" data-item="6">
-            @foreach ($new_products as $product)
+            @forelse ($new_products as $product)
             <div class="item item-carousel">
                 <div class="products">
                     <div class="product">
                         <div class="product-image">
-                        <div class="image"> <a href="detail.html">
+                        <div class="image">
+                            <a href="{{ route('frontend-product-details',['id' => $product->id, 'slug' => $product->product_slug_en]) }}">
                             <img  src="{{ asset($product->product_thumbnail) }}" alt="">
                             </a>
                         </div>
@@ -51,7 +52,8 @@
                         </div>
                         <!-- /.product-image -->
                         <div class="product-info text-left">
-                        <h3 class="name"><a href="detail.html">
+                        <h3 class="name">
+                            <a href="{{ route('frontend-product-details',['id' => $product->id, 'slug' => $product->product_slug_en]) }}">
                             @if (session()->get('language') == 'bangla')
                             {{ $product->product_name_bn }}
                             @else
@@ -77,8 +79,10 @@
                                 <button data-toggle="tooltip" class="btn btn-primary icon" type="button" title="Add Cart"> <i class="fa fa-shopping-cart"></i> </button>
                                 <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
                             </li>
-                            <li class="lnk wishlist"> <a data-toggle="tooltip" class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
-                            <li class="lnk"> <a data-toggle="tooltip" class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>
+                            <li class="lnk wishlist">
+                                <a data-toggle="tooltip" class="add-to-cart" href="{{ route('frontend-product-details',['id' => $product->id, 'slug' => $product->product_slug_en]) }}" title="Wishlist"> <i class="icon fa fa-heart"></i> </a>
+                            </li>
+                            <li class="lnk"> <a data-toggle="tooltip" class="add-to-cart" href="{{ route('frontend-product-details',['id' => $product->id, 'slug' => $product->product_slug_en]) }}" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>
                             </ul>
                         </div>
                         <!-- /.action -->
@@ -89,7 +93,9 @@
                 </div>
             <!-- /.products -->
             </div>
-            @endforeach
+            @empty
+            <h5 class="text-danger">No Product Found</h5>
+            @endforelse
         <!-- /.item -->
         </div>
         <!-- /.home-owl-carousel -->
@@ -105,12 +111,13 @@
                 $categorywise_products = App\Models\Product::where('category_id',$category->id)
                 ->limit(6)->get();
             @endphp
-            @foreach ($categorywise_products as $product)
+            @forelse ($categorywise_products as $product)
             <div class="item item-carousel">
                 <div class="products">
                     <div class="product">
                         <div class="product-image">
-                        <div class="image"> <a href="detail.html">
+                        <div class="image">
+                            <a href="{{ route('frontend-product-details',['id' => $product->id, 'slug' => $product->product_slug_en]) }}">
                             <img  src="{{ asset($product->product_thumbnail) }}" alt="">
                             </a>
                         </div>
@@ -127,7 +134,8 @@
                         </div>
                         <!-- /.product-image -->
                         <div class="product-info text-left">
-                        <h3 class="name"><a href="detail.html">
+                        <h3 class="name">
+                            <a href="{{ route('frontend-product-details',['id' => $product->id, 'slug' => $product->product_slug_en]) }}">
                             @if (session()->get('language') == 'bangla')
                             {{ $product->product_name_bn }}
                             @else
@@ -153,8 +161,8 @@
                                 <button data-toggle="tooltip" class="btn btn-primary icon" type="button" title="Add Cart"> <i class="fa fa-shopping-cart"></i> </button>
                                 <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
                             </li>
-                            <li class="lnk wishlist"> <a data-toggle="tooltip" class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
-                            <li class="lnk"> <a data-toggle="tooltip" class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>
+                            <li class="lnk wishlist"> <a data-toggle="tooltip" class="add-to-cart" href="{{ route('frontend-product-details',['id' => $product->id, 'slug' => $product->product_slug_en]) }}" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
+                            <li class="lnk"> <a data-toggle="tooltip" class="add-to-cart" href="{{ route('frontend-product-details',['id' => $product->id, 'slug' => $product->product_slug_en]) }}" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>
                             </ul>
                         </div>
                         <!-- /.action -->
@@ -165,7 +173,9 @@
                 </div>
             <!-- /.products -->
             </div>
-            @endforeach
+            @empty
+                <h5 class="text-danger">No Product Found</h5>
+            @endforelse
         <!-- /.item -->
         </div>
         <!-- /.home-owl-carousel -->

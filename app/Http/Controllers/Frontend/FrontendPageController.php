@@ -33,9 +33,16 @@ class FrontendPageController extends Controller
         return view('frontend.frontend_layout.category_page.category-page');
     }
 
-    public function productDeatil()
+    public function productDeatil($id, $slug)
     {
-        return view('frontend.frontend_layout.product_page.product-page');
+        $categories = Category::with(['subcategory'])->orderBy('category_name_en', 'ASC')->get();
+        $product = Product::with(['images'])->findOrFail($id);
+
+        //return response()->json($product);
+        return view('frontend.frontend_layout.product_page.product-page', compact(
+            'categories',
+            'product'
+        ));
     }
 
 }
