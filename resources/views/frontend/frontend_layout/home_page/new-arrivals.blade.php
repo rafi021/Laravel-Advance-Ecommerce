@@ -2,7 +2,7 @@
     <h3 class="section-title">New Arrivals</h3>
     <div class="owl-carousel home-owl-carousel custom-carousel owl-theme outer-top-xs">
         @php
-            $new_arrival_products = App\Models\Product::where('new_arrival',1)->limit(20)->get();
+            $new_arrival_products = App\Models\Product::where('new_arrival',1)->latest()->limit(20)->get();
         @endphp
         @foreach ($new_arrival_products as $product)
         <div class="item item-carousel">

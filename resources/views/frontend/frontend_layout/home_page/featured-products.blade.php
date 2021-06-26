@@ -2,7 +2,7 @@
     <h3 class="section-title">Featured products</h3>
     <div class="owl-carousel home-owl-carousel custom-carousel owl-theme outer-top-xs">
         @php
-            $featured_products = App\Models\Product::where('featured',1)->limit(6)->get();
+            $featured_products = App\Models\Product::where('featured',1)->latest()->limit(6)->get();
         @endphp
         @foreach ($featured_products as $product)
         <div class="item item-carousel">
