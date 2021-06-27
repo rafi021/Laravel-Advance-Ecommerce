@@ -8,7 +8,8 @@
     </h3>
     <div class="owl-carousel sidebar-carousel custom-carousel owl-theme outer-top-ss">
         @php
-            $hot_deals_products = App\Models\Product::where('hot_deals', 1)->latest()->limit(6)->get();
+            $hot_deals_products = App\Models\Product::where('hot_deals', 1)
+                ->where('discount_price','!=',NULL)->latest()->limit(6)->get();
         @endphp
         @foreach ($hot_deals_products as $product)
         <div class="item">
