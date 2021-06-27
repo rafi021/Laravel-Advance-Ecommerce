@@ -1,5 +1,11 @@
 <section class="section featured-product wow fadeInUp">
-    <h3 class="section-title">Featured products</h3>
+    <h3 class="section-title">
+        @if (session()->get('language') == 'bangla')
+        বৈশিষ্ট্যযুক্ত পণ্য
+        @else
+        Featured products
+        @endif
+    </h3>
     <div class="owl-carousel home-owl-carousel custom-carousel owl-theme outer-top-xs">
         @php
             $featured_products = App\Models\Product::where('featured',1)->latest()->limit(6)->get();

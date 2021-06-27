@@ -1,5 +1,11 @@
 <div class="sidebar-widget hot-deals wow fadeInUp outer-bottom-xs">
-    <h3 class="section-title">hot deals</h3>
+    <h3 class="section-title">
+        @if (session()->get('language') == 'bangla')
+        উষ্ণ চুক্তি
+        @else
+        Hot deals
+        @endif
+    </h3>
     <div class="owl-carousel sidebar-carousel custom-carousel owl-theme outer-top-ss">
         @php
             $hot_deals_products = App\Models\Product::where('hot_deals', 1)->latest()->limit(6)->get();

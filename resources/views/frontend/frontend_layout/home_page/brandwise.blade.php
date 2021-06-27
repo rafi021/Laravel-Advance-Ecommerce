@@ -1,34 +1,23 @@
-<section class="section wow fadeInUp new-arriavls">
+{{-- @foreach ($categories as $category) --}}
+<section class="section featured-product wow fadeInUp">
     <h3 class="section-title">
         @if (session()->get('language') == 'bangla')
-        নতুন আগমন
+        {{ $skip_brand_0->brand_name_bn }} ব্র্যান্ড পণ্য
         @else
-        New Arrivals
+        {{ $skip_brand_0->brand_name_en }} Brand Products
         @endif
     </h3>
     <div class="owl-carousel home-owl-carousel custom-carousel owl-theme outer-top-xs">
-        @php
-            $new_arrival_products = App\Models\Product::where('new_arrival',1)->latest()->limit(20)->get();
-        @endphp
-        @foreach ($new_arrival_products as $product)
+        @foreach ($skip_brand_products_0 as $product)
         <div class="item item-carousel">
             <div class="products">
                 <div class="product">
                     <div class="product-image">
-                        <div class="image">
-                            <a href="{{ route('frontend-product-details',['id' => $product->id, 'slug' => $product->product_slug_en]) }}">
-                                <img src="{{ asset($product->product_thumbnail) }}" alt="">
-                            </a>
-                        </div>
+                        <div class="image"> <a href="{{ route('frontend-product-details',['id' => $product->id, 'slug' => $product->product_slug_en]) }}"><img
+                                    src="{{ asset($product->product_thumbnail) }}" alt=""></a> </div>
                         <!-- /.image -->
-                        @php
-                        $discount_amount = (($product->selling_price-$product->discount_price)/($product->selling_price))*100
-                        @endphp
-                        @if ($product->discount_price == NULL)
-                            <div class="tag new"><span>New</span></div>
-                        @else
-                            <div class="tag new"><span>{{ round($discount_amount) }}%</span></div>
-                        @endif
+
+                        <div class="tag hot"><span>hot</span></div>
                     </div>
                     <!-- /.product-image -->
 
@@ -42,7 +31,7 @@
                         </a></h3>
                         <div class="rating rateit-small"></div>
                         <div class="description"></div>
-                            @if ($product->discount_price == NULL)
+                        @if ($product->discount_price == NULL)
                             <div class="product-price"><span class="price">${{ $product->selling_price }}</span>
                             </div>
                         @else
@@ -80,4 +69,4 @@
     </div>
     <!-- /.home-owl-carousel -->
 </section>
-<!-- /.section -->
+{{-- @endforeach --}}

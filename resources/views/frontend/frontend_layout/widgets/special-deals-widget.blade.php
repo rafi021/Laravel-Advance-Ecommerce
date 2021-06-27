@@ -1,5 +1,11 @@
 <div class="sidebar-widget outer-bottom-small wow fadeInUp">
-    <h3 class="section-title">Special Deals</h3>
+    <h3 class="section-title">
+        @if (session()->get('language') == 'bangla')
+        বিশেষ চুক্তি
+        @else
+        Special Deals
+        @endif
+    </h3>
     <div class="sidebar-widget-body outer-top-xs">
         <div class="owl-carousel sidebar-carousel special-offer custom-carousel owl-theme outer-top-xs">
             @php
