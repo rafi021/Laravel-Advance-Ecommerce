@@ -8,11 +8,11 @@
         <div class="tag-list">
             @if (session()->get('langiage') == 'bangla')
             @foreach ($tags_en as $item)
-            <a class="item active" title="Phone" href="category.html">{{ str_replace(',',' ',$item->product_tags_en) }}</a>
+            <a class="item active" title="Phone" href="{{ route('product.tag',['tag' => $item->product_tags_en]) }}">{{ str_replace(',',' ',$item->product_tags_en) }}</a>
             @endforeach
             @else
             @foreach ($tags_bn as $item)
-                <a class="item active" title="Phone" href="category.html">{{ str_replace(',',' ',$item->product_tags_bn) }}</a>
+                <a class="item active" title="Phone" href="{{ route('product.tag',['tag' => $item->product_tags_bn]) }}">{{ str_replace(',',' ',$item->product_tags_bn) }}</a>
             @endforeach
             @endif
 

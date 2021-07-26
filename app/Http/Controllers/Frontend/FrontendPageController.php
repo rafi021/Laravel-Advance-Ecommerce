@@ -60,4 +60,12 @@ class FrontendPageController extends Controller
         ));
     }
 
+    public function tagwiseProduct($tag)
+    {
+        $tag_products = Product::where('status',1)->where('product_tags_en', $tag)
+        ->where('product_tags_bn',$tag)->orderBy('id', 'DESC')->get();
+        $categories = Category::with(['subcategory', 'products'])->orderBy('category_name_en', 'ASC')->get();
+        return view('frontend.tags.tags_view', compact('tag_products', 'categories'));
+    }
+
 }
