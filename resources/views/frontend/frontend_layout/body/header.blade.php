@@ -188,15 +188,17 @@
                                 @foreach ($category->subcategory as $subcategory)
                                 <div class="col-xs-12 col-sm-6 col-md-2 col-menu">
                                     <h2 class="title">
+                                        <a href="{{ route('subcategory.products',['id' => $subcategory->id, 'slug' => $subcategory->subcategory_slug_en]) }}">
                                         @if (session()->get('language') == 'bangla')
                                         {{ $subcategory->subcategory_name_bn }}
                                         @else
                                         {{ $subcategory->subcategory_name_en }}
                                         @endif
+                                        </a>
                                     </h2>
                                     <ul class="links">
                                         @foreach ($subcategory->subsubcategory as $subsubcategory)
-                                            <li><a href="#">
+                                            <li><a href="{{ route('subsubcategory.products',['id' => $subsubcategory->id, 'slug' => $subsubcategory->subsubcategory_slug_en]) }}">
                                                 @if (session()->get('language') == 'bangla')
                                                 {{ $subsubcategory->subsubcategory_name_bn}}
                                                 @else
