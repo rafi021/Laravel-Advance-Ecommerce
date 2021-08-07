@@ -51,7 +51,8 @@ Route::get('/bangla/language', [LanguageController::class, 'banglaLoad'])->name(
 Route::get('/product/tag/{tag}', [FrontendPageController::class, 'tagwiseProduct'])->name('product.tag');
 //subcategory wise products route
 Route::get('/subcategory/{id}/{slug}', [FrontendPageController::class,'subcategoryProducts'])->name('subcategory.products');
-
+//subsubcategory wise products route
+Route::get('/subsubcategory/{id}/{slug}', [FrontendPageController::class,'subsubcategoryProducts'])->name('subsubcategory.products');
 
 
 // Admin Login routes

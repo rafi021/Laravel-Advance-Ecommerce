@@ -33,7 +33,7 @@
                                 <ul class="links list-unstyled">
                                     @foreach ($subcategory->subsubcategory as $subsubcategory)
                                     <li>
-                                        <a href="#">
+                                        <a href="{{ route('subsubcategory.products',['id' => $subsubcategory->id, 'slug' => $subsubcategory->subsubcategory_slug_en]) }}">
                                         @if (session()->get('language') == 'bangla')
                                         {{ $subsubcategory->subsubcategory_name_bn}}
                                         @else
