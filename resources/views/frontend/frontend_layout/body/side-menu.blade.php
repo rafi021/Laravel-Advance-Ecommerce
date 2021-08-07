@@ -22,21 +22,25 @@
                             @foreach ($category->subcategory as $subcategory)
                             <div class="col-sm-12 col-md-3">
                                 <h2 class="title">
+                                <a href="{{ route('subcategory.products',['id' => $subcategory->id, 'slug' => $subcategory->subcategory_slug_en]) }}">
                                     @if (session()->get('language') == 'bangla')
                                     {{ $subcategory->subcategory_name_bn }}
                                     @else
                                     {{ $subcategory->subcategory_name_en }}
                                     @endif
+                                </a>
                                 </h2>
                                 <ul class="links list-unstyled">
                                     @foreach ($subcategory->subsubcategory as $subsubcategory)
-                                    <li><a href="#">
+                                    <li>
+                                        <a href="#">
                                         @if (session()->get('language') == 'bangla')
                                         {{ $subsubcategory->subsubcategory_name_bn}}
                                         @else
                                         {{ $subsubcategory->subsubcategory_name_en}}
                                         @endif
-                                    </a></li>
+                                        </a>
+                                    </li>
                                     @endforeach
                                 </ul>
                             </div>

@@ -46,7 +46,11 @@ Route::get('/category', [FrontendPageController::class,'category'])->name('categ
 Route::get('/product/detail/{id}/{slug}', [FrontendPageController::class,'productDeatil'])->name('frontend-product-details');
 Route::get('/english/language', [LanguageController::class, 'englishLoad'])->name('english.language');
 Route::get('/bangla/language', [LanguageController::class, 'banglaLoad'])->name('bangla.language');
+
+// Tags wise products route
 Route::get('/product/tag/{tag}', [FrontendPageController::class, 'tagwiseProduct'])->name('product.tag');
+//subcategory wise products route
+Route::get('/subcategory/{id}/{slug}', [FrontendPageController::class,'subcategoryProducts'])->name('subcategory.products');
 
 
 

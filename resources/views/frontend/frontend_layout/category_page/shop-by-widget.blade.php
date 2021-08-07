@@ -8,6 +8,9 @@
             </div>
             <div class="sidebar-widget-body">
                 <div class="accordion">
+                    @php
+                        $categories = \App\Models\Category::with(['subcategory'])->orderBy('category_name_en', 'ASC')->get();
+                    @endphp
                     @foreach ($categories as $category)
                     <div class="accordion-group">
                         <div class="accordion-heading"> <a href="#collapse{{ $category->id }}" data-toggle="collapse"
@@ -23,7 +26,7 @@
                             <div class="accordion-inner">
                                 @foreach ($category->subcategory as $subcategory)
                                 <ul>
-                                    <li><a href="#">
+                                    <li><a href="{{ route('subcategory.products',['id' => $subcategory->id, 'slug' => $subcategory->subcategory_slug_en]) }}">
                                         @if (session()->get('language') == 'bangla')
                                         {{ $subcategory->subcategory_name_bn }}
                                         @else

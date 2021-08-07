@@ -68,4 +68,10 @@ class FrontendPageController extends Controller
         return view('frontend.tags.tags_view', compact('tag_products', 'categories'));
     }
 
+    public function subcategoryProducts($id, $slug)
+    {
+        $subcategory_products = Product::where('status', 1)->where('subcategory_id', $id)->orderBy('id','DESC')->paginate(3);
+        //$categories = Category::with(['subcategory'])->orderBy('category_name_en', 'ASC')->get();
+        return view('frontend.frontend_layout.subcategory_page.subcategory_product_page', compact('subcategory_products'));
+    }
 }
