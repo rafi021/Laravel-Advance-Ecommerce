@@ -183,10 +183,9 @@
                                                     @if ($product->discount_price == NULL)
                                                         <span class="price">${{ $product->selling_price }}</span>
                                                     @else
-
-                                                    @endif
                                                     <span class="price">${{ $product->discount_price }}</span>
                                                     <span class="price-strike">${{ $product->selling_price }}</span>
+                                                    @endif
                                                 </div>
                                             </div>
 

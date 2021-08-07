@@ -21,8 +21,8 @@
                         <!-- /.accordion-heading -->
                         <div class="accordion-body collapse" id="collapse{{ $category->id }}" style="height: 0px;">
                             <div class="accordion-inner">
+                                @foreach ($category->subcategory as $subcategory)
                                 <ul>
-                                    @foreach ($category->subcategory as $subcategory)
                                     <li><a href="#">
                                         @if (session()->get('language') == 'bangla')
                                         {{ $subcategory->subcategory_name_bn }}
@@ -30,8 +30,8 @@
                                         {{ $subcategory->subcategory_name_en }}
                                         @endif
                                     </a></li>
-                                    @endforeach
                                 </ul>
+                                @endforeach
                             </div>
                             <!-- /.accordion-inner -->
                         </div>
