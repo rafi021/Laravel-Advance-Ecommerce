@@ -47,9 +47,10 @@
                         <div class="action">
                             <ul class="list-unstyled">
                                 <li class="add-cart-button btn-group">
-                                    <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i
+                                    <button class="btn btn-primary icon" type="button" data-toggle="modal" data-target="#exampleModal"> <i
                                             class="fa fa-shopping-cart"></i> </button>
-                                    <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+                                            <!-- Button trigger modal -->
+                                            <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
                                 </li>
                                 <li class="lnk wishlist"> <a class="add-to-cart" href="{{ route('frontend-product-details',['id' => $product->id, 'slug' => $product->product_slug_en]) }}" title="Wishlist"> <i
                                             class="icon fa fa-heart"></i> </a> </li>
