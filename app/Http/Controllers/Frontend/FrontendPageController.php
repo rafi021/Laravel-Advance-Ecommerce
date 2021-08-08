@@ -52,11 +52,18 @@ class FrontendPageController extends Controller
     {
         $categories = Category::with(['subcategory'])->orderBy('category_name_en', 'ASC')->get();
         $product = Product::with(['images'])->findOrFail($id);
-
+        $colors_en = explode(',', $product->product_color_en);
+        $colors_bn = explode(',', $product->product_color_bn);
+        $size_en = explode(',', $product->product_size_en);
+        $size_bn = explode(',', $product->product_size_bn);
         //return response()->json($product);
         return view('frontend.frontend_layout.product_page.product-page', compact(
             'categories',
-            'product'
+            'product',
+            'colors_en',
+            'colors_bn',
+            'size_en',
+            'size_bn',
         ));
     }
 

@@ -176,8 +176,6 @@
 
                                     <div class="price-container info-container m-t-20">
                                         <div class="row">
-
-
                                             <div class="col-sm-6">
                                                 <div class="price-box">
                                                     @if ($product->discount_price == NULL)
@@ -188,7 +186,6 @@
                                                     @endif
                                                 </div>
                                             </div>
-
                                             <div class="col-sm-6">
                                                 <div class="favorite-button m-t-10">
                                                     <a class="btn btn-primary" data-toggle="tooltip" data-placement="right"
@@ -205,13 +202,51 @@
                                                     </a>
                                                 </div>
                                             </div>
-
                                         </div><!-- /.row -->
                                     </div><!-- /.price-container -->
 
+                                    {{-- Add product color and size --}}
+
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="info-title control-label">Choose Color <span>*</span></label>
+                                                <select class="form-control unicase-form-control selectpicker" style="display: none;">
+                                                    <option selected="" disabled="">--Select color--</option>
+                                                    @if (session()->get('langiage') == 'bangla')
+                                                    @foreach ($colors_bn as $item)
+                                                        <option>{{ $item }}</option>
+                                                    @endforeach
+                                                    @else
+                                                    @foreach ($colors_en as $item)
+                                                        <option>{{ $item}}</option>
+                                                    @endforeach
+                                                    @endif
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="info-title control-label">Choose Size <span>*</span></label>
+                                                <select class="form-control unicase-form-control selectpicker" style="display: none;">
+                                                    <option selected="" disabled="">--Select size--</option>
+                                                    @if (session()->get('langiage') == 'bangla')
+                                                    @foreach ($size_bn as $item)
+                                                        <option>{{ $item }}</option>
+                                                    @endforeach
+                                                    @else
+                                                    @foreach ($size_en as $item)
+                                                        <option>{{ $item}}</option>
+                                                    @endforeach
+                                                    @endif
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div><!-- /.row -->
+                                    {{-- End product color and size --}}
+
                                     <div class="quantity-container info-container">
                                         <div class="row">
-
                                             <div class="col-sm-2">
                                                 <span class="label">Qty :</span>
                                             </div>
