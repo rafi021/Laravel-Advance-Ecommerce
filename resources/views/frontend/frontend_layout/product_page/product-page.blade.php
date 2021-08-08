@@ -215,11 +215,11 @@
                                                     <option selected="" disabled="">--Select color--</option>
                                                     @if (session()->get('langiage') == 'bangla')
                                                     @foreach ($colors_bn as $item)
-                                                        <option value="{{ $item }}">{{ $item }}</option>
+                                                        <option value="{{ $item }}">{{ ucwords($item) }}</option>
                                                     @endforeach
                                                     @else
                                                     @foreach ($colors_en as $item)
-                                                        <option value="{{ $item }}">{{ $item}}</option>
+                                                        <option value="{{ $item }}">{{ ucwords($item)}}</option>
                                                     @endforeach
                                                     @endif
                                                 </select>
@@ -232,11 +232,11 @@
                                                     <option selected="" disabled="">--Select size--</option>
                                                     @if (session()->get('langiage') == 'bangla')
                                                     @foreach ($size_bn as $item)
-                                                        <option value="{{ $item }}">{{ $item }}</option>
+                                                        <option value="{{ $item }}">{{ ucwords($item) }}</option>
                                                     @endforeach
                                                     @else
                                                     @foreach ($size_en as $item)
-                                                        <option value="{{ $item }}"> {{ $item}}</option>
+                                                        <option value="{{ $item }}"> {{ ucwords($item) }}</option>
                                                     @endforeach
                                                     @endif
                                                 </select>

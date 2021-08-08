@@ -56,6 +56,8 @@ class FrontendPageController extends Controller
         $colors_bn = explode(',', $product->product_color_bn);
         $size_en = explode(',', $product->product_size_en);
         $size_bn = explode(',', $product->product_size_bn);
+        $related_products = Product::where('category_id',$product->category_id)
+        ->where('id', '!=', $id)->orderBy('id','DESC')->get();
         //return response()->json($product);
         return view('frontend.frontend_layout.product_page.product-page', compact(
             'categories',
@@ -64,6 +66,7 @@ class FrontendPageController extends Controller
             'colors_bn',
             'size_en',
             'size_bn',
+            'related_products'
         ));
     }
 
