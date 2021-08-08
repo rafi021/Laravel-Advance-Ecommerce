@@ -91,4 +91,16 @@ class FrontendPageController extends Controller
         //$categories = Category::with(['subcategory'])->orderBy('category_name_en', 'ASC')->get();
         return view('frontend.frontend_layout.subcategory_page.subsubcategory_product_page', compact('subsubcategory_products'));
     }
+
+    public function productviewAjax($id)
+    {
+        $product = Product::with(['brand','category'])->findOrFail($id);
+        $colors_en = explode(',', $product->product_color_en);
+        $size_en = explode(',', $product->product_size_en);
+        return response()->json([
+            'product' => $product,
+            'colors_en' => $colors_en,
+            'size_en' => $size_en,
+        ],200);
+    }
 }
