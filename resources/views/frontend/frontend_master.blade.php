@@ -230,7 +230,7 @@
                                 <h3 class="name"><a href="index.php?page-detail">${value.name}</a></h3>
                                 <div class="price">$${value.price}X${value.qty}</div>
                             </div>
-                            <div class="col-xs-1 action"> <a href="#"><i class="fa fa-trash"></i></a> </div>
+                            <div class="col-xs-1 action"> <button type="submit" id="${value.rowId}" onclick="miniCartRemove(this.id)"><i class="fa fa-trash"></i></button> </div>
                         </div>
                     </div>
                     <!-- /.cart-item -->
@@ -238,11 +238,44 @@
                     <hr>
                     `;
                 });
-                $('#miniCart').html(miniCart)
+                $('#miniCart').html(miniCart);
             }
         })
     }
     miniCart();
+
+    // mini cart remove start
+    function miniCartRemove(rowId){
+        $.ajax({
+            type:'GET',
+            dataType: 'json',
+            url:'/minicart/product-remove/'+rowId,
+            success: function(data){
+                miniCart();
+                //start message
+                const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'success',
+                        showConfirmButton: false,
+                        timer: 3000
+                })
+                if($.isEmptyObject(data.error)){
+                    Toast.fire({
+                        type:'success',
+                        title: data.success,
+                    })
+                }else{
+                    Toast.fire({
+                        type: 'error',
+                        title:data.error,
+                    })
+                }
+                //end message
+            }
+        });
+    }
+    // mini cart remove end
 </script>
 </body>
 </html>

@@ -61,6 +61,8 @@ Route::get('/product/view/modal/{id}',[FrontendPageController::class,'productvie
 Route::post('/cart/data/store/{id}', [CartController::class,'addToCart'])->name('productaddToCart');
 // mini cart product data get route
 Route::get('/product/mini/cart', [CartController::class,'getMiniCart'])->name('getMiniCartProduct');
+// remove item from mini cart route
+Route::get('/minicart/product-remove/{rowId}', [CartController::class,'removeMiniCart'])->name('removeMiniCartProduct');
 
 
 // Admin Login routes
