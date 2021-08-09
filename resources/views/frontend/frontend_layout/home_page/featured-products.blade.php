@@ -47,7 +47,7 @@
                         <div class="action">
                             <ul class="list-unstyled">
                                 <li class="add-cart-button btn-group">
-                                    <button class="btn btn-primary icon" type="button" data-toggle="modal" data-target="#exampleModal"
+                                    <button class="btn btn-primary icon" type="button" data-toggle="modal" data-target="#productViewModal"
                                     onclick="productView(this.id)" id="{{ $product->id }}">
                                         <i class="fa fa-shopping-cart"></i> </button>
                                             <!-- Button trigger modal -->

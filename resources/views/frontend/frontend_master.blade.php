@@ -34,11 +34,11 @@
 @include('frontend.frontend_layout.body.script')
 
 <!-- Add to Cart Product Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="productViewModal" tabindex="-1" aria-labelledby="productViewModalLabel" aria-hidden="true">
     <div class="modal-dialog">
     <div class="modal-content" style="width: 800px; height:300px;">
         <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel"><span id="pname"></span></h5>
+        <h5 class="modal-title" id="productViewModalLabel"><span id="pname"></span></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
