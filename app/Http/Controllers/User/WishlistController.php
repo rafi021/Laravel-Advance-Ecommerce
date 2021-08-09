@@ -14,7 +14,7 @@ class WishlistController extends Controller
         if(Auth::check()){
             $exists = Wishlist::where('user_id', Auth::id())->where('product_id',$product_id)->first();
 
-            if($exists == NULL){
+            if(!$exists){
             Wishlist::create([
                 'user_id' => Auth::id(),
                 'product_id' => $product_id,
