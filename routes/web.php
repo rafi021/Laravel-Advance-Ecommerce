@@ -59,6 +59,8 @@ Route::get('/product/view/modal/{id}',[FrontendPageController::class,'productvie
 
 // Add to cart Product route
 Route::post('/cart/data/store/{id}', [CartController::class,'addToCart'])->name('productaddToCart');
+// mini cart product data get route
+Route::get('/product/mini/cart', [CartController::class,'getMiniCart'])->name('getMiniCartProduct');
 
 
 // Admin Login routes
