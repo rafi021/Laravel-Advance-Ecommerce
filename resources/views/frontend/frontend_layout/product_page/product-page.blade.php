@@ -116,7 +116,7 @@
                             </div><!-- /.gallery-holder -->
                             <div class="col-sm-6 col-md-7 product-info-block">
                                 <div class="product-info">
-                                    <h1 class="name">
+                                    <h1 class="name" id="pname">
                                         @if (session()->get('language') =='bangla')
                                         {{ $product->product_name_bn }}
                                         @else
@@ -210,8 +210,11 @@
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <div class="form-group">
+                                                @if ($product->product_color_en == NULL)
+                                                @else
                                                 <label class="info-title control-label">Choose Color <span>*</span></label>
-                                                <select class="form-control unicase-form-control selectpicker" style="display: none;">
+                                                <select class="form-control unicase-form-control selectpicker" style="display: none;"
+                                                id="color">
                                                     <option selected="" disabled="">--Select color--</option>
                                                     @if (session()->get('langiage') == 'bangla')
                                                     @foreach ($colors_bn as $item)
@@ -223,12 +226,16 @@
                                                     @endforeach
                                                     @endif
                                                 </select>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form-group">
+                                                @if ($product->product_size_en == NULL)
+                                                @else
                                                 <label class="info-title control-label">Choose Size <span>*</span></label>
-                                                <select class="form-control unicase-form-control selectpicker" style="display: none;">
+                                                <select class="form-control unicase-form-control selectpicker" style="display: none;"
+                                                id="size">
                                                     <option selected="" disabled="">--Select size--</option>
                                                     @if (session()->get('langiage') == 'bangla')
                                                     @foreach ($size_bn as $item)
@@ -240,6 +247,7 @@
                                                     @endforeach
                                                     @endif
                                                 </select>
+                                                @endif
                                             </div>
                                         </div>
                                     </div><!-- /.row -->
@@ -260,14 +268,15 @@
                                                             <div class="arrow minus gradient"><span class="ir"><i
                                                                         class="icon fa fa-sort-desc"></i></span></div>
                                                         </div>
-                                                        <input type="text" value="1">
+                                                        <input type="number" id="qty" value="1" min="1">
                                                     </div>
                                                 </div>
                                             </div>
 
                                             <div class="col-sm-7">
-                                                <a href="#" class="btn btn-primary"><i
-                                                        class="fa fa-shopping-cart inner-right-vs"></i> ADD TO CART</a>
+                                                <input type="hidden" name="" id="product_id" value="{{ $product->id }}" min="1">
+                                                <button type="submit" class="btn btn-primary" onclick="addToCart()">
+                                                    <i class="fa fa-shopping-cart inner-right-vs"></i> ADD TO CART</button>
                                             </div>
 
 
