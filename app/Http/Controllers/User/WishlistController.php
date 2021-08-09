@@ -24,7 +24,7 @@ class WishlistController extends Controller
                 ]);
             }else{
                 return response()->json([
-                    'success' => 'Product alreay exits to your wishlist',
+                    'error' => 'Product alreay exits to your wishlist',
                 ]);
             }
 
