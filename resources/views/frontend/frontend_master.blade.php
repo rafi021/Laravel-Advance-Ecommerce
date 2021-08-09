@@ -181,7 +181,26 @@
             url: '/cart/data/store/'+id,
             success: function(data){
                 $('#closeModal').click();
-                console.log(data)
+                // console.log(data)
+
+                const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'success',
+                        showConfirmButton: false,
+                        timer: 3000
+                })
+                if($.isEmptyObject(data.error)){
+                    Toast.fire({
+                        type:'success',
+                        title: data.success,
+                    })
+                }else{
+                    Toast.fire({
+                        type: 'error',
+                        title:data.error,
+                    })
+                }
             }
         })
     }

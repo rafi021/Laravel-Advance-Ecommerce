@@ -14,6 +14,7 @@
 <script src="{{ asset('frontend') }}/assets/js/bootstrap-select.min.js"></script>
 <script src="{{ asset('frontend') }}/assets/js/wow.min.js"></script>
 <script src="{{ asset('frontend') }}/assets/js/scripts.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous"></script>
 
 {{-- custom toastr script --}}
