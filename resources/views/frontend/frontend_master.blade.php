@@ -277,5 +277,39 @@
     }
     // mini cart remove end
 </script>
+<script type="text/javascript">
+    // Start Add to Wishlist
+    function addToWishlist(id){
+        $.ajax({
+            type:'POST',
+            dataType: 'json',
+            url:'/add/product/to-wishlist/'+id,
+            success: function(data){
+                //start message
+                const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000
+                })
+                if($.isEmptyObject(data.error)){
+                    Toast.fire({
+                        type:'success',
+                        icon: 'success',
+                        title: data.success,
+                    })
+                }else{
+                    Toast.fire({
+                        type: 'error',
+                        icon: 'error',
+                        title:data.error,
+                    })
+                }
+                //end message
+            }
+        });
+    }
+    // End Add to Wishlist
+</script>
 </body>
 </html>

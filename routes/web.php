@@ -13,6 +13,7 @@ use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\FrontendPageController;
 use App\Http\Controllers\Frontend\FrontendUserProfileController;
 use App\Http\Controllers\Frontend\LanguageController;
+use App\Http\Controllers\User\WishlistController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,12 +58,16 @@ Route::get('/subsubcategory/{id}/{slug}', [FrontendPageController::class,'subsub
 // AJAX Product data route
 Route::get('/product/view/modal/{id}',[FrontendPageController::class,'productviewAjax'])->name('productModalview');
 
+// Cart routes
 // Add to cart Product route
 Route::post('/cart/data/store/{id}', [CartController::class,'addToCart'])->name('productaddToCart');
 // mini cart product data get route
 Route::get('/product/mini/cart', [CartController::class,'getMiniCart'])->name('getMiniCartProduct');
 // remove item from mini cart route
 Route::get('/minicart/product-remove/{rowId}', [CartController::class,'removeMiniCart'])->name('removeMiniCartProduct');
+
+//Wishlist routes
+Route::post('/add/product/to-wishlist/{product_id}',[WishlistController::class,'addToWishlist'])->name('addtoWishlist');
 
 
 // Admin Login routes
