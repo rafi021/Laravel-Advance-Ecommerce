@@ -11,6 +11,7 @@
         <li class="active"><a data-transition-type="backSlide" href="#all" data-toggle="tab">
             @if (session()->get('language') == 'bangla') সব @else All @endif
         </a></li>
+
         @foreach ($categories as $category)
         @if ($loop->index>3)
             @php

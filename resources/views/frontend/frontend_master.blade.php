@@ -68,22 +68,23 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group" id="colorArea">
-                        <label for="exampleFormControlSelect1">Choose Color</label>
-                        <select class="form-control" id="exampleFormControlSelect1" name="color">
+                        <label for="color">Choose Color</label>
+                        <select class="form-control" id="color" name="color">
                             <option>--Select Color--</option>
                         </select>
                     </div>
                     <div class="form-group" id="sizeArea">
-                        <label for="exampleFormControlSelect2">Choose Size</label>
-                        <select class="form-control" id="exampleFormControlSelect2" name="size">
+                        <label for="size">Choose Size</label>
+                        <select class="form-control" id="size" name="size">
                             <option>--Select Size--</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlSelect1">Qty</label>
-                        <input type="number" name="quantity" id="" value="1" min="1">
+                        <label for="product_qty">Qty</label>
+                        <input type="number" name="quantity" id="product_qty" value="1" min="1">
                     </div>
-                    <button class="btn btn-primary mb-2" type="submit">Add to Cart</button>
+                    <input type="hidden" name="" id="product_id">
+                    <button class="btn btn-primary mb-2" type="submit" onclick="addToCart(this.id)">Add to Cart</button>
                 </div>
             </div>
         </div>
@@ -113,8 +114,10 @@
                 $('#pcode').text(data.product.product_code);
                 $('#category').text(data.product.category.category_name_en);
                 $('#brand').text(data.product.brand.brand_name_en);
-
                 $('#pimage').attr('src', '/'+data.product.product_thumbnail);
+
+                $('#product_id').val(id);
+                $('#product_qty').val(1);
 
                 //product price
                 if(data.product.discount_price == null){
@@ -157,6 +160,31 @@
             }
         })
     }
+
+    // Add to Cart Product
+    function addToCart(){
+        var product_name = $('#pname').text();
+        var id = $('product_id').val();
+        var color = $('#color option:selected').text();
+        var size = $('#size option:selected').text();
+        var qty = $('#product_qty').val();
+
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            data:{
+                color: color,
+                size:size,
+                qty: qty,
+                product_name: product_name,
+            },
+            url: '/cart/data/store/'+id,
+            success: function(data){
+                console.log(data)
+            }
+        })
+    }
+    // End to Cart Product
 </script>
 </body>
 </html>
