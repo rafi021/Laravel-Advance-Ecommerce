@@ -9,6 +9,7 @@ use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Backend\SubSubCategoryController;
+use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\FrontendPageController;
 use App\Http\Controllers\Frontend\FrontendUserProfileController;
 use App\Http\Controllers\Frontend\LanguageController;
@@ -55,6 +56,10 @@ Route::get('/subcategory/{id}/{slug}', [FrontendPageController::class,'subcatego
 Route::get('/subsubcategory/{id}/{slug}', [FrontendPageController::class,'subsubcategoryProducts'])->name('subsubcategory.products');
 // AJAX Product data route
 Route::get('/product/view/modal/{id}',[FrontendPageController::class,'productviewAjax'])->name('productModalview');
+
+// Add to cart Product route
+Route::post('/cart/data/store/{id}', [CartController::class,'addToCart'])->name('productaddToCart');
+
 
 // Admin Login routes
 Route::group(['prefix'=> 'admin', 'middleware'=>['admin:admin']], function(){

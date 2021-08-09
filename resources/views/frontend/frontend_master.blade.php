@@ -39,7 +39,7 @@
     <div class="modal-content" style="width: 800px; height:300px;">
         <div class="modal-header">
         <h5 class="modal-title" id="productViewModalLabel"><span id="pname"></span></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" id="closeModal" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
         </div>
@@ -83,8 +83,8 @@
                         <label for="product_qty">Qty</label>
                         <input type="number" name="quantity" id="product_qty" value="1" min="1">
                     </div>
-                    <input type="hidden" name="" id="product_id">
-                    <button class="btn btn-primary mb-2" type="submit" onclick="addToCart(this.id)">Add to Cart</button>
+                    <input type="hidden" id="product_id">
+                    <button class="btn btn-primary mb-2" type="submit" onclick="addToCart()">Add to Cart</button>
                 </div>
             </div>
         </div>
@@ -164,7 +164,7 @@
     // Add to Cart Product
     function addToCart(){
         var product_name = $('#pname').text();
-        var id = $('product_id').val();
+        var id = $('#product_id').val();
         var color = $('#color option:selected').text();
         var size = $('#size option:selected').text();
         var qty = $('#product_qty').val();
@@ -180,6 +180,7 @@
             },
             url: '/cart/data/store/'+id,
             success: function(data){
+                $('#closeModal').click();
                 console.log(data)
             }
         })
