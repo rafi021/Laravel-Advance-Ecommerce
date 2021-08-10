@@ -44,7 +44,7 @@
                                     id="{{ $product->id }}">Add to cart</button>
                                 </td>
                                 <td class="col-md-1 close-btn">
-                                    <a href="#" class=""><i class="fa fa-times"></i></a>
+                                    <button type="button" class="" onclick="removeWishlist(this.id)" id={{ $wish->id }}><i class="fa fa-times"></i></button>
                                 </td>
                             </tr>
                             @endforeach

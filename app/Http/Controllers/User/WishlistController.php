@@ -45,4 +45,19 @@ class WishlistController extends Controller
         //return $wishlists;
         return view('frontend.frontend_layout.wishlist_page.wishlist_list', compact('wishlists'));
     }
+
+    public function removefromWishList($wish_id)
+    {
+        if(Auth::check()){
+            Wishlist::findOrFail($wish_id)->delete();
+            return response()->json([
+                'success' => 'Successfully removed from you wishlist'
+            ],200);
+        }
+        else{
+            return response()->json([
+                'error' => 'At First Login Your Account!!!',
+            ]);
+        }
+    }
 }

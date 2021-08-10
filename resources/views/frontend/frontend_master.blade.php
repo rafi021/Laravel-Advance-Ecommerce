@@ -310,6 +310,38 @@
         });
     }
     // End Add to Wishlist
+    // Start remove from wishlist
+    function removeWishlist(wish_id){
+        $.ajax({
+            type:'GET',
+            dataType: 'json',
+            url:'/remove/from-wishlist/'+wish_id,
+            success: function(data){
+                location.reload();
+                //start message
+                const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'success',
+                        showConfirmButton: false,
+                        timer: 3000
+                })
+                if($.isEmptyObject(data.error)){
+                    Toast.fire({
+                        type:'success',
+                        title: data.success,
+                    })
+                }else{
+                    Toast.fire({
+                        type: 'error',
+                        title:data.error,
+                    })
+                }
+                //end message
+            }
+        });
+    }
+    // End remove from wishlist
 </script>
 </body>
 </html>
