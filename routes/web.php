@@ -68,7 +68,8 @@ Route::get('/minicart/product-remove/{rowId}', [CartController::class,'removeMin
 
 //Wishlist routes
 Route::post('/add/product/to-wishlist/{product_id}',[WishlistController::class,'addToWishlist'])->name('addtoWishlist');
-
+// list wishlist route
+Route::get('/list/wishlists', [WishlistController::class,'listWishList'])->name('listWishlist');
 
 // Admin Login routes
 Route::group(['prefix'=> 'admin', 'middleware'=>['admin:admin']], function(){

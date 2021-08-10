@@ -34,4 +34,15 @@ class WishlistController extends Controller
             ]);
         }
     }
+
+    public function listWishList()
+    {
+        if(Auth::check()){
+            $wishlists = Wishlist::with(['products'])->where('user_id', Auth::id())->latest()->paginate(5);
+        }else{
+            $wishlists = [];
+        }
+        //return $wishlists;
+        return view('frontend.frontend_layout.wishlist_page.wishlist_list', compact('wishlists'));
+    }
 }
