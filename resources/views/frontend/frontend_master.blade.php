@@ -283,7 +283,7 @@
         $.ajax({
             type:'POST',
             dataType: 'json',
-            url:'/add/product/to-wishlist/'+id,
+            url:'/user/add/product/to-wishlist/'+id,
             success: function(data){
                 //start message
                 const Toast = Swal.mixin({
@@ -315,9 +315,9 @@
         $.ajax({
             type:'GET',
             dataType: 'json',
-            url:'/remove/from-wishlist/'+wish_id,
+            url:'/user/remove/from-wishlist/'+wish_id,
             success: function(data){
-                location.reload();
+                //location.reload();
                 //start message
                 const Toast = Swal.mixin({
                         toast: true,

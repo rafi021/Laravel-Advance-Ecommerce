@@ -67,13 +67,14 @@ Route::get('/product/mini/cart', [CartController::class,'getMiniCart'])->name('g
 Route::get('/minicart/product-remove/{rowId}', [CartController::class,'removeMiniCart'])->name('removeMiniCartProduct');
 
 //Wishlist routes
-Route::post('/add/product/to-wishlist/{product_id}',[WishlistController::class,'addToWishlist'])->name('addtoWishlist');
-// list wishlist route
-Route::get('/list/wishlists', [WishlistController::class,'listWishList'])->name('listWishlist');
-// remove from wishlist
-Route::get('/remove/from-wishlist/{wish_id}', [WishlistController::class,'removefromWishList'])->name('removefromWishList');
-
-
+Route::group(['prefix' => 'user', 'middleware' => ['auth', 'user'], 'namespace' => 'User'], function()
+{
+    Route::post('/add/product/to-wishlist/{product_id}',[WishlistController::class,'addToWishlist'])->name('addtoWishlist');
+    // list wishlist route
+    Route::get('/list/wishlists', [WishlistController::class,'listWishList'])->name('listWishlist');
+    // remove from wishlist
+    Route::get('/remove/from-wishlist/{wish_id}', [WishlistController::class,'removefromWishList'])->name('removefromWishList');
+});
 
 // Admin Login routes
 Route::group(['prefix'=> 'admin', 'middleware'=>['admin:admin']], function(){

@@ -49,7 +49,7 @@ class WishlistController extends Controller
     public function removefromWishList($wish_id)
     {
         if(Auth::check()){
-            Wishlist::findOrFail($wish_id)->delete();
+            Wishlist::where('user_id', Auth::id())->where('id',$wish_id)->delete();
             return response()->json([
                 'success' => 'Successfully removed from you wishlist'
             ],200);
