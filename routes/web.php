@@ -10,6 +10,7 @@ use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Backend\SubSubCategoryController;
 use App\Http\Controllers\Frontend\CartController;
+use App\Http\Controllers\Frontend\CartPageController;
 use App\Http\Controllers\Frontend\FrontendPageController;
 use App\Http\Controllers\Frontend\FrontendUserProfileController;
 use App\Http\Controllers\Frontend\LanguageController;
@@ -75,6 +76,11 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth', 'user'], 'namespace' 
     // remove from wishlist
     Route::get('/remove/from-wishlist/{wish_id}', [WishlistController::class,'removefromWishList'])->name('removefromWishList');
 });
+
+// Cart page routes
+Route::get('/my-cart',[CartPageController::class,'myCartView'])->name('myCartView');
+Route::get('/my-cart/list',[CartPageController::class,'showmyCartList'])->name('showmyCartList');
+Route::get('/remove/from-cart/{rowId}',[CartPageController::class,'removeFromCart'])->name('removeFromCart');
 
 // Admin Login routes
 Route::group(['prefix'=> 'admin', 'middleware'=>['admin:admin']], function(){
