@@ -7,10 +7,10 @@
         @endif
     </h3>
     <div class="owl-carousel home-owl-carousel custom-carousel owl-theme outer-top-xs">
-        @php
+        {{-- @php
             $new_arrival_products = App\Models\Product::where('new_arrival',1)->latest()->limit(20)->get();
-        @endphp
-        @foreach ($new_arrival_products as $product)
+        @endphp --}}
+        @foreach ($new_products as $product)
         <div class="item item-carousel">
             <div class="products">
                 <div class="product">

@@ -25,10 +25,10 @@ class Category extends Model
 
     public function subsubcategory()
     {
-        return $this->hasManyThrough(SubSubCategory::class,SubCategory::class,'category_id', 'subcategory_id', 'id');
+        return $this->hasMany(SubSubCategory::class, 'category_id', 'id');
     }
 
     public function products(){
-        return $this->hasMany(Product::class);
+        return $this->hasMany(Product::class,'category_id','id');
     }
 }

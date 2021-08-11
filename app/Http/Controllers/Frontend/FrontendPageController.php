@@ -15,11 +15,11 @@ class FrontendPageController extends Controller
 {
     public function home()
     {
-        $categories = Category::with(['subcategory', 'products'])->orderBy('category_name_en', 'ASC')->get();
+        $categories = Category::with(['subcategory', 'subsubcategory', 'products'])->orderBy('category_name_en', 'ASC')->get();
         $sliders = Slider::where('slider_name', '=', 'Main-Slider')->where('slider_status', '=', 1)->limit(3)->get();
-        $new_products = Product::with(['brand', 'category', 'subcategory', 'subsubcategory', 'images'])
+        $new_products = Product::with(['images'])
         ->where('new_arrival' ,'=', 1)
-        ->where('status', 1)->limit(6)->get();
+        ->where('status', 1)->limit(20)->get();
 
         $skip_category_0 = Category::skip(0)->first();
         $skip_category_products_0 = Product::where('category_id', $skip_category_0->id)

@@ -108,11 +108,7 @@
     <div class="tab-pane" id="category{{ $category->id }}">
         <div class="product-slider">
         <div class="owl-carousel home-owl-carousel custom-carousel owl-theme" data-item="6">
-            @php
-                $categorywise_products = App\Models\Product::where('category_id',$category->id)
-                ->limit(6)->get();
-            @endphp
-            @forelse ($categorywise_products as $product)
+            @forelse ($category->products as $product)
             <div class="item item-carousel">
                 <div class="products">
                     <div class="product">
