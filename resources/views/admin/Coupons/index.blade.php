@@ -36,9 +36,13 @@
                                                 @foreach ($coupons as $item)
                                                 <tr role="row" class="odd">
                                                     <td>{{ $loop->index+1 }}</td>
+                                                    @if ($item->coupon_status == 1)
                                                     <td>{{ $item->coupon_name }}</td>
-                                                    <td class="sorting_1">{{ $item->coupon_discount }}</td>
-                                                    <td>{{ $item->coupon_validity }}</td>
+                                                    @else
+                                                    <td class="text-danger">{{ $item->coupon_name }} (Invalid)</td>
+                                                    @endif
+                                                    <td class="sorting_1">{{ $item->coupon_discount }} %</td>
+                                                    <td>{{ Carbon\Carbon::parse($item->coupon_validity)->format('D, d F Y') }}</td>
                                                     <td>
                                                         {{-- @if ($item->status == 1)
                                                             <span class="badge rounded-pill badge bg-success">Active</span>

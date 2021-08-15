@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CouponStoreRequest;
 use App\Models\Coupon;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class CouponController extends Controller
@@ -16,6 +18,14 @@ class CouponController extends Controller
     public function index()
     {
         $coupons = Coupon::latest()->paginate(10);
+        // foreach ($coupons as $coupon) {
+        //     if($coupon->coupon_validity >= Carbon::now()->format('Y-m-d')){
+        //         $coupon->coupon_status = 1;
+        //     }else{
+        //         $coupon->coupon_status = 0;
+        //     }
+        //     $coupon->save();
+        // }
         return view('admin.Coupons.index', compact('coupons'));
     }
 
@@ -35,9 +45,21 @@ class CouponController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CouponStoreRequest $request)
     {
-        //
+        Coupon::create([
+            'coupon_name' => strtoupper($request->input('coupon_name')),
+            'coupon_discount' => $request->input('coupon_discount'),
+            'coupon_validity' => $request->input('coupon_validity'),
+            'coupon_status' => $request->input('coupon_status'),
+        ]);
+
+        $notification = [
+            'message' => 'Coupon Created Successfully!!!',
+            'alert-type' => 'success'
+        ];
+
+        return redirect()->route('coupons.index')->with($notification);
     }
 
     /**
@@ -59,7 +81,8 @@ class CouponController extends Controller
      */
     public function edit($id)
     {
-        //
+        $coupon = Coupon::findOrFail($id);
+        return view('admin.Coupons.edit', compact('coupon'));
     }
 
     /**
@@ -69,9 +92,22 @@ class CouponController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CouponStoreRequest $request, $id)
     {
-        //
+        $coupon = Coupon::findOrFail($id);
+        $coupon->update([
+            'coupon_name' => strtoupper($request->input('coupon_name')),
+            'coupon_discount' => $request->input('coupon_discount'),
+            'coupon_validity' => $request->input('coupon_validity'),
+            'coupon_status' => $request->input('coupon_status'),
+        ]);
+
+        $notification = [
+            'message' => 'Coupon Updated Successfully!!!',
+            'alert-type' => 'success'
+        ];
+
+        return redirect()->route('coupons.index')->with($notification);
     }
 
     /**
@@ -82,7 +118,13 @@ class CouponController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $coupon = Coupon::findOrFail($id)->delete();
+        $notification = [
+            'message' => 'Coupon Deleted Successfully!!!',
+            'alert-type' => 'success'
+        ];
+
+        return redirect()->route('coupons.index')->with($notification);
     }
 
     public function changeCouponStatus(Request $request)
