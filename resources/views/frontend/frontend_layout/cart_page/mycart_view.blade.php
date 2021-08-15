@@ -56,9 +56,9 @@
                                 <td class="col-md-2">${value.options.size == null ? `<span>...</span>`:`<strong>${value.options.size}</strong>`}</td>
 
                                 <td class="col-md-2">
-                                <button type="submit" class="btn btn-success btn-sm">+</button>
+                                <button type="submit" class="btn btn-danger btn-sm" id="${value.rowId}" onclick="cartDecrement(this.id)">-</button>
                                 <input type="text" value="${value.qty}" min="1" max="100" disabled="" style="width:25px;">
-                                <button type="submit" class="btn btn-success btn-sm">-</button>
+                                <button type="submit" class="btn btn-success btn-sm" id="${value.rowId}" onclick="cartIncrement(this.id)">+</button>
                                 </td>
 
                                 <td class="col-md-2"><strong>$${value.subtotal}</strong></td>
@@ -109,8 +109,76 @@
             }
         });
     }
- // End Wishlist remov
     // END product remove from my cart
 
+    // START product qty increment from my cart
+    function cartIncrement(id){
+        $.ajax({
+            type: 'GET',
+            url: '/add/in-cart/'+id,
+            dataType:'json',
+            success:function(data){
+            cart();
+            miniCart();
+             // Start Message
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000
+                    })
+                if ($.isEmptyObject(data.error)) {
+                    Toast.fire({
+                        type: 'success',
+                        icon: 'success',
+                        title: data.success
+                    })
+                }else{
+                    Toast.fire({
+                        type: 'error',
+                        icon: 'error',
+                        title: data.error
+                    })
+                }
+                // End Message
+            }
+        });
+    }
+    //End product qty increment from my cart
+
+        // START product qty Decrement from my cart
+        function cartDecrement(id){
+        $.ajax({
+            type: 'GET',
+            url: '/reduce/from-cart/'+id,
+            dataType:'json',
+            success:function(data){
+            cart();
+            miniCart();
+             // Start Message
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000
+                    })
+                if ($.isEmptyObject(data.error)) {
+                    Toast.fire({
+                        type: 'success',
+                        icon: 'success',
+                        title: data.success
+                    })
+                }else{
+                    Toast.fire({
+                        type: 'error',
+                        icon: 'error',
+                        title: data.error
+                    })
+                }
+                // End Message
+            }
+        });
+    }
+    //End product qty Decrement from my cart
 </script>
 @endsection

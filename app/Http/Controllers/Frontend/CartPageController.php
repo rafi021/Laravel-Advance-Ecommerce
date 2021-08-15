@@ -34,4 +34,18 @@ class CartPageController extends Controller
         Cart::remove($rowId);
         return response()->json(['success' => 'Product Remove from Cart'],200);
     }
+
+    public function addQtyToCart($rowId)
+    {
+        $cart_product=Cart::get($rowId);
+        Cart::update($rowId, $cart_product->qty + 1);
+        return response()->json(['success' => 'Product Qty Increamented'],200);
+    }
+
+    public function reduceQtyFromCart($rowId)
+    {
+        $cart_product=Cart::get($rowId);
+        Cart::update($rowId, $cart_product->qty - 1);
+        return response()->json(['error' => 'Product Qty Decremented'],200);
+    }
 }

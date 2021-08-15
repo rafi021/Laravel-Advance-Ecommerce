@@ -81,6 +81,8 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth', 'user'], 'namespace' 
 Route::get('/my-cart',[CartPageController::class,'myCartView'])->name('myCartView');
 Route::get('/my-cart/list',[CartPageController::class,'showmyCartList'])->name('showmyCartList');
 Route::get('/remove/from-cart/{rowId}',[CartPageController::class,'removeFromCart'])->name('removeFromCart');
+Route::get('/add/in-cart/{rowId}',[CartPageController::class,'addQtyToCart'])->name('addQtyToCart');
+Route::get('/reduce/from-cart/{rowId}',[CartPageController::class,'reduceQtyFromCart'])->name('reduceQtyFromCart');
 
 // Admin Login routes
 Route::group(['prefix'=> 'admin', 'middleware'=>['admin:admin']], function(){
