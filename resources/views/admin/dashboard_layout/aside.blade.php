@@ -123,6 +123,9 @@
             <li class=" {{ ($route == '/division') ? 'active' : '' }}">
                 <a href="{{ route('district.index') }}"><i class="ti-more"></i>Ship District</a>
             </li>
+            <li class=" {{ ($route == '/state') ? 'active' : '' }}">
+                <a href="{{ route('state.index') }}"><i class="ti-more"></i>Ship State</a>
+            </li>
         </ul>
     </li>
 
