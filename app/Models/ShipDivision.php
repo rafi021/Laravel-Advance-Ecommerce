@@ -13,6 +13,6 @@ class ShipDivision extends Model
 
     public function districts()
     {
-        return $this->hasMany(ShipDistrict::class,'id','division_id');
+        return $this->hasMany(ShipDistrict::class, 'division_id','id');
     }
 }
