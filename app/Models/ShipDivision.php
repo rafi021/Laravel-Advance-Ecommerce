@@ -10,4 +10,9 @@ class ShipDivision extends Model
     use HasFactory;
 
     protected $fillable = ['division_name'];
+
+    public function districts()
+    {
+        return $this->hasMany(ShipDistrict::class,'id','division_id');
+    }
 }

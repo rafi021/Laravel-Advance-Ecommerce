@@ -9,6 +9,7 @@ use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\CouponController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\ShippingAreaController;
+use App\Http\Controllers\Backend\ShippingDistrictController;
 use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Backend\SubSubCategoryController;
 use App\Http\Controllers\Frontend\CartController;
@@ -128,5 +129,6 @@ Route::middleware(['auth:admin'])->group(function(){
         Route::get('/change/coupon/status', [CouponController::class, 'changeCouponStatus'])->name('change-coupon-status');
         // shipping routes
         Route::resource('/division', ShippingAreaController::class);
+        Route::resource('/district', ShippingDistrictController::class);
     });
 });
