@@ -91,7 +91,7 @@ Route::get('/reduce/from-cart/{rowId}',[CartPageController::class,'reduceQtyFrom
 //Frontend apply Coupon routes
 Route::post('/coupon/apply/',[CartPageController::class,'applyCoupon'])->name('applyCoupon');
 Route::get('/coupon-calculation',[CartPageController::class,'couponCalculation'])->name('couponCalculation');
-Route::get('//coupon-remove',[CartPageController::class,'couponRemove'])->name('couponRemove');
+Route::get('/coupon-remove',[CartPageController::class,'couponRemove'])->name('couponRemove');
 
 // Admin Login routes
 Route::group(['prefix'=> 'admin', 'middleware'=>['admin:admin']], function(){
