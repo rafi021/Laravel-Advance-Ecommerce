@@ -6,12 +6,16 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Cart;
+use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
 {
     public function addToCart(Request $request, $id)
     {
         $product = Product::findOrFail($id);
+        if(Session::has('coupon')){
+            Session::forget('coupon');
+        }
 
         if($product->discount_price == NULL){
             Cart::add([
