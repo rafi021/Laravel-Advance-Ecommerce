@@ -88,6 +88,10 @@ Route::get('/remove/from-cart/{rowId}',[CartPageController::class,'removeFromCar
 Route::get('/add/in-cart/{rowId}',[CartPageController::class,'addQtyToCart'])->name('addQtyToCart');
 Route::get('/reduce/from-cart/{rowId}',[CartPageController::class,'reduceQtyFromCart'])->name('reduceQtyFromCart');
 
+//Frontend apply Coupon routes
+Route::post('/coupon/apply/',[CartPageController::class,'applyCoupon'])->name('applyCoupon');
+Route::get('/coupon-calculation',[CartPageController::class,'couponCalculation'])->name('couponCalculation');
+
 // Admin Login routes
 Route::group(['prefix'=> 'admin', 'middleware'=>['admin:admin']], function(){
 	Route::get('/1wire_rty/login',[AdminController::class, 'loginForm']);
