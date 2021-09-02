@@ -93,6 +93,18 @@ Route::post('/coupon/apply/',[CartPageController::class,'applyCoupon'])->name('a
 Route::get('/coupon-calculation',[CartPageController::class,'couponCalculation'])->name('couponCalculation');
 Route::get('/coupon-remove',[CartPageController::class,'couponRemove'])->name('couponRemove');
 
+// Checkout Page routes
+Route::get('/checkout-page',[CartController::class,'checkoutPage'])->name('checkout-page');
+
+
+
+
+
+
+
+
+
+
 // Admin Login routes
 Route::group(['prefix'=> 'admin', 'middleware'=>['admin:admin']], function(){
 	Route::get('/1wire_rty/login',[AdminController::class, 'loginForm']);
