@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\ShipDivision;
 use Illuminate\Http\Request;
 use Cart;
 use Illuminate\Support\Facades\Auth;
@@ -69,33 +70,4 @@ class CartController extends Controller
         return response()->json(['success' => 'Product Remove from Cart'],200);
     }
 
-    public function checkoutPage()
-    {
-        if(Auth::check()){
-
-            if (Cart::total() > 0) {
-                $carts = Cart::content();
-                $cart_qty = Cart::count();
-                $cart_total = Cart::total();
-
-                return view('frontend.checkout_page.checkout_page', compact(
-                    'carts',
-                    'cart_qty',
-                    'cart_total'
-                ));
-            }else{
-                $notification = [
-                    'message' => 'Your shopping cart is empty!!',
-                    'alert-type' => 'error'
-                ];
-                return redirect()->route('home')->with($notification);
-            }
-        }else{
-            $notification = [
-                'message' => 'You need to Login First for Checkout',
-                'alert-type' => 'error'
-            ];
-            return redirect()->route('login')->with($notification);
-        }
-    }
 }

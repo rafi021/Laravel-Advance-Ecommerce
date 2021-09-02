@@ -15,6 +15,7 @@ use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Backend\SubSubCategoryController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CartPageController;
+use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\FrontendPageController;
 use App\Http\Controllers\Frontend\FrontendUserProfileController;
 use App\Http\Controllers\Frontend\LanguageController;
@@ -94,8 +95,9 @@ Route::get('/coupon-calculation',[CartPageController::class,'couponCalculation']
 Route::get('/coupon-remove',[CartPageController::class,'couponRemove'])->name('couponRemove');
 
 // Checkout Page routes
-Route::get('/checkout-page',[CartController::class,'checkoutPage'])->name('checkout-page');
-
+Route::get('/checkout-page',[CheckoutController::class,'checkoutPage'])->name('checkout-page');
+Route::get('/division/district/ajax/{division_id}', [CheckoutController::class, 'getDistrict']);
+Route::get('/district/state/ajax/{district_id}', [CheckoutController::class, 'getState']);
 
 
 
@@ -149,6 +151,8 @@ Route::middleware(['auth:admin'])->group(function(){
         Route::resource('/division', ShippingAreaController::class);
         Route::resource('/district', ShippingDistrictController::class);
         Route::resource('/state', ShippingStateController::class);
+
         Route::get('/division/district/ajax/{division_id}', [ShippingStateController::class, 'getDistrict']);
+        Route::get('district/state/ajax/{district_id}', [ShippingStateController::class, 'getState']);
     });
 });

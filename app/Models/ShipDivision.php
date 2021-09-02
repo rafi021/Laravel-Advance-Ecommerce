@@ -15,4 +15,9 @@ class ShipDivision extends Model
     {
         return $this->hasMany(ShipDistrict::class, 'division_id','id');
     }
+
+    public function states()
+    {
+        return $this->hasMany(ShipState::class, 'id','state_id');
+    }
 }
