@@ -13,7 +13,10 @@
                         @endif
                         <li><a href="{{ route('listWishlist') }}"><i class="icon fa fa-heart"></i>Wishlist</a></li>
                         <li><a href="{{ route('myCartView') }}"><i class="icon fa fa-shopping-cart"></i>My Cart</a></li>
-                        <li><a href="#"><i class="icon fa fa-check"></i>Checkout</a></li>
+                        @auth
+                            <li><a href="{{ route('checkout-page') }}"><i class="icon fa fa-check"></i>Checkout</a></li>
+                        @endauth
+
                         <li>
                             @auth
                                 <a href="{{ route('user.logout') }}"><i class="icon fa fa-user"></i>User Logout</a>
@@ -137,8 +140,9 @@
                                     <div class="pull-right"> <span class="text">Sub Total :</span class="sign">$<span
                                             class='price' id="cartSubTotal"></span> </div>
                                     <div class="clearfix"></div>
-                                    <a href="checkout.html"
-                                        class="btn btn-upper btn-primary btn-block m-t-20">Checkout</a>
+
+                                    <a href="{{ route('checkout-page') }}" class="btn btn-upper btn-primary btn-block m-t-20">Checkout</a>
+
                                 </div>
                                 <!-- /.cart-total-->
 
