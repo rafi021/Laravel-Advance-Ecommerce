@@ -21,13 +21,17 @@
                                     <div class="col-md-6 col-sm-6 already-registered-login">
                                         <h4 class="checkout-subtitle"><b>Shipping Address</b></h4>
 
-                                        <form class="shipping-form" role="form" method="POST" action="">
+                                        <form class="shipping-form" method="POST" action="{{ route('checkout.store') }}">
+                                            @csrf
                                             <div class="form-group">
                                                 <label class="info-title" for="shippingName">Shipping
                                                     Name<span>*</span></label>
                                                 <input type="text" class="form-control unicase-form-control text-input"
                                                     id="shippingName" placeholder="Enter your name here"
                                                     name="shipping_name" value="{{ Auth::user()->name }}">
+                                                    @error('shipping_name')
+                                                        <span class="alert text-danger">{{ $message }}</span>
+                                                    @enderror
                                             </div>
                                             <div class="form-group">
                                                 <label class="info-title" for="shippingEmail">Shipping email
@@ -35,6 +39,9 @@
                                                 <input type="email" class="form-control unicase-form-control text-input"
                                                     id="shippingEmail" placeholder="Enter your email here"
                                                     name="shipping_email" value="{{ Auth::user()->email }}">
+                                                    @error('shipping_email')
+                                                        <span class="alert text-danger">{{ $message }}</span>
+                                                    @enderror
                                             </div>
                                             <div class="form-group">
                                                 <label class="info-title" for="shippingPhone">Shipping
@@ -42,6 +49,9 @@
                                                 <input type="phone" class="form-control unicase-form-control text-input"
                                                     id="shippingPhone" placeholder="Enter your phone number"
                                                     name="shipping_phone" value="{{ Auth::user()->phone_number }}">
+                                                    @error('shipping_phone')
+                                                        <span class="alert text-danger">{{ $message }}</span>
+                                                    @enderror
                                             </div>
 
                                             <div class="form-group">
@@ -50,6 +60,9 @@
                                                 <input type="text" class="form-control unicase-form-control text-input"
                                                     id="shippingPostCode" placeholder="Enter your name here"
                                                     name="shipping_postCode">
+                                                    @error('shipping_postCode')
+                                                        <span class="alert text-danger">{{ $message }}</span>
+                                                    @enderror
                                             </div>
                                     </div>
                                     <!-- guest-login -->
@@ -102,14 +115,13 @@
                                         <textarea name="shipping_address" id="" cols="30" rows="10"
                                             class="form-control unicase-form-control text-input" id="shippingAddrees"
                                             placeholder="Example: H#05,R#02, Uttara Sector: 11, Uttara"></textarea>
-
+                                            @error('shipping_address')
+                                                <span class="alert text-danger">{{ $message }}</span>
+                                            @enderror
                                             <div class="form-group">
                                                 <label class="info-title" for="shippingNotes">Shipping Notes<span></span></label>
                                                 <textarea name="shipping_notes" id="" cols="30" rows="10" class="form-control unicase-form-control text-input" id="shippingNotes" placeholder="any Shipping notes"></textarea>
                                             </div>
-                                        <button type="submit" class="btn-upper btn btn-primary checkout-page-button">Order
-                                            Confirm</button>
-                                        </form>
                                     </div>
                                     <!-- already-registered-login -->
 
@@ -176,7 +188,41 @@
                     </div>
                 </div>
                 <!-- checkout-progress-sidebar -->
+
+                <div class="checkout-progress-sidebar ">
+                    <div class="panel-group">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="unicase-checkout-title">Select Payment Method</h4>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="">Stripe</label>
+                                    <input type="radio" name="payment_method" id="" value="stripe">
+                                    <img src="{{ asset('frontend/assets/images/payments/4.png') }}" alt="">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="">Card</label>
+                                    <input type="radio" name="payment_method" id="" value="card">
+                                    <img src="{{ asset('frontend/assets/images/payments/1.png') }}" alt="">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="">COD</label>
+                                    <input type="radio" name="payment_method" id="" value="cod">
+                                    <img src="{{ asset('frontend/assets/images/payments/5.png') }}" alt="">
+                                </div>
+                                @error('payment_method')
+                                    <span class="alert text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+            <hr>
+            <button type="submit" class="btn btn-primary checkout-page-button">Order
+                Confirm</button>
+            </form>
         </div><!-- /.row -->
     </div>
 @section('frontend_script')

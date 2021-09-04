@@ -98,7 +98,7 @@ Route::get('/coupon-remove',[CartPageController::class,'couponRemove'])->name('c
 Route::get('/checkout-page',[CheckoutController::class,'checkoutPage'])->name('checkout-page');
 Route::get('/division/district/ajax/{division_id}', [CheckoutController::class, 'getDistrict']);
 Route::get('/district/state/ajax/{district_id}', [CheckoutController::class, 'getState']);
-
+Route::post('/checkout-store',[CheckoutController::class, 'checkoutStore'])->name('checkout.store');
 
 
 

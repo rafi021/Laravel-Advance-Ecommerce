@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CheckoutStoreRequest;
 use App\Models\ShipDistrict;
 use App\Models\ShipDivision;
+use App\Models\Shipping;
 use App\Models\ShipState;
 use Illuminate\Http\Request;
 use Cart;
@@ -86,6 +88,28 @@ class CheckoutController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function checkoutStore(CheckoutStoreRequest $request)
+    {
+        $data = [];
+        $data['shipping_name'] = $request->shipping_name;
+        $data['shipping_email'] = $request->shipping_email;
+        $data['shipping_phone'] = $request->shipping_phone;
+        $data['shipping_postCode'] = $request->shipping_postCode;
+        $data['division_id'] = $request->division_id;
+        $data['district_id'] = $request->district_id;
+        $data['state_id'] = $request->state_id;
+        $data['shipping_address'] = $request->shipping_address;
+        $data['shipping_notes'] = $request->shipping_notes;
+
+        if($request->payment_method == 'stripe'){
+            return view('frontend.payment.stripe', compact('data'));
+        }elseif($request->payment_method == 'card'){
+            return "card";
+        }else{
+            return 'cash on delivery';
+        }
     }
 
     public function getDistrict($division_id)
