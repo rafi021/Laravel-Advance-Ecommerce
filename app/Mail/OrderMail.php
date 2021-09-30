@@ -32,7 +32,7 @@ class OrderMail extends Mailable
     {
         $order = $this->data;
         $companyEmail = env('MAIL_FROM_ADDRESS');
-        $emailSubject = 'Order Confirmation Email from'.env('APP_NAME');
+        $emailSubject = 'Order Confirmation Email from '.env('APP_NAME');
         return $this->from($companyEmail)
             ->view('mail.order_mail', compact('order'))
             ->subject($emailSubject);

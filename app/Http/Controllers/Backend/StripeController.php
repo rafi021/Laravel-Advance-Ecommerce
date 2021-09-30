@@ -70,7 +70,7 @@ class StripeController extends Controller
          // Start Send Email
             $invoice = Order::findOrFail($order_id);
             $data = [
-                'invoice_no' => $invoice->invoice_no,
+                'invoice_no' => $invoice->invoice_number,
                 'amount' => $total_amount,
                 'name' => $invoice->name,
                 'email' => $invoice->email,
