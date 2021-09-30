@@ -9,7 +9,8 @@ class StripeController extends Controller
 {
     public function stripeOrder(Request $request)
     {
-        \Stripe\Stripe::setApiKey('sk_test_51H8TlFIWhXor2KLbgApXVlRywj1JMseSwiAjsxIZisdoxBd51zJq0Mxayonagck8bydElHMKUgeuToL7y23SFP6H00i6EMPInx');
+        $stripePrivateKey = env('STRIPE_SECRET');
+        \Stripe\Stripe::setApiKey($stripePrivateKey);
 
         $token = $_POST['stripeToken'];
         $charge = \Stripe\Charge::create([
