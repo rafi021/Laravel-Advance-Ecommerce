@@ -76,7 +76,7 @@ class StripeController extends Controller
                 'email' => $invoice->email,
             ];
 
-            Mail::to($request->email)->send(new OrderMail($data));
+            Mail::to($invoice->email)->send(new OrderMail($data));
 
             // End Send Email
 
