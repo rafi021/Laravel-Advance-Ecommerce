@@ -17,7 +17,7 @@ class CategorySeeder extends Seeder
         // Category::factory()->count(50)->create();
 
         $category_list_en = [
-            'Clothing & Fashion Accessories',
+            'Clothing & Fashion',
             'Healthcare & Hygiene',
             'Shoes & Bags',
             'Books & Stationary',
