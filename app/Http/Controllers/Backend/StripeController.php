@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Mail\OrderMail;
 use App\Models\Order;
 use App\Models\OrderItem;
 use Carbon\Carbon;
