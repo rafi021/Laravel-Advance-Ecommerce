@@ -11,6 +11,7 @@ use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\ShippingAreaController;
 use App\Http\Controllers\Backend\ShippingDistrictController;
 use App\Http\Controllers\Backend\ShippingStateController;
+use App\Http\Controllers\Backend\StripeController;
 use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Backend\SubSubCategoryController;
 use App\Http\Controllers\Frontend\CartController;
@@ -80,6 +81,8 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth', 'user'], 'namespace' 
     Route::get('/list/wishlists', [WishlistController::class,'listWishList'])->name('listWishlist');
     // remove from wishlist
     Route::get('/remove/from-wishlist/{wish_id}', [WishlistController::class,'removefromWishList'])->name('removefromWishList');
+
+    Route::post('/stripe/v1/payment', [StripeController::class,'stripeOrder'])->name('stripe.order');
 });
 
 // Cart page routes
