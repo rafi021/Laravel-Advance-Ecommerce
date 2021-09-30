@@ -64,7 +64,7 @@ A.  Admin -> Admin
     Pass -> 12345678
 
 B.  User -> User
-    Email -> admin@gmail.com
+    Email -> user@gmail.com
     Pass -> 12345678
 
 Finally we are ready to run our project using this command 
