@@ -305,7 +305,9 @@
                 data: {coupon_name: coupon_name},
                 url: '/coupon/apply/',
                 success: function(recv_data) {
-                    $('#applyCouponField').hide();
+                    if(data.validity == true){
+                        $('#applyCouponField').hide();
+                    }
                     couponCalField();
                     // Start Message
                     const Toast = Swal.mixin({

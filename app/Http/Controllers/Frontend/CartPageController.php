@@ -95,6 +95,7 @@ class CartPageController extends Controller
                 'total_amount' => round(Cart::total() - Cart::total() * $coupon->coupon_discount/100)
             ]);
             return response()->json(array(
+                'validity' => true,
                 'success' => 'Coupon Applied Successfully'
             ));
         }else{
