@@ -82,6 +82,17 @@
                             @csrf
                             <div class="form-row">
                               <label for="card-element">
+
+                            <input type="hidden" name="shipping_name" value="{{ $data['shipping_name'] }}">
+                            <input type="hidden" name="shipping_email" value="{{ $data['shipping_email'] }}">
+                            <input type="hidden" name="shipping_phone" value="{{ $data['shipping_phone'] }}">
+                            <input type="hidden" name="shipping_postCode" value="{{ $data['shipping_postCode'] }}">
+                            <input type="hidden" name="division_id" value="{{ $data['division_id'] }}">
+                            <input type="hidden" name="district_id" value="{{ $data['district_id'] }}">
+                            <input type="hidden" name="state_id" value="{{ $data['state_id'] }}">
+                            <input type="hidden" name="shipping_address" value="{{ $data['shipping_address'] }}">
+                            <input type="hidden" name="shipping_notes" value="{{ $data['shipping_notes'] }}">
+
                                 Credit or debit card
                               </label>
                               <div id="card-element">

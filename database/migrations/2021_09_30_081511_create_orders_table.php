@@ -24,9 +24,10 @@ class CreateOrdersTable extends Migration
             $table->string('phone');
             $table->unsignedInteger('post_code')->nullable();
             $table->text('notes')->nullable();
+            $table->text('address');
             $table->string('payment_type');
             $table->string('payment_method')->nullable();
-            $table->unsignedBigInteger('transaction_id');
+            $table->string('transaction_id');
             $table->string('currency');
             $table->float('amount', 8, 2);
             $table->string('order_number');
@@ -42,7 +43,7 @@ class CreateOrdersTable extends Migration
             $table->string('cancel_date')->nullable();
             $table->string('return_date')->nullable();
             $table->string('return_reason')->nullable();
-            $table->boolean('status')->default(true);
+            $table->string('status')->default('pending');
             $table->timestamps();
         });
     }
