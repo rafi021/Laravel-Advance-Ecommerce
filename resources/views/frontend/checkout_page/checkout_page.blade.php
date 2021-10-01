@@ -209,7 +209,7 @@
                                 <div class="col-md-4">
                                     <label for="">COD</label>
                                     <input type="radio" name="payment_method" id="" value="cod">
-                                    <img src="{{ asset('frontend/assets/images/payments/5.png') }}" alt="">
+                                    <img src="{{ asset('frontend/assets/images/payments/6.png') }}" alt="">
                                 </div>
                                 @error('payment_method')
                                     <span class="alert text-danger">{{ $message }}</span>
