@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use PDF;
 
 class OrderDetailsController extends Controller
 {
@@ -30,9 +31,13 @@ class OrderDetailsController extends Controller
     {
         $order = Order::whereId($order_id)->where('user_id', Auth::id())->first();
         $orderItems = OrderItem::where('order_id', $order->id)->orderBy('id', 'DESC')->get();
-        return view('frontend.order.invoice-download', compact(
-            'order',
-            'orderItems'
-        ));
+
+        $pdf = PDF::loadView('frontend.order.invoice-download', compact('order','orderItems'))
+            ->setPaper('a4')
+            ->setOptions([
+                'tempDir' => public_path(),
+                'chroot' => public_path(),
+            ]);
+        return $pdf->download('invoice.pdf');
     }
 }
