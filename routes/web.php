@@ -6,6 +6,7 @@ use App\Http\Controllers\Backend\AdminProfileController;
 use App\Http\Controllers\Backend\AdminSliderController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\CODController;
 use App\Http\Controllers\Backend\CouponController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\ShippingAreaController;
@@ -95,6 +96,9 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth', 'user'], 'namespace' 
     Route::get('/order-details/{order_id}', [OrderDetailsController::class, 'userOrderDetails'])->name('order-deatils');
     // Download Invoice - user route
     Route::get('/invoice-download/{order_id}', [OrderDetailsController::class, 'userInvoiceDownload'])->name('invoice-download');
+
+    // Cash on Delivery route
+    Route::post('/cod/v1/payment', [CODController::class, 'codOrder'])->name('cod.order');
 });
 
 // Cart page routes

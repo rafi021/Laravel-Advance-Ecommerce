@@ -115,7 +115,10 @@ class CheckoutController extends Controller
         }elseif($request->payment_method == 'card'){
             return "card";
         }else{
-            return 'cash on delivery';
+            return view('frontend.payment.cod', compact(
+                'data',
+                'cart_total',
+            ));
         }
     }
 
