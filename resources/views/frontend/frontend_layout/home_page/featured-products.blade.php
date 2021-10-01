@@ -54,10 +54,18 @@
                             <div class="action">
                                 <ul class="list-unstyled">
                                     <li class="add-cart-button btn-group">
+                                        @if ($product->product_qty>0)
                                         <button class="btn btn-primary icon" type="button" data-toggle="modal"
                                             data-target="#productViewModal" onclick="productView(this.id)"
                                             id="{{ $product->id }}">
-                                            <i class="fa fa-shopping-cart"></i> </button>
+                                            <i class="fa fa-shopping-cart"></i>
+                                        </button>
+                                        @else
+                                        <button class="btn btn-danger" type="button">
+                                            <i class="fa fa-close"></i>
+                                        </button>
+                                        @endif
+
                                         <!-- Button trigger modal -->
                                         <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
                                     </li>

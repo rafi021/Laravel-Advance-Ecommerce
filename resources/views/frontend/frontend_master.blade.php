@@ -85,6 +85,7 @@
                     </div>
                     <input type="hidden" id="product_id">
                     <button class="btn btn-primary mb-2" type="submit" onclick="addToCart()">Add to Cart</button>
+
                 </div>
             </div>
         </div>
