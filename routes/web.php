@@ -20,6 +20,8 @@ use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\FrontendPageController;
 use App\Http\Controllers\Frontend\FrontendUserProfileController;
 use App\Http\Controllers\Frontend\LanguageController;
+use App\Http\Controllers\User\OrderDetailsController;
+use App\Http\Controllers\User\OrderHistoryController;
 use App\Http\Controllers\User\WishlistController;
 
 /*
@@ -45,6 +47,9 @@ Route::middleware(['auth:web'])->group(function(){
         Route::post('/profile', [FrontendUserProfileController::class, 'userprofileupdate'])->name('user.profile');
         Route::get('/password/change', [FrontendUserProfileController::class, 'userpasswordchange'])->name('user.change.password');
         Route::post('/password/update', [FrontendUserProfileController::class, 'userpasswordupdate'])->name('user.update.password');
+
+        // user order history
+        Route::get('/orders/history', [OrderHistoryController::class, 'orderHistory'])->name('user.orders');
     });
 });
 
@@ -76,13 +81,20 @@ Route::get('/minicart/product-remove/{rowId}', [CartController::class,'removeMin
 //Wishlist routes
 Route::group(['prefix' => 'user', 'middleware' => ['auth', 'user'], 'namespace' => 'User'], function()
 {
+    // add to wishlist route
     Route::post('/add/product/to-wishlist/{product_id}',[WishlistController::class,'addToWishlist'])->name('addtoWishlist');
     // list wishlist route
     Route::get('/list/wishlists', [WishlistController::class,'listWishList'])->name('listWishlist');
     // remove from wishlist
     Route::get('/remove/from-wishlist/{wish_id}', [WishlistController::class,'removefromWishList'])->name('removefromWishList');
 
+    //stripe payment route
     Route::post('/stripe/v1/payment', [StripeController::class,'stripeOrder'])->name('stripe.order');
+
+    // User order deatils route
+    Route::get('/order-details/{order_id}', [OrderDetailsController::class, 'userOrderDetails'])->name('order-deatils');
+    // Download Invoice - user route
+    Route::get('/invoice-download/{order_id}', [OrderDetailsController::class, 'userInvoiceDownload'])->name('invoice-download');
 });
 
 // Cart page routes
