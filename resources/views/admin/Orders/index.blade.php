@@ -11,7 +11,13 @@
             <div class="col-md-12 col-lg-12">
                 <div class="box">
                     <div class="box-header with-border">
-                        <h3 class="box-title">All Orders List</h3>
+                        <h3 class="box-title">
+                            @if (Request::is('admin/orders'))
+                                All Orders List
+                            @else
+                                Statuswise Order List
+                            @endif
+                        </h3>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
