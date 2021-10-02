@@ -96,7 +96,7 @@
                                 </th>
                             </tr>
                             <tr>
-                                <th></th>
+                                <th>Return Reason: <p>{{ $order->return_reason }}</p></th>
                                 <th>
                                     @if ($order->status == 'pending')
                                     <a href="{{ route('order-status.update', [

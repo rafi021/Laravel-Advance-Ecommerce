@@ -1,7 +1,7 @@
 @extends('dashboard')
 
 @section('frontend_style')
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+
 @endsection
 
 @section('userdashboard_content')
@@ -66,6 +66,19 @@
                     <h4>Order Details
                         <span class="text-danger"> Invoice : {{ $order->invoice_number }}</span>
                     </h4>
+                    @if ($order->status == 'pending')
+
+                    @else
+                    <ul>
+                        <li> Confirmed Date: {{ $order->confirmed_date }}</li>
+                        <li> Processing Date: {{ $order->processing_date }}</li>
+                        <li> Picked Date: {{ $order->picked_date }}</li>
+                        <li> Shipped Date: {{ $order->shipped_date }}</li>
+                        <li> Delivered Date: {{ $order->delivered_date }}</li>
+                        <li> Cancel Date: {{ $order->cancel_date }}</li>
+                        <li> Return Date: {{ $order->return_date }}</li>
+                    </ul>
+                    @endif
                 </div>
                 <hr>
                 <div class="card-body" style="background: #E9EBEC;">
@@ -107,6 +120,7 @@
                                     style="background: #418DB9;">{{ $order->status }} </span>
                             </th>
                         </tr>
+
                     </table>
                 </div>
             </div>
@@ -141,7 +155,7 @@
                                 <label for=""> Price </label>
                             </td>
                             <td class="col-md-1">
-                                <label for=""> Download </label>
+                                <label for=""> Action </label>
                             </td>
                         </tr>
                         @foreach ($orderItems as $item)
@@ -177,14 +191,14 @@
                                     @if ($order->status == 'pending')
                                         <strong>
                                             <span class="badge badge-pill badge-success" style="background: #418DB9;"> No
-                                                File</span> </strong>
+                                                File</span>
+                                        </strong>
 
-                                    @elseif($order->status == 'confirm')
+                                    @elseif($order->status != 'pending')
 
-                                        <a target="_blank" href="{{ asset('upload/pdf/' . $file->digital_file) }}">
-                                            <strong>
-                                                <span class="badge badge-pill badge-success" style="background: #FF0000;">
-                                                    Download Ready</span> </strong> </a>
+                                        <a target="_blank" class="btn btn-danger" href="{{ asset('upload/pdf/' . $file->digital_file) }}">
+                                            <i class="fa fa-download"></i>Inovice
+                                        </a>
                                     @endif
                                 </td>
                             </tr>
@@ -194,7 +208,8 @@
             </div>
         </div> <!-- / end col md 8 -->
     </div> <!-- // END ORDER ITEM ROW -->
-    @if ($order->status !== 'delivered')
+    @if ($order->status == 'delivered')
+    Delivered
     @else
         @php
             $order = App\Models\Order::where('id', $order->id)
@@ -218,10 +233,5 @@
 @endsection
 
 @section('frontend_script')
-    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#myOrder').DataTable();
-        });
-    </script>
+
 @endsection

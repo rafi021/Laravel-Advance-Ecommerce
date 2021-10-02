@@ -197,6 +197,12 @@ class OrderController extends Controller
                     'delivered_date' => Carbon::now()
                 ]);
                 break;
+            case 'return':
+                $order->update([
+                    'status' => $status,
+                    'return_date' => Carbon::now()
+                ]);
+                break;
             default:
                 return back()->with([
                     'message' => 'No Action perform!!',

@@ -97,6 +97,12 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth', 'user'], 'namespace' 
     Route::get('/order-details/{order_id}', [OrderDetailsController::class, 'userOrderDetails'])->name('order-deatils');
     // Download Invoice - user route
     Route::get('/invoice-download/{order_id}', [OrderDetailsController::class, 'userInvoiceDownload'])->name('invoice-download');
+    // Return order route
+    Route::post('/return/order/{order_id}', [OrderDetailsController::class, 'returnOrder'])->name('return.order');
+    // Return Order list route
+    Route::get('/return/orders/list', [OrderDetailsController::class, 'returnOrderList'])->name('user.return-orders');
+    // Cancel order list route
+    Route::get('/cancel/orders/list', [OrderDetailsController::class, 'cancelOrderList'])->name('user.cancel-orders');
 
     // Cash on Delivery route
     Route::post('/cod/v1/payment', [CODController::class, 'codOrder'])->name('cod.order');
