@@ -160,4 +160,19 @@ class OrderController extends Controller
             'orders'
         ));
     }
+
+    public function orderStatusUpdate($order_id, $status)
+    {
+        $order = Order::whereId($order_id)->first();
+        $order->update([
+            'status' => $status
+        ]);
+
+        $notification = [
+            'message' => 'Order '.$status,
+            'alert-type' => 'success'
+        ];
+
+        return back()->with($notification);
+    }
 }

@@ -191,5 +191,9 @@ Route::middleware(['auth:admin'])->group(function(){
         Route::get('/orders/delivered/index', [OrderController::class, 'deliveredOrderIndex'])->name('delivered.orders');
         Route::get('/orders/cancel/index', [OrderController::class, 'cancelOrderIndex'])->name('cancel.orders');
         Route::get('/orders/return/index', [OrderController::class, 'returnOrderIndex'])->name('return.orders');
+
+        Route::get('/orders/status/update/{order_id}/{status}', [OrderController::class, 'orderStatusUpdate'])->name('order-status.update');
+        // Download Invoice route - admin
+        Route::get('/invoice-download/{order_id}', [OrderDetailsController::class, 'userInvoiceDownload'])->name('invoice-download');
     });
 });

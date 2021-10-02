@@ -69,14 +69,20 @@
                                                         <div class="input-group">
                                                             <a href="{{ route('orders.show', $order) }}" class="btn btn-success" title="View"><i class="fa fa-eye"></i>
                                                             </a>
-                                                            <a href="{{ route('orders.edit', $order) }}" class="btn btn-info" title="Edit Data"><i class="fa fa-pencil"></i>
+                                                            @if ($order->status =='pending')
+
+                                                            @else
+                                                            <a href="{{ route('invoice-download', $order->id) }}" class="btn btn-danger" title="Download"><i class="fa fa-download"></i>
+                                                            </a>
+                                                            @endif
+                                                            {{-- <a href="{{ route('orders.edit', $order) }}" class="btn btn-info" title="Edit Data"><i class="fa fa-pencil"></i>
                                                             </a>
                                                             <form action="{{ route('orders.destroy', $order) }}" method="post">
                                                                 @method('DELETE')
                                                                 @csrf
                                                                 <a href="" class="btn btn-danger" title="Delete Data" id="delete" onclick="event.preventDefault();
                                                                 this.closest('form').submit();"><i class="fa fa-trash"></i></a>
-                                                            </form>
+                                                            </form> --}}
                                                         </div>
                                                     </td>
                                                 </tr>
