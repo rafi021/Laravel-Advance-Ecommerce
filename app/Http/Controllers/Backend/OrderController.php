@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\OrderItem;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use PDF;
 class OrderController extends Controller
@@ -164,10 +165,45 @@ class OrderController extends Controller
     public function orderStatusUpdate($order_id, $status)
     {
         $order = Order::whereId($order_id)->first();
-        $order->update([
-            'status' => $status
-        ]);
 
+        switch ($status) {
+            case 'confirmed':
+                $order->update([
+                    'status' => $status,
+                    'confirmed_date' => Carbon::now()
+                ]);
+                break;
+            case 'processing':
+                $order->update([
+                    'status' => $status,
+                    'processing_date' => Carbon::now()
+                ]);
+                break;
+            case 'picked':
+                $order->update([
+                    'status' => $status,
+                    'picked_date' => Carbon::now()
+                ]);
+                break;
+            case 'shipped':
+                $order->update([
+                    'status' => $status,
+                    'shipped_date' => Carbon::now()
+                ]);
+                break;
+            case 'delivered':
+                $order->update([
+                    'status' => $status,
+                    'delivered_date' => Carbon::now()
+                ]);
+                break;
+            default:
+                return back()->with([
+                    'message' => 'No Action perform!!',
+                    'alert-type' => 'success'
+                ]);
+                break;
+        }
         $notification = [
             'message' => 'Order '.$status,
             'alert-type' => 'success'

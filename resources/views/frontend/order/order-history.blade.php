@@ -29,19 +29,20 @@
                     <td>{{ $order->payment_method }}</td>
                     <td>
                         @if ($order->status == 'pending')
-                            <span class="badge bdage-warning">
-                                {{ $order->status }}
-                            </span>
-                        @elseif($order->status == 'delivered')
-                            <span class="badge bdage-success">
-                                {{ $order->status }}
-                            </span>
-                        @elseif($order->status == 'returned')
-                            <span class="badge bdage-danger">
-                                {{ $order->status }}
-                            </span>
+                        <span class="badge badge-primary">{{ $order->status }}</span>
+                        @elseif ($order->status == 'confirmed')
+                        <span class="badge badge-secondary">{{ $order->status }}</span>
+                        @elseif ($order->status == 'processing')
+                        <span class="badge badge-info">{{ $order->status }}</span>
+                        @elseif ($order->status == 'picked')
+                        <span class="badge badge-warning">{{ $order->status }}</span>
+                        @elseif ($order->status == 'shipped')
+                        <span class="badge badge-light">{{ $order->status }}</span>
+                        @elseif ($order->status == 'delivered')
+                        <span class="badge badge-success">{{ $order->status }}</span>
+                        @else
+                        <span class="badge badge-danger">{{ $order->status }}</span>
                         @endif
-
                     </td>
                     <td>
                         <a href="{{ route('order-deatils', $order->id) }}" class="btn btn-sm btn-primary">
