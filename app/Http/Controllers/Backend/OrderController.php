@@ -170,37 +170,37 @@ class OrderController extends Controller
             case 'confirmed':
                 $order->update([
                     'status' => $status,
-                    'confirmed_date' => Carbon::now()
+                    'confirmed_date' => Carbon::now()->format('d F Y')
                 ]);
                 break;
             case 'processing':
                 $order->update([
                     'status' => $status,
-                    'processing_date' => Carbon::now()
+                    'processing_date' => Carbon::now()->format('d F Y')
                 ]);
                 break;
             case 'picked':
                 $order->update([
                     'status' => $status,
-                    'picked_date' => Carbon::now()
+                    'picked_date' => Carbon::now()->format('d F Y')
                 ]);
                 break;
             case 'shipped':
                 $order->update([
                     'status' => $status,
-                    'shipped_date' => Carbon::now()
+                    'shipped_date' => Carbon::now()->format('d F Y')
                 ]);
                 break;
             case 'delivered':
                 $order->update([
                     'status' => $status,
-                    'delivered_date' => Carbon::now()
+                    'delivered_date' => Carbon::now()->format('d F Y')
                 ]);
                 break;
             case 'return':
                 $order->update([
                     'status' => $status,
-                    'return_date' => Carbon::now()
+                    'return_date' => Carbon::now()->format('d F Y')
                 ]);
                 break;
             default:
