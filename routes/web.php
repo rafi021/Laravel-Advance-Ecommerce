@@ -8,6 +8,7 @@ use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\CODController;
 use App\Http\Controllers\Backend\CouponController;
+use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\ShippingAreaController;
 use App\Http\Controllers\Backend\ShippingDistrictController;
@@ -154,24 +155,33 @@ Route::middleware(['auth:admin'])->group(function(){
         Route::resource('/categories',CategoryController::class);
         Route::resource('/subcategories', SubCategoryController::class);
         Route::resource('/subsubcategories', SubSubCategoryController::class);
+
         Route::get('/category/subcategory/ajax/{category_id}', [SubSubCategoryController::class, 'getSubCategory']);
         Route::get('/category/subsubcategory/ajax/{subcategory_id}', [SubSubCategoryController::class, 'getSubSubCategory']);
-        Route::resource('/products', ProductController::class);
+
         // update multi-image route
         Route::post('/products/image/update', [ProductController::class, 'MultiImageUpdate'])->name('update-product-image');
+        Route::resource('/products', ProductController::class);
         Route::get('/changestatus', [ProductController::class, 'changeStatus'])->name('change-product-status');
+
         // slider routes
         Route::resource('/slider', AdminSliderController::class);
         Route::get('/changesliderstatus', [AdminSliderController::class, 'changeSliderStatus'])->name('change-product-status');
+
         // coupon routes
         Route::resource('/coupons', CouponController::class);
         Route::get('/change/coupon/status', [CouponController::class, 'changeCouponStatus'])->name('change-coupon-status');
+
         // shipping routes
         Route::resource('/division', ShippingAreaController::class);
         Route::resource('/district', ShippingDistrictController::class);
         Route::resource('/state', ShippingStateController::class);
 
         Route::get('/division/district/ajax/{division_id}', [ShippingStateController::class, 'getDistrict']);
-        Route::get('district/state/ajax/{district_id}', [ShippingStateController::class, 'getState']);
+        Route::get('/district/state/ajax/{district_id}', [ShippingStateController::class, 'getState']);
+
+
+        // Orders routes
+        Route::resource('/orders', OrderController::class);
     });
 });

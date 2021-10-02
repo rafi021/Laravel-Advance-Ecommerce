@@ -55,8 +55,6 @@
                         </tr>
 
                     </table>
-
-
                 </div>
 
             </div>
@@ -98,7 +96,7 @@
                         </tr>
 
                         <tr>
-                            <th> Order Total : </th>
+                            <th> Order Total :$ </th>
                             <th>{{ $order->amount }} </th>
                         </tr>
 

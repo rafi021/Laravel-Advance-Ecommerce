@@ -129,6 +129,21 @@
         </ul>
     </li>
 
+    <li class="treeview {{ ($prefix == '/orders') ? 'active' : '' }}">
+        <a href="#">
+        <i data-feather="file"></i> <span>Orders</span>
+        <span class="pull-right-container">
+            <i class="fa fa-angle-right pull-right"></i>
+        </span>
+        </a>
+        <ul class="treeview-menu">
+            <li class=" {{ ($route == '/orders') ? 'active' : '' }}">
+                <a href="{{ route('orders.index') }}"><i class="ti-more"></i>Pending Orders</a>
+            </li>
+
+        </ul>
+    </li>
+
     <li class="treeview">
         <a href="#">
         <i data-feather="file"></i>
