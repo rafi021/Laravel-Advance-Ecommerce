@@ -72,7 +72,7 @@
                                                             @if ($order->status =='pending')
 
                                                             @else
-                                                            <a href="{{ route('invoice-download', $order->id) }}" class="btn btn-danger" title="Download"><i class="fa fa-download"></i>
+                                                            <a href="{{ route('admin-invoice-download', $order->id) }}" class="btn btn-danger" title="Download"><i class="fa fa-download"></i>
                                                             </a>
                                                             @endif
                                                             {{-- <a href="{{ route('orders.edit', $order) }}" class="btn btn-info" title="Edit Data"><i class="fa fa-pencil"></i>

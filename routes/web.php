@@ -194,6 +194,6 @@ Route::middleware(['auth:admin'])->group(function(){
 
         Route::get('/orders/status/update/{order_id}/{status}', [OrderController::class, 'orderStatusUpdate'])->name('order-status.update');
         // Download Invoice route - admin
-        Route::get('/invoice-download/{order_id}', [OrderDetailsController::class, 'userInvoiceDownload'])->name('invoice-download');
+        Route::get('/invoice-download/{order_id}', [OrderController::class, 'adminInvoiceDownload'])->name('admin-invoice-download');
     });
 });

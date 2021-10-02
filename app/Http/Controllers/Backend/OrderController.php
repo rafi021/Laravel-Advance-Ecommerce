@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
-
+use PDF;
 class OrderController extends Controller
 {
     /**
@@ -174,5 +174,19 @@ class OrderController extends Controller
         ];
 
         return back()->with($notification);
+    }
+
+    public function adminInvoiceDownload($order_id)
+    {
+        $order = Order::whereId($order_id)->first();
+        $orderItems = OrderItem::where('order_id', $order->id)->orderBy('id', 'DESC')->get();
+
+        $pdf = PDF::loadView('frontend.order.invoice-download', compact('order','orderItems'))
+            ->setPaper('a4')
+            ->setOptions([
+                'tempDir' => public_path(),
+                'chroot' => public_path(),
+            ]);
+        return $pdf->download('invoice.pdf');
     }
 }
