@@ -23,11 +23,48 @@
     <!-- sidebar menu-->
     <ul class="sidebar-menu" data-widget="tree">
 
-<li class="{{ ($route == 'admin.dashboard') ? 'active':'' }}">
+    <li class="{{ ($route == 'admin.dashboard') ? 'active':'' }}">
         <a href="{{ route('admin.dashboard') }}">
             <i data-feather="pie-chart"></i>
             <span>Dashboard</span>
         </a>
+    </li>
+    <li class="treeview {{ ($prefix == '/orders') ? 'active' : '' }}">
+        <a href="#">
+        <i data-feather="file"></i> <span>Orders</span>
+        <span class="pull-right-container">
+            <i class="fa fa-angle-right pull-right"></i>
+        </span>
+        </a>
+        <ul class="treeview-menu">
+            <li class=" {{ ($route == '/orders') ? 'active' : '' }}">
+                <a href="{{ route('orders.index') }}"><i class="ti-more"></i>All Orders</a>
+            </li>
+            <li class=" {{ ($route == '/orders') ? 'active' : '' }}">
+                <a href="{{ route('pending.orders') }}"><i class="ti-more"></i>Pending Orders</a>
+            </li>
+            <li class=" {{ ($route == '/orders') ? 'active' : '' }}">
+                <a href="{{ route('confirmed.orders') }}"><i class="ti-more"></i>Confirmed Orders</a>
+            </li>
+            <li class=" {{ ($route == '/orders') ? 'active' : '' }}">
+                <a href="{{ route('processing.orders') }}"><i class="ti-more"></i>Processing Orders</a>
+            </li>
+            <li class=" {{ ($route == '/orders') ? 'active' : '' }}">
+                <a href="{{ route('picked.orders') }}"><i class="ti-more"></i>Picked Orders</a>
+            </li>
+            <li class=" {{ ($route == '/orders') ? 'active' : '' }}">
+                <a href="{{ route('shipped.orders') }}"><i class="ti-more"></i>Shipped Orders</a>
+            </li>
+            <li class=" {{ ($route == '/orders') ? 'active' : '' }}">
+                <a href="{{ route('delivered.orders') }}"><i class="ti-more"></i>Delivered Orders</a>
+            </li>
+            <li class=" {{ ($route == '/orders') ? 'active' : '' }}">
+                <a href="{{ route('cancel.orders') }}"><i class="ti-more"></i>Cancel Orders</a>
+            </li>
+            <li class=" {{ ($route == '/orders') ? 'active' : '' }}">
+                <a href="{{ route('return.orders') }}"><i class="ti-more"></i>Return Orders</a>
+            </li>
+        </ul>
     </li>
 
     <li class="treeview {{ ($route == 'brands.index') ? 'active' : '' }}">
@@ -129,38 +166,6 @@
         </ul>
     </li>
 
-    <li class="treeview {{ ($prefix == '/orders') ? 'active' : '' }}">
-        <a href="#">
-        <i data-feather="file"></i> <span>Orders</span>
-        <span class="pull-right-container">
-            <i class="fa fa-angle-right pull-right"></i>
-        </span>
-        </a>
-        <ul class="treeview-menu">
-            <li class=" {{ ($route == '/orders') ? 'active' : '' }}">
-                <a href="{{ route('orders.index') }}"><i class="ti-more"></i>Pending Orders</a>
-            </li>
-
-        </ul>
-    </li>
-
-    <li class="treeview">
-        <a href="#">
-        <i data-feather="file"></i>
-        <span>Pages</span>
-        <span class="pull-right-container">
-            <i class="fa fa-angle-right pull-right"></i>
-        </span>
-        </a>
-        <ul class="treeview-menu">
-        <li><a href="profile.html"><i class="ti-more"></i>Profile</a></li>
-        <li><a href="invoice.html"><i class="ti-more"></i>Invoice</a></li>
-        <li><a href="gallery.html"><i class="ti-more"></i>Gallery</a></li>
-        <li><a href="faq.html"><i class="ti-more"></i>FAQs</a></li>
-        <li><a href="timeline.html"><i class="ti-more"></i>Timeline</a></li>
-        </ul>
-    </li>
-
     <li class="header nav-small-cap">User Interface</li>
 
     <li class="treeview">
@@ -185,12 +190,12 @@
     </ul>
 </section>
 
-<div class="sidebar-footer">
+{{-- <div class="sidebar-footer">
     <!-- item-->
     <a href="javascript:void(0)" class="link" data-toggle="tooltip" title="" data-original-title="Settings" aria-describedby="tooltip92529"><i class="ti-settings"></i></a>
     <!-- item-->
     <a href="mailbox_inbox.html" class="link" data-toggle="tooltip" title="" data-original-title="Email"><i class="ti-email"></i></a>
     <!-- item-->
     <a href="{{ route('admin.logout') }}" class="link" data-toggle="tooltip" title="" data-original-title="Logout"><i class="ti-lock"></i></a>
-</div>
+</div> --}}
 </aside>

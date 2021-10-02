@@ -97,4 +97,67 @@ class OrderController extends Controller
     {
         //
     }
+
+    public function pendingOrderIndex()
+    {
+        $orders = Order::where('status', 'pending')->latest('id')->get();
+        return view('admin.Orders.index', compact(
+            'orders'
+        ));
+    }
+
+    public function confirmedOrderIndex()
+    {
+        $orders = Order::where('status', 'confirmed')->latest('id')->get();
+        return view('admin.Orders.index', compact(
+            'orders'
+        ));
+    }
+
+    public function processingOrderIndex()
+    {
+        $orders = Order::where('status', 'processing')->latest('id')->get();
+        return view('admin.Orders.index', compact(
+            'orders'
+        ));
+    }
+
+    public function pickedOrderIndex()
+    {
+        $orders = Order::where('status', 'picked')->latest('id')->get();
+        return view('admin.Orders.index', compact(
+            'orders'
+        ));
+    }
+
+    public function shippedOrderIndex()
+    {
+        $orders = Order::where('status', 'shipped')->latest('id')->get();
+        return view('admin.Orders.index', compact(
+            'orders'
+        ));
+    }
+
+    public function deliveredOrderIndex()
+    {
+        $orders = Order::where('status', 'delivered')->latest('id')->get();
+        return view('admin.Orders.index', compact(
+            'orders'
+        ));
+    }
+
+    public function cancelOrderIndex()
+    {
+        $orders = Order::where('status', 'cancel')->latest('id')->get();
+        return view('admin.Orders.index', compact(
+            'orders'
+        ));
+    }
+    public function returnOrderIndex()
+    {
+        $orders = Order::where('status', 'return')->latest('id')->get();
+        return view('admin.Orders.index', compact(
+            'orders'
+        ));
+    }
 }
