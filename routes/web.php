@@ -42,21 +42,23 @@ Route::middleware(['auth:web'])->group(function(){
 });
 
 // Frontend Pages routes
-Route::get('/', [FrontendPageController::class,'home'])->name('home');
-Route::get('/category', [FrontendPageController::class,'category'])->name('category');
+Route::group(['controller' => FrontendPageController::class],function(){
+    Route::get('/', 'home')->name('home');
+    Route::get('/category', 'category')->name('category');
+    Route::get('/product/detail/{id}/{slug}', 'productDeatil')->name('frontend-product-details');
+    // Tags wise products route
+    Route::get('/product/tag/{tag}', 'tagwiseProduct')->name('product.tag');
+    //subcategory wise products route
+    Route::get('/subcategory/{id}/{slug}','subcategoryProducts')->name('subcategory.products');
+    //subsubcategory wise products route
+    Route::get('/subsubcategory/{id}/{slug}','subsubcategoryProducts')->name('subsubcategory.products');
+    // AJAX Product data route
+    Route::get('/product/view/modal/{id}','productviewAjax')->name('productModalview');
+});
 
-Route::get('/product/detail/{id}/{slug}', [FrontendPageController::class,'productDeatil'])->name('frontend-product-details');
 Route::get('/english/language', [LanguageController::class, 'englishLoad'])->name('english.language');
 Route::get('/bangla/language', [LanguageController::class, 'banglaLoad'])->name('bangla.language');
 
-// Tags wise products route
-Route::get('/product/tag/{tag}', [FrontendPageController::class, 'tagwiseProduct'])->name('product.tag');
-//subcategory wise products route
-Route::get('/subcategory/{id}/{slug}', [FrontendPageController::class,'subcategoryProducts'])->name('subcategory.products');
-//subsubcategory wise products route
-Route::get('/subsubcategory/{id}/{slug}', [FrontendPageController::class,'subsubcategoryProducts'])->name('subsubcategory.products');
-// AJAX Product data route
-Route::get('/product/view/modal/{id}',[FrontendPageController::class,'productviewAjax'])->name('productModalview');
 
 // Cart routes
 // Add to cart Product route
