@@ -1,21 +1,7 @@
 <?php
-
+namespace App\Http\Controllers\Backend;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\Backend\AdminProfileController;
-use App\Http\Controllers\Backend\AdminSliderController;
-use App\Http\Controllers\Backend\BrandController;
-use App\Http\Controllers\Backend\CategoryController;
-use App\Http\Controllers\Backend\CODController;
-use App\Http\Controllers\Backend\CouponController;
-use App\Http\Controllers\Backend\OrderController;
-use App\Http\Controllers\Backend\ProductController;
-use App\Http\Controllers\Backend\ShippingAreaController;
-use App\Http\Controllers\Backend\ShippingDistrictController;
-use App\Http\Controllers\Backend\ShippingStateController;
-use App\Http\Controllers\Backend\StripeController;
-use App\Http\Controllers\Backend\SubCategoryController;
-use App\Http\Controllers\Backend\SubSubCategoryController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CartPageController;
 use App\Http\Controllers\Frontend\CheckoutController;
