@@ -114,13 +114,6 @@ Route::get('/division/district/ajax/{division_id}', [CheckoutController::class, 
 Route::get('/district/state/ajax/{district_id}', [CheckoutController::class, 'getState']);
 Route::post('/checkout-store',[CheckoutController::class, 'checkoutStore'])->name('checkout.store');
 
-
-
-
-
-
-
-
 // Admin Login routes
 Route::group(['prefix'=> 'admin', 'middleware'=>['admin:admin']], function(){
 	Route::get('/1wire_rty/login',[AdminController::class, 'loginForm']);
@@ -139,53 +132,58 @@ Route::middleware(['auth:admin'])->group(function(){
     });
 
     // Admin Dashboard routes
-    Route::middleware(['auth:sanctum,admin', 'verified'])->get('/admin/dashboard', function () {
+ Route::middleware(['auth:sanctum,web', 'verified'])->get('/admin/dashboard', function () {
         return view('admin.index');
     })->name('admin.dashboard');
 
     // Admin Dashboard all functionality/features routes
-    Route::prefix('/admin')->group(function(){
-        Route::resource('/brands',BrandController::class);
-        Route::resource('/categories',CategoryController::class);
-        Route::resource('/subcategories', SubCategoryController::class);
-        Route::resource('/subsubcategories', SubSubCategoryController::class);
+    Route::resources([
+        '/admin/brands'=>BrandController::class,
+        '/admin/categories'=>CategoryController::class,
+        '/admin/subcategories'=> SubCategoryController::class,
+        '/admin/subsubcategories'=> SubSubCategoryController::class,
+         // shipping routes
+        '/admin/division'=> ShippingAreaController::class,
+        '/admin/district'=> ShippingDistrictController::class,
+        '/admin/state'=> ShippingStateController::class,
+        // admin resource
+        '/admin/slider'=> AdminSliderController::class,
+        // product resource
+        '/admin/products'=> ProductController::class,
+        // order resource
+        '/admin/orders'=> OrderController::class,
+        // cupons resource
+        '/admin/coupons'=> CouponController::class,
+    ]);
+    Route::group(['prefix'=>'admin','controller'=>OrderController::class],function(){
+        Route::get('/orders/pending/index',  'pendingOrderIndex')->name('pending.orders');
+        Route::get('/orders/confirmed/index',  'confirmedOrderIndex')->name('confirmed.orders');
+        Route::get('/orders/processing/index',  'processingOrderIndex')->name('processing.orders');
+        Route::get('/orders/picked/index',  'pickedOrderIndex')->name('picked.orders');
+        Route::get('/orders/shipped/index',  'shippedOrderIndex')->name('shipped.orders');
+        Route::get('/orders/delivered/index',  'deliveredOrderIndex')->name('delivered.orders');
+        Route::get('/orders/cancel/index',  'cancelOrderIndex')->name('cancel.orders');
+        Route::get('/orders/return/index',  'returnOrderIndex')->name('return.orders');
+    });
 
+Route::prefix('/admin')->group(function(){
         Route::get('/category/subcategory/ajax/{category_id}', [SubSubCategoryController::class, 'getSubCategory']);
         Route::get('/category/subsubcategory/ajax/{subcategory_id}', [SubSubCategoryController::class, 'getSubSubCategory']);
-
         // update multi-image route
         Route::post('/products/image/update', [ProductController::class, 'MultiImageUpdate'])->name('update-product-image');
-        Route::resource('/products', ProductController::class);
         Route::get('/changestatus', [ProductController::class, 'changeStatus'])->name('change-product-status');
 
         // slider routes
-        Route::resource('/slider', AdminSliderController::class);
         Route::get('/changesliderstatus', [AdminSliderController::class, 'changeSliderStatus'])->name('change-product-status');
 
         // coupon routes
-        Route::resource('/coupons', CouponController::class);
+  
         Route::get('/change/coupon/status', [CouponController::class, 'changeCouponStatus'])->name('change-coupon-status');
-
-        // shipping routes
-        Route::resource('/division', ShippingAreaController::class);
-        Route::resource('/district', ShippingDistrictController::class);
-        Route::resource('/state', ShippingStateController::class);
 
         Route::get('/division/district/ajax/{division_id}', [ShippingStateController::class, 'getDistrict']);
         Route::get('/district/state/ajax/{district_id}', [ShippingStateController::class, 'getState']);
-
-
         // Orders routes
-        Route::resource('/orders', OrderController::class);
-        Route::get('/orders/pending/index', [OrderController::class, 'pendingOrderIndex'])->name('pending.orders');
-        Route::get('/orders/confirmed/index', [OrderController::class, 'confirmedOrderIndex'])->name('confirmed.orders');
-        Route::get('/orders/processing/index', [OrderController::class, 'processingOrderIndex'])->name('processing.orders');
-        Route::get('/orders/picked/index', [OrderController::class, 'pickedOrderIndex'])->name('picked.orders');
-        Route::get('/orders/shipped/index', [OrderController::class, 'shippedOrderIndex'])->name('shipped.orders');
-        Route::get('/orders/delivered/index', [OrderController::class, 'deliveredOrderIndex'])->name('delivered.orders');
-        Route::get('/orders/cancel/index', [OrderController::class, 'cancelOrderIndex'])->name('cancel.orders');
-        Route::get('/orders/return/index', [OrderController::class, 'returnOrderIndex'])->name('return.orders');
-
+       
         Route::get('/orders/status/update/{order_id}/{status}', [OrderController::class, 'orderStatusUpdate'])->name('order-status.update');
         // Download Invoice route - admin
         Route::get('/invoice-download/{order_id}', [OrderController::class, 'adminInvoiceDownload'])->name('admin-invoice-download');
