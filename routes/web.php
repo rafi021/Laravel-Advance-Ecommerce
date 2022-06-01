@@ -124,15 +124,14 @@ Route::group(['prefix'=> 'admin', 'middleware'=>['admin:admin']], function(){
 	Route::post('/login',[AdminController::class, 'store'])->name('admin.login');
 });
 
-Route::middleware(['auth:admin'])->group(function(){
+Route::middleware(['auth:web'])->group(function(){
 
     // Admin Logout/password change and profile routes
-    Route::prefix('/admin')->group(function () {
-        Route::get('/logout',[AdminController::class, 'destroy'])->name('admin.logout');
-        Route::resource('/profile', AdminProfileController::class);
-        Route::get('/edit/profile',[AdminProfileController::class, 'AdminProfileEdit'])->name('admin.profile.edit');
-        Route::get('/change/password',[AdminProfileController::class, 'AdminPasswordChange'])->name('admin.change.password');
-        Route::post('/change/password',[AdminProfileController::class, 'AdminPasswordUpdate'])->name('admin.password.update');
+    Route::group(['controller'=>AdminController::class,'prefix'=>'admin'],function () {
+        Route::get('/logout', 'destroy')->name('admin.logout');
+        Route::get('/edit/profile', 'AdminProfileEdit')->name('admin.profile.edit');
+        Route::get('/change/password', 'AdminPasswordChange')->name('admin.change.password');
+        Route::post('/change/password', 'AdminPasswordUpdate')->name('admin.password.update');
     });
 
     // Admin Dashboard routes
@@ -158,6 +157,8 @@ Route::middleware(['auth:admin'])->group(function(){
         '/admin/orders'=> OrderController::class,
         // cupons resource
         '/admin/coupons'=> CouponController::class,
+        // admin profile resource
+        '/admin/profile'=> AdminProfileController::class,
     ]);
     Route::group(['prefix'=>'admin','controller'=>OrderController::class],function(){
         Route::get('/orders/pending/index',  'pendingOrderIndex')->name('pending.orders');
