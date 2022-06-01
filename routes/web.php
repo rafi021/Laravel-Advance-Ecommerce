@@ -124,21 +124,20 @@ Route::group(['prefix'=> 'admin', 'middleware'=>['admin:admin']], function(){
 	Route::post('/login',[AdminController::class, 'store'])->name('admin.login');
 });
 
-Route::middleware(['auth:web'])->group(function(){
+Route::middleware(['auth:admin'])->group(function(){
 
     // Admin Logout/password change and profile routes
-    Route::prefix('/admin')->group(function () {
-        Route::get('/logout',[AdminController::class, 'destroy'])->name('admin.logout');
-       // Route::resource('/profile', AdminProfileController::class);
-        Route::get('/edit/profile',[AdminProfileController::class, 'AdminProfileEdit'])->name('admin.profile.edit');
-        Route::get('/change/password',[AdminProfileController::class, 'AdminPasswordChange'])->name('admin.change.password');
-        Route::post('/change/password',[AdminProfileController::class, 'AdminPasswordUpdate'])->name('admin.password.update');
+    Route::get('/admin/logout',[AdminController::class, 'destroy'])->name('admin.logout');
+    Route::group(['prefix'=>'admin','controller'=>AdminProfileController::class],function () {
+        Route::get('/edit/profile', 'AdminProfileEdit')->name('admin.profile.edit');
+        Route::get('/change/password', 'AdminPasswordChange')->name('admin.change.password');
+        Route::post('/change/password', 'AdminPasswordUpdate')->name('admin.password.update');
     });
 
 
 
     // Admin Dashboard routes
- Route::middleware(['auth:sanctum,web', 'verified'])->get('/admin/dashboard', function () {
+ Route::middleware(['auth:sanctum,admin', 'verified'])->get('/admin/dashboard', function () {
         return view('admin.index');
     })->name('admin.dashboard');
 
@@ -163,15 +162,15 @@ Route::middleware(['auth:web'])->group(function(){
         // admin profile resource
         '/admin/profile'=> AdminProfileController::class,
     ]);
-    Route::group(['prefix'=>'admin','controller'=>OrderController::class],function(){
-        Route::get('/orders/pending/index',  'pendingOrderIndex')->name('pending.orders');
-        Route::get('/orders/confirmed/index',  'confirmedOrderIndex')->name('confirmed.orders');
-        Route::get('/orders/processing/index',  'processingOrderIndex')->name('processing.orders');
-        Route::get('/orders/picked/index',  'pickedOrderIndex')->name('picked.orders');
-        Route::get('/orders/shipped/index',  'shippedOrderIndex')->name('shipped.orders');
-        Route::get('/orders/delivered/index',  'deliveredOrderIndex')->name('delivered.orders');
-        Route::get('/orders/cancel/index',  'cancelOrderIndex')->name('cancel.orders');
-        Route::get('/orders/return/index',  'returnOrderIndex')->name('return.orders');
+    Route::group(['prefix'=>'admin/orders','controller'=>OrderController::class],function(){
+        Route::get('pending/index',  'pendingOrderIndex')->name('pending.orders');
+        Route::get('confirmed/index',  'confirmedOrderIndex')->name('confirmed.orders');
+        Route::get('processing/index',  'processingOrderIndex')->name('processing.orders');
+        Route::get('picked/index',  'pickedOrderIndex')->name('picked.orders');
+        Route::get('shipped/index',  'shippedOrderIndex')->name('shipped.orders');
+        Route::get('delivered/index',  'deliveredOrderIndex')->name('delivered.orders');
+        Route::get('cancel/index',  'cancelOrderIndex')->name('cancel.orders');
+        Route::get('return/index',  'returnOrderIndex')->name('return.orders');
     });
 
 Route::prefix('/admin')->group(function(){
