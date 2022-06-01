@@ -127,12 +127,15 @@ Route::group(['prefix'=> 'admin', 'middleware'=>['admin:admin']], function(){
 Route::middleware(['auth:web'])->group(function(){
 
     // Admin Logout/password change and profile routes
-    Route::group(['controller'=>AdminController::class,'prefix'=>'admin'],function () {
-        Route::get('/logout', 'destroy')->name('admin.logout');
-        Route::get('/edit/profile', 'AdminProfileEdit')->name('admin.profile.edit');
-        Route::get('/change/password', 'AdminPasswordChange')->name('admin.change.password');
-        Route::post('/change/password', 'AdminPasswordUpdate')->name('admin.password.update');
+    Route::prefix('/admin')->group(function () {
+        Route::get('/logout',[AdminController::class, 'destroy'])->name('admin.logout');
+       // Route::resource('/profile', AdminProfileController::class);
+        Route::get('/edit/profile',[AdminProfileController::class, 'AdminProfileEdit'])->name('admin.profile.edit');
+        Route::get('/change/password',[AdminProfileController::class, 'AdminPasswordChange'])->name('admin.change.password');
+        Route::post('/change/password',[AdminProfileController::class, 'AdminPasswordUpdate'])->name('admin.password.update');
     });
+
+
 
     // Admin Dashboard routes
  Route::middleware(['auth:sanctum,web', 'verified'])->get('/admin/dashboard', function () {
