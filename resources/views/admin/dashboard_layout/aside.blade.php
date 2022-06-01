@@ -41,28 +41,28 @@
             <li class=" {{ route('orders.index') ? 'active' : '' }}">
                 <a href="{{ route('orders.index') }}"><i class="ti-more"></i>All Orders</a>
             </li>
-            <li class=" {{ Request::is('admin/orders/pending') ? 'active' : '' }}">
+            <li class=" {{ Request::is('admin/orders/pending/index') ? 'active' : '' }}">
                 <a href="{{ route('pending.orders') }}"><i class="ti-more"></i>Pending Orders</a>
             </li>
-            <li class=" {{ Request::is('admin/orders/confirmed') ? 'active' : '' }}">
+            <li class=" {{ Request::is('admin/orders/confirmed/index') ? 'active' : '' }}">
                 <a href="{{ route('confirmed.orders') }}"><i class="ti-more"></i>Confirmed Orders</a>
             </li>
-            <li class=" {{ Request::is('admin/orders/processing') ? 'active' : '' }}">
+            <li class=" {{ Request::is('admin/orders/processing/index') ? 'active' : '' }}">
                 <a href="{{ route('processing.orders') }}"><i class="ti-more"></i>Processing Orders</a>
             </li>
-            <li class=" {{ Request::is('admin/orders/picked') ? 'active' : '' }}">
+            <li class=" {{ Request::is('admin/orders/picked/index') ? 'active' : '' }}">
                 <a href="{{ route('picked.orders') }}"><i class="ti-more"></i>Picked Orders</a>
             </li>
-            <li class=" {{ Request::is('admin/orders/shipped') ? 'active' : '' }}">
+            <li class=" {{ Request::is('admin/orders/shipped/index') ? 'active' : '' }}">
                 <a href="{{ route('shipped.orders') }}"><i class="ti-more"></i>Shipped Orders</a>
             </li>
-            <li class=" {{ Request::is('admin/order/delivered*') ? 'active' : '' }}">
+            <li class=" {{ Request::is('admin/order/delivered') ? 'active' : '' }}">
                 <a href="{{ route('delivered.orders') }}"><i class="ti-more"></i>Delivered Orders</a>
             </li>
-            <li class=" {{ Request::is('admin/orders/cancel') ? 'active' : '' }}">
+            <li class=" {{ Request::is('admin/orders/cancel/index') ? 'active' : '' }}">
                 <a href="{{ route('cancel.orders') }}"><i class="ti-more"></i>Cancel Orders</a>
             </li>
-            <li class=" {{ Request::is('admin/orders/return') ? 'active' : '' }}">
+            <li class=" {{ Request::is('admin/orders/return/index') ? 'active' : '' }}">
                 <a href="{{ route('return.orders') }}"><i class="ti-more"></i>Return Orders</a>
             </li>
         </ul>
