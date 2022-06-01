@@ -11,7 +11,7 @@ use App\Http\Controllers\Frontend\LanguageController;
 use App\Http\Controllers\User\OrderDetailsController;
 use App\Http\Controllers\User\OrderHistoryController;
 use App\Http\Controllers\User\WishlistController;
-
+use Illuminate\Routing\Router;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -97,22 +97,26 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth', 'user'], 'namespace' 
 });
 
 // Cart page routes
-Route::get('/my-cart',[CartPageController::class,'myCartView'])->name('myCartView');
-Route::get('/my-cart/list',[CartPageController::class,'showmyCartList'])->name('showmyCartList');
-Route::get('/remove/from-cart/{rowId}',[CartPageController::class,'removeFromCart'])->name('removeFromCart');
-Route::get('/add/in-cart/{rowId}',[CartPageController::class,'addQtyToCart'])->name('addQtyToCart');
-Route::get('/reduce/from-cart/{rowId}',[CartPageController::class,'reduceQtyFromCart'])->name('reduceQtyFromCart');
-
-//Frontend apply Coupon routes
-Route::post('/coupon/apply/',[CartPageController::class,'applyCoupon'])->name('applyCoupon');
-Route::get('/coupon-calculation',[CartPageController::class,'couponCalculation'])->name('couponCalculation');
-Route::get('/coupon-remove',[CartPageController::class,'couponRemove'])->name('couponRemove');
+Route::group(['controller'=>CartPageController::class],function(){
+    Route::get('/my-cart','myCartView')->name('myCartView');
+    Route::get('/my-cart/list','showmyCartList')->name('showmyCartList');
+    Route::get('/remove/from-cart/{rowId}','removeFromCart')->name('removeFromCart');
+    Route::get('/add/in-cart/{rowId}','addQtyToCart')->name('addQtyToCart');
+    Route::get('/reduce/from-cart/{rowId}','reduceQtyFromCart')->name('reduceQtyFromCart');
+    //Frontend apply Coupon routes
+    Route::post('/coupon/apply/','applyCoupon')->name('applyCoupon');
+    Route::get('/coupon-calculation','couponCalculation')->name('couponCalculation');
+    Route::get('/coupon-remove','couponRemove')->name('couponRemove');
+});
 
 // Checkout Page routes
-Route::get('/checkout-page',[CheckoutController::class,'checkoutPage'])->name('checkout-page');
-Route::get('/division/district/ajax/{division_id}', [CheckoutController::class, 'getDistrict']);
-Route::get('/district/state/ajax/{district_id}', [CheckoutController::class, 'getState']);
-Route::post('/checkout-store',[CheckoutController::class, 'checkoutStore'])->name('checkout.store');
+Route::group(['controller'=>CheckoutController::class],function(){
+    Route::get('/checkout-page','checkoutPage')->name('checkout-page');
+    Route::get('/division/district/ajax/{division_id}', 'getDistrict');
+    Route::get('/district/state/ajax/{district_id}', 'getState');
+    Route::post('/checkout-store', 'checkoutStore')->name('checkout.store');
+    
+});
 
 // Admin Login routes
 Route::group(['prefix'=> 'admin', 'middleware'=>['admin:admin']], function(){
