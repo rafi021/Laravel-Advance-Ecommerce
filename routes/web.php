@@ -11,7 +11,6 @@ use App\Http\Controllers\Frontend\LanguageController;
 use App\Http\Controllers\User\OrderDetailsController;
 use App\Http\Controllers\User\OrderHistoryController;
 use App\Http\Controllers\User\WishlistController;
-use Illuminate\Routing\Router;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -142,26 +141,28 @@ Route::middleware(['auth:admin'])->group(function(){
     })->name('admin.dashboard');
 
     // Admin Dashboard all functionality/features routes
+Route::prefix('admin')->group(function(){
     Route::resources([
-        '/admin/brands'=>BrandController::class,
-        '/admin/categories'=>CategoryController::class,
-        '/admin/subcategories'=> SubCategoryController::class,
-        '/admin/subsubcategories'=> SubSubCategoryController::class,
+        'brands'=>BrandController::class,
+        'categories'=>CategoryController::class,
+        'subcategories'=> SubCategoryController::class,
+        'subsubcategories'=> SubSubCategoryController::class,
          // shipping routes
-        '/admin/division'=> ShippingAreaController::class,
-        '/admin/district'=> ShippingDistrictController::class,
-        '/admin/state'=> ShippingStateController::class,
+        'division'=> ShippingAreaController::class,
+        'district'=> ShippingDistrictController::class,
+        'state'=> ShippingStateController::class,
         // admin resource
-        '/admin/slider'=> AdminSliderController::class,
+        'slider'=> AdminSliderController::class,
         // product resource
-        '/admin/products'=> ProductController::class,
+        'products'=> ProductController::class,
         // order resource
-        '/admin/orders'=> OrderController::class,
+        'orders'=> OrderController::class,
         // cupons resource
-        '/admin/coupons'=> CouponController::class,
+        'coupons'=> CouponController::class,
         // admin profile resource
-        '/admin/profile'=> AdminProfileController::class,
+        'profile'=> AdminProfileController::class,
     ]);
+});
     Route::group(['prefix'=>'admin/orders','controller'=>OrderController::class],function(){
         Route::get('pending/index',  'pendingOrderIndex')->name('pending.orders');
         Route::get('confirmed/index',  'confirmedOrderIndex')->name('confirmed.orders');
