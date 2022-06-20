@@ -1,21 +1,7 @@
 <?php
-
+namespace App\Http\Controllers\Backend;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\Backend\AdminProfileController;
-use App\Http\Controllers\Backend\AdminSliderController;
-use App\Http\Controllers\Backend\BrandController;
-use App\Http\Controllers\Backend\CategoryController;
-use App\Http\Controllers\Backend\CODController;
-use App\Http\Controllers\Backend\CouponController;
-use App\Http\Controllers\Backend\OrderController;
-use App\Http\Controllers\Backend\ProductController;
-use App\Http\Controllers\Backend\ShippingAreaController;
-use App\Http\Controllers\Backend\ShippingDistrictController;
-use App\Http\Controllers\Backend\ShippingStateController;
-use App\Http\Controllers\Backend\StripeController;
-use App\Http\Controllers\Backend\SubCategoryController;
-use App\Http\Controllers\Backend\SubSubCategoryController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CartPageController;
 use App\Http\Controllers\Frontend\CheckoutController;
@@ -25,7 +11,6 @@ use App\Http\Controllers\Frontend\LanguageController;
 use App\Http\Controllers\User\OrderDetailsController;
 use App\Http\Controllers\User\OrderHistoryController;
 use App\Http\Controllers\User\WishlistController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -56,21 +41,23 @@ Route::middleware(['auth:web'])->group(function(){
 });
 
 // Frontend Pages routes
-Route::get('/', [FrontendPageController::class,'home'])->name('home');
-Route::get('/category', [FrontendPageController::class,'category'])->name('category');
+Route::group(['controller' => FrontendPageController::class],function(){
+    Route::get('/', 'home')->name('home');
+    Route::get('/category', 'category')->name('category');
+    Route::get('/product/detail/{id}/{slug}', 'productDeatil')->name('frontend-product-details');
+    // Tags wise products route
+    Route::get('/product/tag/{tag}', 'tagwiseProduct')->name('product.tag');
+    //subcategory wise products route
+    Route::get('/subcategory/{id}/{slug}','subcategoryProducts')->name('subcategory.products');
+    //subsubcategory wise products route
+    Route::get('/subsubcategory/{id}/{slug}','subsubcategoryProducts')->name('subsubcategory.products');
+    // AJAX Product data route
+    Route::get('/product/view/modal/{id}','productviewAjax')->name('productModalview');
+});
 
-Route::get('/product/detail/{id}/{slug}', [FrontendPageController::class,'productDeatil'])->name('frontend-product-details');
 Route::get('/english/language', [LanguageController::class, 'englishLoad'])->name('english.language');
 Route::get('/bangla/language', [LanguageController::class, 'banglaLoad'])->name('bangla.language');
 
-// Tags wise products route
-Route::get('/product/tag/{tag}', [FrontendPageController::class, 'tagwiseProduct'])->name('product.tag');
-//subcategory wise products route
-Route::get('/subcategory/{id}/{slug}', [FrontendPageController::class,'subcategoryProducts'])->name('subcategory.products');
-//subsubcategory wise products route
-Route::get('/subsubcategory/{id}/{slug}', [FrontendPageController::class,'subsubcategoryProducts'])->name('subsubcategory.products');
-// AJAX Product data route
-Route::get('/product/view/modal/{id}',[FrontendPageController::class,'productviewAjax'])->name('productModalview');
 
 // Cart routes
 // Add to cart Product route
@@ -109,29 +96,26 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth', 'user'], 'namespace' 
 });
 
 // Cart page routes
-Route::get('/my-cart',[CartPageController::class,'myCartView'])->name('myCartView');
-Route::get('/my-cart/list',[CartPageController::class,'showmyCartList'])->name('showmyCartList');
-Route::get('/remove/from-cart/{rowId}',[CartPageController::class,'removeFromCart'])->name('removeFromCart');
-Route::get('/add/in-cart/{rowId}',[CartPageController::class,'addQtyToCart'])->name('addQtyToCart');
-Route::get('/reduce/from-cart/{rowId}',[CartPageController::class,'reduceQtyFromCart'])->name('reduceQtyFromCart');
-
-//Frontend apply Coupon routes
-Route::post('/coupon/apply/',[CartPageController::class,'applyCoupon'])->name('applyCoupon');
-Route::get('/coupon-calculation',[CartPageController::class,'couponCalculation'])->name('couponCalculation');
-Route::get('/coupon-remove',[CartPageController::class,'couponRemove'])->name('couponRemove');
+Route::group(['controller'=>CartPageController::class],function(){
+    Route::get('/my-cart','myCartView')->name('myCartView');
+    Route::get('/my-cart/list','showmyCartList')->name('showmyCartList');
+    Route::get('/remove/from-cart/{rowId}','removeFromCart')->name('removeFromCart');
+    Route::get('/add/in-cart/{rowId}','addQtyToCart')->name('addQtyToCart');
+    Route::get('/reduce/from-cart/{rowId}','reduceQtyFromCart')->name('reduceQtyFromCart');
+    //Frontend apply Coupon routes
+    Route::post('/coupon/apply/','applyCoupon')->name('applyCoupon');
+    Route::get('/coupon-calculation','couponCalculation')->name('couponCalculation');
+    Route::get('/coupon-remove','couponRemove')->name('couponRemove');
+});
 
 // Checkout Page routes
-Route::get('/checkout-page',[CheckoutController::class,'checkoutPage'])->name('checkout-page');
-Route::get('/division/district/ajax/{division_id}', [CheckoutController::class, 'getDistrict']);
-Route::get('/district/state/ajax/{district_id}', [CheckoutController::class, 'getState']);
-Route::post('/checkout-store',[CheckoutController::class, 'checkoutStore'])->name('checkout.store');
-
-
-
-
-
-
-
+Route::group(['controller'=>CheckoutController::class],function(){
+    Route::get('/checkout-page','checkoutPage')->name('checkout-page');
+    Route::get('/division/district/ajax/{division_id}', 'getDistrict');
+    Route::get('/district/state/ajax/{district_id}', 'getState');
+    Route::post('/checkout-store', 'checkoutStore')->name('checkout.store');
+    
+});
 
 // Admin Login routes
 Route::group(['prefix'=> 'admin', 'middleware'=>['admin:admin']], function(){
@@ -142,62 +126,72 @@ Route::group(['prefix'=> 'admin', 'middleware'=>['admin:admin']], function(){
 Route::middleware(['auth:admin'])->group(function(){
 
     // Admin Logout/password change and profile routes
-    Route::prefix('/admin')->group(function () {
-        Route::get('/logout',[AdminController::class, 'destroy'])->name('admin.logout');
-        Route::resource('/profile', AdminProfileController::class);
-        Route::get('/edit/profile',[AdminProfileController::class, 'AdminProfileEdit'])->name('admin.profile.edit');
-        Route::get('/change/password',[AdminProfileController::class, 'AdminPasswordChange'])->name('admin.change.password');
-        Route::post('/change/password',[AdminProfileController::class, 'AdminPasswordUpdate'])->name('admin.password.update');
+    Route::get('/admin/logout',[AdminController::class, 'destroy'])->name('admin.logout');
+    Route::group(['prefix'=>'admin','controller'=>AdminProfileController::class],function () {
+        Route::get('/edit/profile', 'AdminProfileEdit')->name('admin.profile.edit');
+        Route::get('/change/password', 'AdminPasswordChange')->name('admin.change.password');
+        Route::post('/change/password', 'AdminPasswordUpdate')->name('admin.password.update');
     });
 
+
+
     // Admin Dashboard routes
-    Route::middleware(['auth:sanctum,admin', 'verified'])->get('/admin/dashboard', function () {
+ Route::middleware(['auth:sanctum,admin', 'verified'])->get('/admin/dashboard', function () {
         return view('admin.index');
     })->name('admin.dashboard');
 
     // Admin Dashboard all functionality/features routes
-    Route::prefix('/admin')->group(function(){
-        Route::resource('/brands',BrandController::class);
-        Route::resource('/categories',CategoryController::class);
-        Route::resource('/subcategories', SubCategoryController::class);
-        Route::resource('/subsubcategories', SubSubCategoryController::class);
+Route::prefix('admin')->group(function(){
+    Route::resources([
+        'brands'=>BrandController::class,
+        'categories'=>CategoryController::class,
+        'subcategories'=> SubCategoryController::class,
+        'subsubcategories'=> SubSubCategoryController::class,
+         // shipping routes
+        'division'=> ShippingAreaController::class,
+        'district'=> ShippingDistrictController::class,
+        'state'=> ShippingStateController::class,
+        // admin resource
+        'slider'=> AdminSliderController::class,
+        // product resource
+        'products'=> ProductController::class,
+        // order resource
+        'orders'=> OrderController::class,
+        // cupons resource
+        'coupons'=> CouponController::class,
+        // admin profile resource
+        'profile'=> AdminProfileController::class,
+    ]);
+});
+    Route::group(['prefix'=>'admin/orders','controller'=>OrderController::class],function(){
+        Route::get('pending/index',  'pendingOrderIndex')->name('pending.orders');
+        Route::get('confirmed/index',  'confirmedOrderIndex')->name('confirmed.orders');
+        Route::get('processing/index',  'processingOrderIndex')->name('processing.orders');
+        Route::get('picked/index',  'pickedOrderIndex')->name('picked.orders');
+        Route::get('shipped/index',  'shippedOrderIndex')->name('shipped.orders');
+        Route::get('delivered/index',  'deliveredOrderIndex')->name('delivered.orders');
+        Route::get('cancel/index',  'cancelOrderIndex')->name('cancel.orders');
+        Route::get('return/index',  'returnOrderIndex')->name('return.orders');
+    });
 
+Route::prefix('/admin')->group(function(){
         Route::get('/category/subcategory/ajax/{category_id}', [SubSubCategoryController::class, 'getSubCategory']);
         Route::get('/category/subsubcategory/ajax/{subcategory_id}', [SubSubCategoryController::class, 'getSubSubCategory']);
-
         // update multi-image route
         Route::post('/products/image/update', [ProductController::class, 'MultiImageUpdate'])->name('update-product-image');
-        Route::resource('/products', ProductController::class);
         Route::get('/changestatus', [ProductController::class, 'changeStatus'])->name('change-product-status');
 
         // slider routes
-        Route::resource('/slider', AdminSliderController::class);
         Route::get('/changesliderstatus', [AdminSliderController::class, 'changeSliderStatus'])->name('change-product-status');
 
         // coupon routes
-        Route::resource('/coupons', CouponController::class);
+  
         Route::get('/change/coupon/status', [CouponController::class, 'changeCouponStatus'])->name('change-coupon-status');
-
-        // shipping routes
-        Route::resource('/division', ShippingAreaController::class);
-        Route::resource('/district', ShippingDistrictController::class);
-        Route::resource('/state', ShippingStateController::class);
 
         Route::get('/division/district/ajax/{division_id}', [ShippingStateController::class, 'getDistrict']);
         Route::get('/district/state/ajax/{district_id}', [ShippingStateController::class, 'getState']);
-
-
         // Orders routes
-        Route::resource('/orders', OrderController::class);
-        Route::get('/orders/pending/index', [OrderController::class, 'pendingOrderIndex'])->name('pending.orders');
-        Route::get('/orders/confirmed/index', [OrderController::class, 'confirmedOrderIndex'])->name('confirmed.orders');
-        Route::get('/orders/processing/index', [OrderController::class, 'processingOrderIndex'])->name('processing.orders');
-        Route::get('/orders/picked/index', [OrderController::class, 'pickedOrderIndex'])->name('picked.orders');
-        Route::get('/orders/shipped/index', [OrderController::class, 'shippedOrderIndex'])->name('shipped.orders');
-        Route::get('/orders/delivered/index', [OrderController::class, 'deliveredOrderIndex'])->name('delivered.orders');
-        Route::get('/orders/cancel/index', [OrderController::class, 'cancelOrderIndex'])->name('cancel.orders');
-        Route::get('/orders/return/index', [OrderController::class, 'returnOrderIndex'])->name('return.orders');
-
+       
         Route::get('/orders/status/update/{order_id}/{status}', [OrderController::class, 'orderStatusUpdate'])->name('order-status.update');
         // Download Invoice route - admin
         Route::get('/invoice-download/{order_id}', [OrderController::class, 'adminInvoiceDownload'])->name('admin-invoice-download');

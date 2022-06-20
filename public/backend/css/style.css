@@ -24039,3 +24039,7 @@ img.away, img.busy, img.offline, img.online {
   z-index: -1; }
 
 /*# sourceMappingURL=style.css.map */
+.widget-user .widget-user-image > img{
+  width: 92px !important;
+  height: 92px !important; 
+}

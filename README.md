@@ -19,7 +19,7 @@ It is a Laravel 8 blade template based demo project reflecting advance features 
 7. Datatables
 
 ## Getting Started Step by Step
-1. In your root folder, clone the project file using git clone https://github.com/rafi021/Laravel-Advance-Ecommerce.git
+1. In your root folder, clone the project file using git clone https://github.com/farghly/Laravel-Advance-Ecommerce.git
 2. Open terminal (bash/cmd). Then go to project folder using command
 
 ```sh
