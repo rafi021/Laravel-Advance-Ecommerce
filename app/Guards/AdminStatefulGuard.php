@@ -2,6 +2,9 @@
 
 namespace App\Guards;
 
+use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Contracts\Auth\Guard;
+
 interface AdminStatefulGuard extends Guard
 {
     /**
