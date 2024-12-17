@@ -28,7 +28,17 @@ class Category extends Model
         return $this->hasMany(SubSubCategory::class, 'category_id', 'id');
     }
 
-    public function products(){
-        return $this->hasMany(Product::class,'category_id','id');
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'category_id', 'id');
+    }
+
+    public function getCategoryImageAttribute($value)
+    {
+        if ($value) {
+            return url('upload/categories/' . $value);
+        } else {
+            return url('uploads/images/default.png');
+        }
     }
 }

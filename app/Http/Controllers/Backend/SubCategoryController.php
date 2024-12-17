@@ -11,6 +11,16 @@ use Illuminate\Support\Str;
 
 class SubCategoryController extends Controller
 {
+    protected $categories;
+
+    public function __construct()
+    {
+        $this->categories = Category::latest()->get();
+        view()->share([
+            'categories' => $this->categories,
+        ]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -30,7 +40,7 @@ class SubCategoryController extends Controller
      */
     public function create()
     {
-        $categories = Category::latest()->get();
+        $categories = $this->categories;
         return view('admin.SubCategory.create', compact('categories'));
     }
 
@@ -77,7 +87,7 @@ class SubCategoryController extends Controller
      */
     public function edit(SubCategory $subcategory)
     {
-        $categories = Category::latest()->get();
+        $categories = $this->categories;
         return view('admin.SubCategory.edit', compact('subcategory', 'categories'));
     }
 

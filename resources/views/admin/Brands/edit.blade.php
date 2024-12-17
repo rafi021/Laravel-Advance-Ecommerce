@@ -40,7 +40,7 @@
                             <div class="form-group">
                                 <h5>Brand Image <span class="text-danger">*</span></h5>
                                 <div class="controls">
-                                    <input type="file" name="brand_image" id="brand_image" class="form-control" required="" data-validation-required-message="This field is required"> <div class="help-block"></div>
+                                    <input type="file" name="brand_image" id="brand_image" class="form-control"  data-validation-required-message="This field is required"> <div class="help-block"></div>
                                 </div>
                                 @error('brand_image')
                                     <span class="alert text-danger">{{ $message }}</span>

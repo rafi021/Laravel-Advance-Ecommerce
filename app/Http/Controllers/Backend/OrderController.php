@@ -8,6 +8,7 @@ use App\Models\OrderItem;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use PDF;
+
 class OrderController extends Controller
 {
     /**
@@ -55,7 +56,7 @@ class OrderController extends Controller
         $order = Order::whereId($order->id)
             ->with(['user', 'division', 'district', 'state'])
             ->first();
-        $orderItems = OrderItem::where('order_id', $order->id)
+        $orderItems = OrderItem::whereOrderId($order->id)
             ->with('product')
             ->orderBy('id', 'DESC')->get();
 
@@ -101,7 +102,7 @@ class OrderController extends Controller
 
     public function pendingOrderIndex()
     {
-        $orders = Order::where('status', 'pending')->latest('id')->get();
+        $orders = Order::whereStatus('pending')->latest('id')->get();
         return view('admin.Orders.index', compact(
             'orders'
         ));
@@ -109,7 +110,7 @@ class OrderController extends Controller
 
     public function confirmedOrderIndex()
     {
-        $orders = Order::where('status', 'confirmed')->latest('id')->get();
+        $orders = Order::whereStatus('confirmed')->latest('id')->get();
         return view('admin.Orders.index', compact(
             'orders'
         ));
@@ -117,7 +118,7 @@ class OrderController extends Controller
 
     public function processingOrderIndex()
     {
-        $orders = Order::where('status', 'processing')->latest('id')->get();
+        $orders = Order::whereStatus('processing')->latest('id')->get();
         return view('admin.Orders.index', compact(
             'orders'
         ));
@@ -125,7 +126,7 @@ class OrderController extends Controller
 
     public function pickedOrderIndex()
     {
-        $orders = Order::where('status', 'picked')->latest('id')->get();
+        $orders = Order::whereStatus('picked')->latest('id')->get();
         return view('admin.Orders.index', compact(
             'orders'
         ));
@@ -133,7 +134,7 @@ class OrderController extends Controller
 
     public function shippedOrderIndex()
     {
-        $orders = Order::where('status', 'shipped')->latest('id')->get();
+        $orders = Order::whereStatus('shipped')->latest('id')->get();
         return view('admin.Orders.index', compact(
             'orders'
         ));
@@ -141,7 +142,7 @@ class OrderController extends Controller
 
     public function deliveredOrderIndex()
     {
-        $orders = Order::where('status', 'delivered')->latest('id')->get();
+        $orders = Order::whereStatus('delivered')->latest('id')->get();
         return view('admin.Orders.index', compact(
             'orders'
         ));
@@ -149,14 +150,14 @@ class OrderController extends Controller
 
     public function cancelOrderIndex()
     {
-        $orders = Order::where('status', 'cancel')->latest('id')->get();
+        $orders = Order::whereStatus('cancel')->latest('id')->get();
         return view('admin.Orders.index', compact(
             'orders'
         ));
     }
     public function returnOrderIndex()
     {
-        $orders = Order::where('status', 'return')->latest('id')->get();
+        $orders = Order::whereStatus('return')->latest('id')->get();
         return view('admin.Orders.index', compact(
             'orders'
         ));
@@ -165,57 +166,60 @@ class OrderController extends Controller
     public function orderStatusUpdate($order_id, $status)
     {
         $order = Order::whereId($order_id)->first();
+        if ($status == 'confirmed' || $status == 'processing' || $status == 'picked' || $status == 'shipped' || $status == 'delivered' || $status == 'return') {
+            $order->update([
+                'status' => $status,
+                'confirmed_date' => Carbon::now()->format('d F Y')
+            ]);
+            // switch ($status) {
+            //     case 'confirmed':
+            //         $order->update([
+            //             'status' => $status,
+            //             'confirmed_date' => Carbon::now()->format('d F Y')
+            //         ]);
+            //         break;
+            //     case 'processing':
+            //         $order->update([
+            //             'status' => $status,
+            //             'processing_date' => Carbon::now()->format('d F Y')
+            //         ]);
+            //         break;
+            //     case 'picked':
+            //         $order->update([
+            //             'status' => $status,
+            //             'picked_date' => Carbon::now()->format('d F Y')
+            //         ]);
+            //         break;
+            //     case 'shipped':
+            //         $order->update([
+            //             'status' => $status,
+            //             'shipped_date' => Carbon::now()->format('d F Y')
+            //         ]);
+            //         break;
+            //     case 'delivered':
+            //         $order->update([
+            //             'status' => $status,
+            //             'delivered_date' => Carbon::now()->format('d F Y')
+            //         ]);
+            //         break;
+            //     case 'return':
+            //         $order->update([
+            //             'status' => $status,
+            //             'return_date' => Carbon::now()->format('d F Y')
+            //         ]);
+            //         break;
+            // }
 
-        switch ($status) {
-            case 'confirmed':
-                $order->update([
-                    'status' => $status,
-                    'confirmed_date' => Carbon::now()->format('d F Y')
-                ]);
-                break;
-            case 'processing':
-                $order->update([
-                    'status' => $status,
-                    'processing_date' => Carbon::now()->format('d F Y')
-                ]);
-                break;
-            case 'picked':
-                $order->update([
-                    'status' => $status,
-                    'picked_date' => Carbon::now()->format('d F Y')
-                ]);
-                break;
-            case 'shipped':
-                $order->update([
-                    'status' => $status,
-                    'shipped_date' => Carbon::now()->format('d F Y')
-                ]);
-                break;
-            case 'delivered':
-                $order->update([
-                    'status' => $status,
-                    'delivered_date' => Carbon::now()->format('d F Y')
-                ]);
-                break;
-            case 'return':
-                $order->update([
-                    'status' => $status,
-                    'return_date' => Carbon::now()->format('d F Y')
-                ]);
-                break;
-            default:
-                return back()->with([
-                    'message' => 'No Action perform!!',
-                    'alert-type' => 'success'
-                ]);
-                break;
+            return back()->with([
+                'message' => 'Order ' . $status,
+                'alert-type' => 'success'
+            ]);
+        } else {
+            return back()->with([
+                'message' => 'No Action perform!!',
+                'alert-type' => 'success'
+            ]);
         }
-        $notification = [
-            'message' => 'Order '.$status,
-            'alert-type' => 'success'
-        ];
-
-        return back()->with($notification);
     }
 
     public function adminInvoiceDownload($order_id)
@@ -223,7 +227,7 @@ class OrderController extends Controller
         $order = Order::whereId($order_id)->first();
         $orderItems = OrderItem::where('order_id', $order->id)->orderBy('id', 'DESC')->get();
 
-        $pdf = PDF::loadView('frontend.order.invoice-download', compact('order','orderItems'))
+        $pdf = PDF::loadView('frontend.order.invoice-download', compact('order', 'orderItems'))
             ->setPaper('a4')
             ->setOptions([
                 'tempDir' => public_path(),

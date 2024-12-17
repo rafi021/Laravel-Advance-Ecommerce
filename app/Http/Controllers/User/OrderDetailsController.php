@@ -14,10 +14,10 @@ class OrderDetailsController extends Controller
 {
     public function userOrderDetails($order_id)
     {
-        $order = Order::whereId($order_id)->where('user_id', Auth::id())
+        $order = Order::whereId($order_id)->whereUserId( Auth::id())
             ->with(['user', 'division', 'district', 'state'])
             ->first();
-        $orderItems = OrderItem::where('order_id', $order->id)
+        $orderItems = OrderItem::whereOrderId( $order->id)
             ->with('product')
             ->orderBy('id', 'DESC')->get();
 
@@ -30,8 +30,8 @@ class OrderDetailsController extends Controller
 
     public function userInvoiceDownload($order_id)
     {
-        $order = Order::whereId($order_id)->where('user_id', Auth::id())->first();
-        $orderItems = OrderItem::where('order_id', $order->id)->orderBy('id', 'DESC')->get();
+        $order = Order::whereId($order_id)->whereUserId( Auth::id())->first();
+        $orderItems = OrderItem::whereOrderId($order->id)->orderBy('id', 'DESC')->get();
 
         $pdf = PDF::loadView('frontend.order.invoice-download', compact('order','orderItems'))
             ->setPaper('a4')

@@ -2,9 +2,9 @@
 
 @section('dashboard_content')
     @include('admin.dashboard_layout.breadcrumb', [
-    'name' => 'Brands',
-    'url' => "brands.index",
-    'section_name' => 'All Brands'
+        'name' => 'Brands',
+        'url' => 'brands.index',
+        'section_name' => 'All Brands',
     ])
     <section class="content">
         <div class="row">
@@ -48,25 +48,31 @@
                                             </thead>
                                             <tbody>
                                                 @foreach ($brands as $item)
-                                                <tr role="row" class="odd">
-                                                    <td class="sorting_1">{{ $item->brand_name_en }}</td>
-                                                    <td>{{ $item->brand_name_bn }}</td>
-                                                    <td>
-                                                        <img src="{{ asset($item->brand_image) }}" alt=""
-                                                        style="width: 60px; height:60px;">
-                                                    </td>
-                                                    <td>
-                                                        <div class="input-group">
-                                                            <a href="{{ route('brands.edit', $item) }}" class="btn btn-info" title="Edit Data"><i class="fa fa-pencil"></i></a>
-                                                            <form action="{{ route('brands.destroy', $item) }}" method="post">
-                                                                @method('DELETE')
-                                                                @csrf
-                                                                <a href="" class="btn btn-danger" title="Delete Data" id="delete" onclick="event.preventDefault();
-                                                                this.closest('form').submit();"><i class="fa fa-trash"></i></a>
-                                                            </form>
-                                                        </div>
-                                                    </td>
-                                                </tr>
+                                                    <tr role="row" class="odd">
+                                                        <td class="sorting_1">{{ $item->brand_name_en }}</td>
+                                                        <td>{{ $item->brand_name_bn }}</td>
+                                                        <td>
+                                                            <img src="{{ asset($item->brand_image) }}" alt=""
+                                                                style="width: 60px; height:60px;">
+                                                        </td>
+                                                        <td>
+                                                            <div class="input-group">
+                                                                <a href="{{ route('brands.edit', $item) }}"
+                                                                    class="btn btn-info" title="Edit Data"><i
+                                                                        class="fa fa-pencil"></i></a>
+                                                                <form action="{{ route('brands.destroy', $item) }}"
+                                                                    method="post">
+                                                                    @method('DELETE')
+                                                                    @csrf
+                                                                    <a href="" class="btn btn-danger"
+                                                                        title="Delete Data" id="delete"
+                                                                        onclick="event.preventDefault();
+                                                                this.closest('form').submit();"><i
+                                                                            class="fa fa-trash"></i></a>
+                                                                </form>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
                                                 @endforeach
                                             </tbody>
                                             {{-- <tfoot>
@@ -133,7 +139,9 @@
                             <div class="form-group">
                                 <h5>Brand Name EN <span class="text-danger">*</span></h5>
                                 <div class="controls">
-                                    <input type="text" name="brand_name_en" class="form-control" required="" data-validation-required-message="This field is required"> <div class="help-block"></div>
+                                    <input type="text" name="brand_name_en" class="form-control" required=""
+                                        data-validation-required-message="This field is required">
+                                    <div class="help-block"></div>
                                 </div>
                                 @error('brand_name_en')
                                     <span class="alert text-danger">{{ $message }}</span>
@@ -142,7 +150,9 @@
                             <div class="form-group">
                                 <h5>Brand Name BN <span class="text-danger">*</span></h5>
                                 <div class="controls">
-                                    <input type="text" name="brand_name_bn" class="form-control" required="" data-validation-required-message="This field is required"> <div class="help-block"></div>
+                                    <input type="text" name="brand_name_bn" class="form-control" required=""
+                                        data-validation-required-message="This field is required">
+                                    <div class="help-block"></div>
                                 </div>
                                 @error('brand_name_bn')
                                     <span class="alert text-danger">{{ $message }}</span>
@@ -151,7 +161,9 @@
                             <div class="form-group">
                                 <h5>Brand Image <span class="text-danger">*</span></h5>
                                 <div class="controls">
-                                    <input type="file" name="brand_image" class="form-control" required="" data-validation-required-message="This field is required"> <div class="help-block"></div>
+                                    <input type="file" name="brand_image" class="form-control" required=""
+                                        data-validation-required-message="This field is required">
+                                    <div class="help-block"></div>
                                 </div>
                                 @error('brand_image')
                                     <span class="alert text-danger">{{ $message }}</span>

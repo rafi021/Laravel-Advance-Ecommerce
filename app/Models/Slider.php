@@ -16,4 +16,14 @@ class Slider extends Model
         'slider_image',
         'slider_status',
     ];
+
+    public function getSliderImageAttribute($value)
+    {
+        if ($value) {
+            return url('upload/brands/' . $value);
+        } else {
+            return url('uploads/images/default.png');
+        }
+    }
+
 }

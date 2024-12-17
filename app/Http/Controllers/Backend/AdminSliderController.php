@@ -10,6 +10,8 @@ use Image;
 
 class AdminSliderController extends Controller
 {
+
+
     /**
      * Display a listing of the resource.
      *
@@ -40,35 +42,51 @@ class AdminSliderController extends Controller
     public function store(SliderStoreRequest $request)
     {
 
-        if($request->file('slider_image')){
+        if ($request->file('slider_image')) {
             $upload_location = 'upload/sliders/';
             $file = $request->file('slider_image');
-            $name_gen = hexdec(uniqid()).'.'.$file->getClientOriginalExtension();
-            Image::make($file)->resize(870,370)->save($upload_location.$name_gen);
-            $save_url = $upload_location.$name_gen;
-
-            Slider::create([
-                'slider_status' => $request->input('slider_status'),
-                'slider_name' => $request->input('slider_name'),
-                'slider_title' => $request->input('slider_title'),
-                'slider_description' => $request->input('slider_description'),
-                'slider_image' => $save_url,
-            ]);
-        }else{
-            Slider::create([
-                'slider_status' => $request->input('slider_status'),
-                'slider_name' => $request->input('slider_name'),
-                'slider_title' => $request->input('slider_title'),
-                'slider_description' => $request->input('slider_description'),
-            ]);
+            $name_gen = hexdec(uniqid()) . '.' . $file->getClientOriginalExtension();
+            Image::make($file)->resize(870, 370)->save($upload_location . $name_gen);
+            $save_url = $upload_location . $name_gen;
         }
 
-        $notification = [
+
+        //shorts code
+        $silder = new Slider();
+        $silder->slider_status =  $request->input('slider_status');
+        $silder->slider_name =  $request->input('slider_name');
+        $silder->slider_title =  $request->input('slider_title');
+        $silder->slider_description =  $request->input('slider_description');
+        //check if short
+        $silder->slider_image =  isset($save_url) ? $save_url : ' ';
+        $silder->save();
+
+        //     Slider::create([
+        //         'slider_status' => $request->input('slider_status'),
+        //         'slider_name' => $request->input('slider_name'),
+        //         'slider_title' => $request->input('slider_title'),
+        //         'slider_description' => $request->input('slider_description'),
+        //         'slider_image' => $save_url,
+        //     ]);
+        // }else{
+        //     Slider::create([
+        //         'slider_status' => $request->input('slider_status'),
+        //         'slider_name' => $request->input('slider_name'),
+        //         'slider_title' => $request->input('slider_title'),
+        //         'slider_description' => $request->input('slider_description'),
+        //     ]);
+        //}
+
+
+        // $notification = [
+        //     'message' => 'Slider Created Successfully!!!',
+        //     'alert-type' => 'success'
+        // ];
+
+        return redirect()->route('slider.index')->with([
             'message' => 'Slider Created Successfully!!!',
             'alert-type' => 'success'
-        ];
-
-        return redirect()->route('slider.index')->with($notification);
+        ]);
     }
 
     /**
@@ -101,42 +119,53 @@ class AdminSliderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(SliderStoreRequest $request, $id)
     {
+
         $slider = Slider::findOrFail($id);
 
-        if($request->file('slider_image')){
-            if($slider->slider_image !='https://source.unsplash.com/random'){
+        if ($request->file('slider_image')) {
+            if ($slider->slider_image != 'https://source.unsplash.com/random') {
                 unlink($slider->slider_image);
             }
             $upload_location = 'upload/sliders/';
             $file = $request->file('slider_image');
-            $name_gen = hexdec(uniqid()).'.'.$file->getClientOriginalExtension();
-            Image::make($file)->resize(870,370)->save($upload_location.$name_gen);
-            $save_url = $upload_location.$name_gen;
-
-            $slider->update([
-                'slider_status' => $request->input('slider_status'),
-                'slider_name' => $request->input('slider_name'),
-                'slider_title' => $request->input('slider_title'),
-                'slider_description' => $request->input('slider_description'),
-                'slider_image' => $save_url,
-            ]);
-        }else{
-            $slider->update([
-                'slider_status' => $request->input('slider_status'),
-                'slider_name' => $request->input('slider_name'),
-                'slider_title' => $request->input('slider_title'),
-                'slider_description' => $request->input('slider_description'),
-            ]);
+            $name_gen = hexdec(uniqid()) . '.' . $file->getClientOriginalExtension();
+            Image::make($file)->resize(870, 370)->save($upload_location . $name_gen);
+            $save_url = $upload_location . $name_gen;
         }
+        $slider->slider_status = $request->input('slider_status');
+        $slider->slider_name = $request->input('slider_name');
+        $slider->slider_title = $request->input('slider_title');
+        $slider->slider_description = $request->input('slider_description');
+        $slider->slider_image =  isset($save_url) ? $save_url : ' ';
+        $slider->save();
+
+        //     $slider->update([
+        //         'slider_status' => $request->input('slider_status'),
+        //         'slider_name' => $request->input('slider_name'),
+        //         'slider_title' => $request->input('slider_title'),
+        //         'slider_description' => $request->input('slider_description'),
+        //         'slider_image' => $save_url,
+        //     ]);
+        // } else {
+        //     $slider->update([
+        //         'slider_status' => $request->input('slider_status'),
+        //         'slider_name' => $request->input('slider_name'),
+        //         'slider_title' => $request->input('slider_title'),
+        //         'slider_description' => $request->input('slider_description'),
+        //     ]);
+        // }
 
         $notification = [
             'message' => 'Slider Updated Successfully!!!',
             'alert-type' => 'success'
         ];
 
-        return redirect()->route('slider.index')->with($notification);
+        return redirect()->route('slider.index')->with([
+            'message' => 'Slider Updated Successfully!!!',
+            'alert-type' => 'success'
+        ]);
     }
 
     /**
@@ -148,7 +177,7 @@ class AdminSliderController extends Controller
     public function destroy($id)
     {
         $slider = Slider::findOrFail($id);
-        if($slider->slider_image !='https://source.unsplash.com/random'){
+        if ($slider->slider_image != 'https://source.unsplash.com/random') {
             unlink($slider->slider_image);
         }
 
@@ -159,7 +188,10 @@ class AdminSliderController extends Controller
             'alert-type' => 'success'
         ];
 
-        return redirect()->route('slider.index')->with($notification);
+        return redirect()->route('slider.index')->with([
+            'message' => 'Slider Updated Successfully!!!',
+            'alert-type' => 'success'
+        ]);
     }
 
     public function changeSliderStatus(Request $request)
@@ -168,7 +200,7 @@ class AdminSliderController extends Controller
         $slider->slider_status = $request->status;
         $slider->save();
 
-         $notification = [
+        $notification = [
             'message' => 'Slider Status Updated Successfully!!!',
             'alert-type' => 'success'
         ];

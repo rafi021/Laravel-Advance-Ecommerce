@@ -42,35 +42,32 @@ class BrandController extends Controller
     public function store(BrandStoreRequest $request)
     {
 
-        if($request->file('brand_image')){
+        if ($request->file('brand_image')) {
             $upload_location = 'upload/brands/';
-            $file = $request->file('brand_image');
-            $name_gen = hexdec(uniqid()).'.'.$file->getClientOriginalExtension();
-            Image::make($file)->resize(600,600)->save($upload_location.$name_gen);
-            $save_url = $upload_location.$name_gen;
 
-            Brand::create([
-                'brand_name_en' => $request->input('brand_name_en'),
-                'brand_name_bn' => $request->input('brand_name_bn'),
-                'brand_slug_en' => Str::slug($request->input('brand_slug_en')),
-                'brand_slug_bn' => Str::slug($request->input('brand_slug_bn')),
-                'brand_image' => $save_url
-            ]);
-        }else{
-            Brand::create([
-                'brand_name_en' => $request->input('brand_name_en'),
-                'brand_name_bn' => $request->input('brand_name_bn'),
-                'brand_slug_en' => Str::slug($request->input('brand_slug_en')),
-                'brand_slug_bn' => Str::slug($request->input('brand_slug_bn')),
-            ]);
+            $file = $request->file('brand_image');
+            $name_gen = hexdec(uniqid()) . '.' . $file->getClientOriginalExtension();
+            Image::make($file)->resize(600, 600)->save($upload_location . $name_gen);
+            $save_url = $upload_location . $name_gen;
         }
+
+        $brand = new Brand();
+        $brand->brand_name_en = $request->input('brand_name_en');
+        $brand->brand_name_bn = $request->input('brand_name_bn');
+        $brand->brand_slug_en = Str::slug($request->input('brand_slug_en'));
+        $brand->brand_slug_bn = Str::slug($request->input('brand_slug_bn'));
+        $brand->brand_image =  isset($save_url) ? $save_url : ' ';
+        $brand->save();
 
         $notification = [
             'message' => 'Brand Created Successfully!!!',
             'alert-type' => 'success'
         ];
 
-        return redirect()->route('brands.index')->with($notification);
+        return redirect()->route('brands.index')->with([
+            'message' => 'Brand Created Successfully!!!',
+            'alert-type' => 'success'
+        ]);
     }
 
     /**
@@ -104,38 +101,50 @@ class BrandController extends Controller
      */
     public function update(BrandUpdateRequest $request, Brand $brand)
     {
-        if($request->file('brand_image')){
-            if($brand->brand_image !='default.jpg'){
+        if ($request->file('brand_image')) {
+            if ($brand->brand_image != 'default.jpg') {
                 unlink($brand->brand_image);
             }
             $upload_location = 'upload/brands/';
             $file = $request->file('brand_image');
-            $name_gen = hexdec(uniqid()).'.'.$file->getClientOriginalExtension();
-            Image::make($file)->resize(600,600)->save($upload_location.$name_gen);
-            $save_url = $upload_location.$name_gen;
-
-            $brand->update([
-                'brand_name_en' => $request->input('brand_name_en'),
-                'brand_name_bn' => $request->input('brand_name_bn'),
-                'brand_slug_en' => Str::slug($request->input('brand_slug_en')),
-                'brand_slug_bn' => Str::slug($request->input('brand_slug_bn')),
-                'brand_image' => $save_url
-            ]);
-        }else{
-            $brand->update([
-                'brand_name_en' => $request->input('brand_name_en'),
-                'brand_name_bn' => $request->input('brand_name_bn'),
-                'brand_slug_en' => Str::slug($request->input('brand_slug_en')),
-                'brand_slug_bn' => Str::slug($request->input('brand_slug_bn')),
-            ]);
+            $name_gen = hexdec(uniqid()) . '.' . $file->getClientOriginalExtension();
+            Image::make($file)->resize(600, 600)->save($upload_location . $name_gen);
+            $save_url = $upload_location . $name_gen;
         }
+
+        $brand->brand_name_en = $request->input('brand_name_en');
+        $brand->brand_name_bn = $request->input('brand_name_bn');
+        $brand->brand_slug_en = Str::slug($request->input('brand_slug_en'));
+        $brand->brand_slug_bn = Str::slug($request->input('brand_slug_bn'));
+        $brand->brand_image =  isset($save_url) ? $save_url : ' ';
+        $brand->save();
+
+        //     $brand->update([
+        //         'brand_name_en' => $request->input('brand_name_en'),
+        //         'brand_name_bn' => $request->input('brand_name_bn'),
+        //         'brand_slug_en' => Str::slug($request->input('brand_slug_en')),
+        //         'brand_slug_bn' => Str::slug($request->input('brand_slug_bn')),
+        //         'brand_image' => $save_url
+        //     ]);
+        // } else {
+        //     $brand->update([
+        //         'brand_name_en' => $request->input('brand_name_en'),
+        //         'brand_name_bn' => $request->input('brand_name_bn'),
+        //         'brand_slug_en' => Str::slug($request->input('brand_slug_en')),
+        //         'brand_slug_bn' => Str::slug($request->input('brand_slug_bn')),
+        //     ]);
+        // }
+
 
         $notification = [
             'message' => 'Brand Updated Successfully!!!',
             'alert-type' => 'info'
         ];
 
-        return redirect()->route('brands.index')->with($notification);
+        return redirect()->route('brands.index')->with([
+            'message' => 'Brand Updated Successfully!!!',
+            'alert-type' => 'info'
+        ]);
     }
 
     /**
@@ -147,7 +156,7 @@ class BrandController extends Controller
     public function destroy(Brand $brand)
     {
         //dd($brand);
-        if($brand->brand_image !='default.jpg'){
+        if ($brand->brand_image != 'default.jpg') {
             unlink($brand->brand_image);
         }
         $brand->delete();
@@ -157,6 +166,9 @@ class BrandController extends Controller
             'alert-type' => 'warning'
         ];
 
-        return redirect()->route('brands.index')->with($notification);
+        return redirect()->route('brands.index')->with([
+            'message' => 'Brand Deleted Successfully!!!',
+            'alert-type' => 'warning'
+        ]);
     }
 }

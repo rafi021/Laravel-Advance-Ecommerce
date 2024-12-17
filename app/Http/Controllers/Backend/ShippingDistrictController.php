@@ -49,12 +49,15 @@ class ShippingDistrictController extends Controller
             'division_id' => $request->input('division_id'),
             'district_name' => $request->input('district_name'),
         ]);
-        $notification = [
+        // $notification = [
+        //     'message' => 'District Created Successfully!!!',
+        //     'alert-type' => 'success'
+        // ];
+
+        return redirect()->route('district.index')->with([
             'message' => 'District Created Successfully!!!',
             'alert-type' => 'success'
-        ];
-
-        return redirect()->route('district.index')->with($notification);
+        ]);
     }
 
     /**
@@ -63,10 +66,7 @@ class ShippingDistrictController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-
-    }
+    public function show($id) {}
 
     /**
      * Show the form for editing the specified resource.
@@ -100,12 +100,15 @@ class ShippingDistrictController extends Controller
             'division_id' => $request->input('division_id'),
             'district_name' => $request->input('district_name'),
         ]);
-        $notification = [
+        // $notification = [
+        //     'message' => 'District Updated Successfully!!!',
+        //     'alert-type' => 'success'
+        // ];
+
+        return redirect()->route('district.index')->with([
             'message' => 'District Updated Successfully!!!',
             'alert-type' => 'success'
-        ];
-
-        return redirect()->route('district.index')->with($notification);
+        ]);
     }
 
     /**
@@ -123,6 +126,9 @@ class ShippingDistrictController extends Controller
             'alert-type' => 'danger'
         ];
 
-        return redirect()->route('district.index')->with($notification);
+        return redirect()->route('district.index')->with([
+            'message' => 'District Deleted Successfully!!!',
+            'alert-type' => 'danger'
+        ]);
     }
 }

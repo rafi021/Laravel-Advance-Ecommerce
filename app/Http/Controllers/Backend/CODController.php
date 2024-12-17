@@ -23,7 +23,6 @@ class CODController extends Controller
             $total_amount = round(Cart::total());
         }
 
-
         // Order Service Area
         $order_id = Order::insertGetId([
             'user_id' => Auth::id(),

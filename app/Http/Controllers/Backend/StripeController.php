@@ -80,7 +80,6 @@ class StripeController extends Controller
 
             // End Send Email
 
-
         // Cart Service Area
         $carts = Cart::content();
         foreach ($carts as $key => $cart) {

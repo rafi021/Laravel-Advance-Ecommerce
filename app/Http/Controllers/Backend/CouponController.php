@@ -54,12 +54,15 @@ class CouponController extends Controller
             'coupon_status' => $request->input('coupon_status'),
         ]);
 
-        $notification = [
+        // $notification = [
+        //     'message' => 'Coupon Created Successfully!!!',
+        //     'alert-type' => 'success'
+        // ];
+
+        return redirect()->route('coupons.index')->with([
             'message' => 'Coupon Created Successfully!!!',
             'alert-type' => 'success'
-        ];
-
-        return redirect()->route('coupons.index')->with($notification);
+        ]);
     }
 
     /**
@@ -102,12 +105,15 @@ class CouponController extends Controller
             'coupon_status' => $request->input('coupon_status'),
         ]);
 
-        $notification = [
+        // $notification = [
+        //     'message' => 'Coupon Updated Successfully!!!',
+        //     'alert-type' => 'success'
+        // ];
+
+        return redirect()->route('coupons.index')->with([
             'message' => 'Coupon Updated Successfully!!!',
             'alert-type' => 'success'
-        ];
-
-        return redirect()->route('coupons.index')->with($notification);
+        ]);
     }
 
     /**
@@ -119,12 +125,15 @@ class CouponController extends Controller
     public function destroy($id)
     {
         $coupon = Coupon::findOrFail($id)->delete();
-        $notification = [
+        // $notification = [
+        //     'message' => 'Coupon Deleted Successfully!!!',
+        //     'alert-type' => 'success'
+        // ];
+
+        return redirect()->route('coupons.index')->with([
             'message' => 'Coupon Deleted Successfully!!!',
             'alert-type' => 'success'
-        ];
-
-        return redirect()->route('coupons.index')->with($notification);
+        ]);
     }
 
     public function changeCouponStatus(Request $request)
@@ -134,6 +143,6 @@ class CouponController extends Controller
         $coupon->coupon_status = $request->status;
         $coupon->save();
 
-        return response()->json(['success'=>'Coupon status change successfully.']);
+        return response()->json(['success' => 'Coupon status change successfully.']);
     }
 }

@@ -8,6 +8,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Image;
+
 class CategoryController extends Controller
 {
     /**
@@ -40,37 +41,48 @@ class CategoryController extends Controller
     public function store(CategoryStoreRequest $request)
     {
 
-        if($request->file('category_image')){
+        if ($request->file('category_image')) {
             $upload_location = 'upload/categories/';
             $file = $request->file('category_image');
-            $name_gen = hexdec(uniqid()).'.'.$file->getClientOriginalExtension();
-            Image::make($file)->resize(600,600)->save($upload_location.$name_gen);
-            $save_url = $upload_location.$name_gen;
-
-            Category::create([
-                'category_name_en' => $request->input('category_name_en'),
-                'category_name_bn' => $request->input('category_name_bn'),
-                'category_slug_en' => Str::slug($request->input('category_slug_en')),
-                'category_slug_bn' => Str::slug($request->input('category_slug_bn')),
-                'category_icon' => $request->input('category_icon'),
-                'category_image' => $save_url
-            ]);
-        }else{
-            Category::create([
-                'category_name_en' => $request->input('category_name_en'),
-                'category_name_bn' => $request->input('category_name_bn'),
-                'category_slug_en' => Str::slug($request->input('category_slug_en')),
-                'category_slug_bn' => Str::slug($request->input('category_slug_bn')),
-                'category_icon' => $request->input('category_icon'),
-            ]);
+            $name_gen = hexdec(uniqid()) . '.' . $file->getClientOriginalExtension();
+            Image::make($file)->resize(600, 600)->save($upload_location . $name_gen);
+            $save_url = $upload_location . $name_gen;
         }
+        $category = new Category();
+        $category->category_name_en = $request->input('category_name_en');
+        $category->category_name_bn = $request->input('category_name_bn');
+        $category->category_slug_en = Str::slug($request->input('categoryslug_en'));
+        $category->category_slug_bn = Str::slug($request->input('category_slug_bn'));
+        $category->category_icon = $request->input('category_icon');
+        $category->category_image =  isset($save_url) ? $save_url : ' ';
+        $category->save();
+        //     Category::create([
+        //         'category_name_en' => $request->input('category_name_en'),
+        //         'category_name_bn' => $request->input('category_name_bn'),
+        //         'category_slug_en' => Str::slug($request->input('category_slug_en')),
+        //         'category_slug_bn' => Str::slug($request->input('category_slug_bn')),
+        //         'category_icon' => $request->input('category_icon'),
+        //         'category_image' => $save_url
+        //     ]);
+        // }else{
+        //     Category::create([
+        //         'category_name_en' => $request->input('category_name_en'),
+        //         'category_name_bn' => $request->input('category_name_bn'),
+        //         'category_slug_en' => Str::slug($request->input('category_slug_en')),
+        //         'category_slug_bn' => Str::slug($request->input('category_slug_bn')),
+        //         'category_icon' => $request->input('category_icon'),
+        //     ]);
+        // }
 
         $notification = [
             'message' => 'Category Created Successfully!!!',
             'alert-type' => 'success'
         ];
 
-        return redirect()->route('categories.index')->with($notification);
+        return redirect()->route('categories.index')->with([
+            'message' => 'Category Created Successfully!!!',
+            'alert-type' => 'success'
+        ]);
     }
 
     /**
@@ -104,40 +116,51 @@ class CategoryController extends Controller
      */
     public function update(CategoryStoreRequest $request, Category $category)
     {
-        if($request->file('category_image')){
-            if($category->category_image !='default.jpg'){
+        if ($request->file('category_image')) {
+            if ($category->category_image != 'default.jpg') {
                 unlink($category->category_image);
             }
             $upload_location = 'upload/categories/';
             $file = $request->file('category_image');
-            $name_gen = hexdec(uniqid()).'.'.$file->getClientOriginalExtension();
-            Image::make($file)->resize(600,600)->save($upload_location.$name_gen);
-            $save_url = $upload_location.$name_gen;
-
-            $category->update([
-                'category_name_en' => $request->input('category_name_en'),
-                'category_name_bn' => $request->input('category_name_bn'),
-                'category_slug_en' => Str::slug($request->input('category_slug_en')),
-                'category_slug_bn' => Str::slug($request->input('category_slug_bn')),
-                'category_icon' => $request->input('category_icon'),
-                'category_image' => $save_url
-            ]);
-        }else{
-            $category->update([
-                'category_name_en' => $request->input('category_name_en'),
-                'category_name_bn' => $request->input('category_name_bn'),
-                'category_slug_en' => Str::slug($request->input('category_slug_en')),
-                'category_slug_bn' => Str::slug($request->input('category_slug_bn')),
-                'category_icon' => $request->input('category_icon'),
-            ]);
+            $name_gen = hexdec(uniqid()) . '.' . $file->getClientOriginalExtension();
+            Image::make($file)->resize(600, 600)->save($upload_location . $name_gen);
+            $save_url = $upload_location . $name_gen;
         }
+
+        $category->category_name_en = $request->input('category_name_en');
+        $category->category_name_bn = $request->input('category_name_bn');
+        $category->category_slug_en = Str::slug($request->input('categoryslug_en'));
+        $category->category_slug_bn = Str::slug($request->input('category_slug_bn'));
+        $category->category_icon = $request->input('category_icon');
+        $category->category_image =  isset($save_url) ? $save_url : ' ';
+        $category->save();
+        //     $category->update([
+        //         'category_name_en' => $request->input('category_name_en'),
+        //         'category_name_bn' => $request->input('category_name_bn'),
+        //         'category_slug_en' => Str::slug($request->input('category_slug_en')),
+        //         'category_slug_bn' => Str::slug($request->input('category_slug_bn')),
+        //         'category_icon' => $request->input('category_icon'),
+        //         'category_image' => $save_url
+        //     ]);
+        // } else {
+        //     $category->update([
+        //         'category_name_en' => $request->input('category_name_en'),
+        //         'category_name_bn' => $request->input('category_name_bn'),
+        //         'category_slug_en' => Str::slug($request->input('category_slug_en')),
+        //         'category_slug_bn' => Str::slug($request->input('category_slug_bn')),
+        //         'category_icon' => $request->input('category_icon'),
+        //     ]);
+        // }
 
         $notification = [
             'message' => 'Category Updated Successfully!!!',
             'alert-type' => 'info'
         ];
 
-        return redirect()->route('categories.index')->with($notification);
+        return redirect()->route('categories.index')->with([
+            'message' => 'Category Updated Successfully!!!',
+            'alert-type' => 'info'
+        ]);
     }
 
     /**
@@ -148,7 +171,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        if($category->category_image !='default.jpg'){
+        if ($category->category_image != 'default.jpg') {
             unlink($category->category_image);
         }
         $category->delete();
@@ -158,7 +181,9 @@ class CategoryController extends Controller
             'alert-type' => 'warning'
         ];
 
-        return redirect()->route('categories.index')->with($notification);
-
+        return redirect()->route('categories.index')->with([
+            'message' => '$category Deleted Successfully!!!',
+            'alert-type' => 'warning'
+        ]);
     }
 }

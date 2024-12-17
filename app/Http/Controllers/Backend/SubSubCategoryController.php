@@ -12,6 +12,15 @@ use Illuminate\Support\Str;
 
 class SubSubCategoryController extends Controller
 {
+    protected $categories;
+
+    public function __construct()
+    {
+        $this->categories = Category::with('subcategory')->latest()->get();
+        view()->share([
+            'categories' => $this->categories,
+        ]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -19,7 +28,7 @@ class SubSubCategoryController extends Controller
      */
     public function index()
     {
-        $subsubCategories = SubSubCategory::with(['category','subcategory'])->latest()->get();
+        $subsubCategories = SubSubCategory::with(['category', 'subcategory'])->latest()->get();
         return view('admin.SubSubCategory.index', compact('subsubCategories'));
     }
 
@@ -30,7 +39,7 @@ class SubSubCategoryController extends Controller
      */
     public function create()
     {
-        $categories = Category::with('subcategory')->latest()->get();
+        $categories = $this->categories;
         //dd($categories);
         return view('admin.SubSubCategory.create', compact('categories'));
     }
@@ -53,12 +62,15 @@ class SubSubCategoryController extends Controller
             'subsubcategory_slug_bn' => Str::slug($request->input('subsubcategory_name_bn')),
         ]);
 
-        $notification = [
+        // $notification = [
+        //     'message' => 'Sub Sub Category Created Successfully!!!',
+        //     'alert-type' => 'success'
+        // ];
+
+        return redirect()->route('subsubcategories.index')->with([
             'message' => 'Sub Sub Category Created Successfully!!!',
             'alert-type' => 'success'
-        ];
-
-        return redirect()->route('subsubcategories.index')->with($notification);
+        ]);
     }
 
     /**
@@ -81,9 +93,9 @@ class SubSubCategoryController extends Controller
     public function edit($id)
     {
         $subsubCategory = SubSubCategory::findOrFail($id);
-        $categories = Category::latest()->get();
+        $categories = $this->categories;
         $subcategories = SubCategory::latest()->get();
-        return view('admin.SubSubCategory.edit', compact('categories','subcategories','subsubCategory'));
+        return view('admin.SubSubCategory.edit', compact('categories', 'subcategories', 'subsubCategory'));
     }
 
     /**
@@ -134,7 +146,7 @@ class SubSubCategoryController extends Controller
 
     public function getSubCategory($category_id)
     {
-        $subCategory = SubCategory::where('category_id','=', $category_id)->orderBy('subcategory_name_en','ASC')->get();
+        $subCategory = SubCategory::where('category_id', '=', $category_id)->orderBy('subcategory_name_en', 'ASC')->get();
         return json_encode($subCategory);
     }
 

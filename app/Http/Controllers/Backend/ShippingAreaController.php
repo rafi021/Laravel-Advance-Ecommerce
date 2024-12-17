@@ -49,7 +49,10 @@ class ShippingAreaController extends Controller
             'alert-type' => 'success'
         ];
 
-        return redirect()->route('division.index')->with($notification);
+        return redirect()->route('division.index')->with([
+            'message' => 'Division Created Successfully!!!',
+            'alert-type' => 'success'
+        ]);
     }
 
     /**
@@ -96,7 +99,10 @@ class ShippingAreaController extends Controller
             'alert-type' => 'success'
         ];
 
-        return redirect()->route('division.index')->with($notification);
+        return redirect()->route('division.index')->with([
+            'message' => 'Division Updated Successfully!!!',
+            'alert-type' => 'success'
+        ]);
     }
 
     /**
@@ -114,6 +120,9 @@ class ShippingAreaController extends Controller
             'alert-type' => 'danger'
         ];
 
-        return redirect()->route('division.index')->with($notification);
+        return redirect()->route('division.index')->with([
+            'message' => 'Division Updated Successfully!!!',
+            'alert-type' => 'danger'
+        ]);
     }
 }

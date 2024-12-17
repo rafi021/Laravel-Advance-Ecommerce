@@ -9,11 +9,20 @@ class Brand extends Model
 {
     use HasFactory;
 
-    protected $fillable =[
+    protected $fillable = [
         'brand_name_en',
         'brand_name_bn',
         'brand_slug_en',
         'brand_slug_bn',
         'brand_image',
     ];
+
+    public function getBrandImageAttribute($value)
+    {
+        if ($value) {
+            return url('upload/sliders/' . $value);
+        } else {
+            return url('uploads/images/default.png');
+        }
+    }
 }
